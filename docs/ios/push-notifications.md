@@ -67,23 +67,24 @@ Inside Xcode, navigate to the “**Capabilities**” tab of your app. You will n
 In your app code, ask for the token:
 
 <div class="code-swift">
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
-    application.registerForRemoteNotifications()
-    // ...
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    application.RegisterForRemoteNotifications();
 }
 </div>
 <div class="code-objc">
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [application registerForRemoteNotifications];
-    // ...
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    application.RegisterForRemoteNotifications();
 }
 </div>
 
 When you get the token, just give it to the SDK:
 
 <div class="code-swift">
-func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    manager.setDeviceToken(token)
+public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+{
+    NITManager.DefaultManager.SetDeviceTokenWithData(deviceToken);
 }
 </div>
 <div class="code-objc">

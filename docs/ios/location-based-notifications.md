@@ -9,22 +9,17 @@ When you want to start the radar for **geofences and beacons**, call the ```star
 <br>Typically, you would start the radar right after you get authorization:
 
 <div class="code-swift">
-func requestAuthorization() {
-    ...
-    locationManager.delegate = self
-    locationManager.requestAlwaysAuthorization()
-    ...
-}
+LocationManager = new CLLocationManager();
 
-// MARK: Location manager delegate
+LocationManager.AuthorizationChanged += (s, e) =>
+{
+    if (e.Status == CLAuthorizationStatus.AuthorizedAlways)
+        NITManager.DefaultManager.Start();
+    else
+        NITManager.DefaultManager.Stop();
+};
 
-func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    if status == .authorizedAlways {
-        nearManager.start()
-    } else {
-        nearManager.stop()
-    }
-}
+LocationManager.RequestAlwaysAuthorization();
 </div>
 <div class="code-objc">
 - (void)requestAuthorization {

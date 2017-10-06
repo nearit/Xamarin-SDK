@@ -6,7 +6,7 @@ NearIT creates an anonymous profile for every user of your app. You can choose t
 
 You can set user data with this method, it can be called multiple times to set several user data:
 <div class="code-swift">
-manager.setDeferredUserData("gender", value: "m")
+NITManager.DefaultManager.SetDeferredUserDataWithKey("gender", "m");
 </div>
 <div class="code-objc">
 [manager setDeferredUserDataWithKey:@"gender" value:@"m"];
@@ -26,7 +26,7 @@ If you can, we recommend you to store the NearIT profileID in your CRM database 
 
 Getting the local profile ID of an user is easy:
 <div class="code-swift">
-manager.profileId
+NITManager.DefaultManager.ProfileId
 </div>
 <div class="code-objc">
 [manager profileId];
@@ -35,7 +35,7 @@ manager.profileId
 
 If you detect that your user already has a NearIT profileID in your CRM database (i.e. after a login), you should manually write it on a local app installation:
 <div class="code-swift">
-manager.setProfile(id: "your remote NearIT profile ID")
+NITManager.DefaultManager.ProfileId = "your remote NearIT profile ID";
 </div>
 <div class="code-objc">
 [manager setProfileId:@"your remote NearIT profile ID"];

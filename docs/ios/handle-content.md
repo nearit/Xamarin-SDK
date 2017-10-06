@@ -71,9 +71,9 @@ We handle the complete emission and redemption coupon cycle in our platform, and
 You can ask the library to fetch the list of all the user current coupons with the method:
 
 <div class="code-swift">
-manager?.coupons({ (coupons, error) in
-    //Put your code here
-})
+NITManager.DefaultManager.CouponsWithCompletionHandler((coupons, error) => {
+    ...      
+});
 </div>
 <div class="code-objc">
 [manager couponsWithCompletionHandler:^(NSArray<NITCoupon *> *coupons, NSError *error) {

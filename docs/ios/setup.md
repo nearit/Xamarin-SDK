@@ -1,16 +1,14 @@
 # Setup (iOS) #
 
-In the `application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool` method of your AppDelegate class, set the API token to the SDK a String
+In the `FinishedLaunching(UIApplication application, NSDictionary launchOptions)` method of your AppDelegate class, set the API token to the SDK a String
 
 
 <div class="code-swift">
-import NearITSDKSwift
-
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-	...
-    NearManager.setup(apiKey: "&lt;your API token here&gt;")
-	let manager = NearManager.shared
-	...
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    ...
+    NITManager.SetupWithApiKey("&lt;your API token here&gt;");
+    ...
 }
 </div>
 <div class="code-objc">
@@ -33,14 +31,14 @@ The SDK **initialization is done automatically** and handles the task of syncing
 <br>However, if you need to sync the recipes configuration more often, you can call this method:
 
 <div class="code-swift">
-manager.refreshConfig(completionHandler: { (error) in
-    ...
-})
+NITManager.DefaultManager.RefreshConfigWithCompletionHandler((error) => {
+    ...                
+});
 </div>
 <div class="code-objc">
-[manager refreshConfigWithCompletionHandler:^(NSError* error) {
-    ...
-}];
+NITManager.DefaultManager.RefreshConfigWithCompletionHandler((error) => {
+    ...                
+});
 </div>
 
 If the refreshConfig has succeeded, 'error' is nil.
