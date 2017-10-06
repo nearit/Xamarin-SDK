@@ -9,27 +9,32 @@ If your app is in foreground, the notification will be shown inside the app.
 
 ```swift
 // AppDelegate
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
     ...
-    UNUserNotificationCenter.current().delegate = self
+    UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
 }
 
-...
-@available(iOS 10.0, *)
-extension AppDelegate : UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler(.alert)
+// Create a delegate class
+public class UserNotificationDelegate : UNUserNotificationCenterDelegate
+{
+    public UserNotificationDelegate()
+    {
     }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let userInfo = response.notification.request.content.userInfo
-        let isNearNotification = NearManager.shared.processRecipe(userInfo) { (content, trackingInfo, error) in
-            if let content = content, let trackingInfo = trackingInfo {
-                self.handleNearContent(content: content)
+
+    public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+    {
+        completionHandler(UNNotificationPresentationOptions.Alert);
+    }
+
+    public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+    {
+        NSDictionary userInfo = response.Notification.Request.Content.UserInfo;
+        NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
+            if (content != null && content is NITReactionBundle) {
+                Console.WriteLine("Near notification tap: " + content.NotificationMessage);
             }
-        }
-        completionHandler()
+        });
     }
 }
 ```
@@ -42,33 +47,36 @@ If your app is in foreground, an alert will be shown.
 
 ```swift
 // Manage tap on remote notifications
-func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-    let isNearNotification = NearManager.shared.processRecipe(userInfo, completion: { (content, trackingInfo, error) in
-        if let content = content {
-            self.handleNearContent(content: content)
+public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, System.Action<UIBackgroundFetchResult> completionHandler)
+{
+    NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
+        if (content != null && content is NITReactionBundle)
+        {
+            HandleNearContent(content);
         }
-    })
+    });
 }
 
 // Manage tap on local notifications
-func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
-    if let userInfo = notification.userInfo {
-        let isNearNotification = NearManager.shared.processRecipe(userInfo, completion: { (content, trackingInfo, error) in
-            if let content = content {
-                self.handleNearContent(content: content)
-            }
-        })
-    }
+public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
+{
+    NSDictionary userInfo = notification.UserInfo;
+    NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
+        if (content != null && content is NITReactionBundle)
+        {
+            HandleNearContent(content);
+        }
+    });
 }
 
 // Manage tap on iOS9 in-app alert
-extension AppDelegate: NearManagerDelegate {
+public class NearDelegate : NITManagerDelegate
+{
 
-    func manager(_ manager: NearManager, alertWantsToShowContent content: Any) {
-        ...
-        handleNearContent(content: content)
+    public override void AlertWantsToShowContent(NITManager manager, NSObject content)
+    {
+        HandleNearContent(content);
     }
-
 }
 ```
 
@@ -87,23 +95,13 @@ Usually the SDK tracks those events automatically, but if you write custom code 
 
 You can track **default or custom events** using the "**sendTracking**" method:
  
-<div class="code-swift">
+```swift
 // notified - notification received
-manager.sendTracking(trackingInfo, event: NearRecipeTracking.notified.rawValue)
+NITManager.DefaultManager.SendTrackingWithTrackingInfo(trackingInfo, "notified");
 
 // engaged - notification tapped
-manager.sendTracking(trackingInfo, event: NearRecipeTracking.engaged.rawValue)
+NITManager.DefaultManager.SendTrackingWithTrackingInfo(trackingInfo, "engaged");
 
 // custom recipe event
-manager.sendTracking(trackingInfo, event: "my awesome custom event")
-</div>
-<div class="code-objc">
-// notified - notified received
-[manager sendTrackingWithTrackingInfo:trackingInfo event:NITRecipeNotified];
-
-// engaged - notification tapped
-[manager sendTrackingWithTrackingInfo:trackingInfo event:NITRecipeEngaged];
-
-// custom recipe event
-[manager sendTrackingWithTrackingInfo:trackingInfo event:@"my awesome custom event"];
-</div>
+NITManager.DefaultManager.SendTrackingWithTrackingInfo(trackingInfo, "my awesome custom event");
+```

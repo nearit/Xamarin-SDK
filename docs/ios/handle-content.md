@@ -34,18 +34,12 @@ Content can have several class types:
     - `question` returns the feedback request string
 To give a feedback call this method:
 
-<div class="code-swift">
+```swift
 // rating must be an integer between 0 and 5, and you can set a comment string.
-manager.sendEvent(feedbackEvent, completionHandler: { (error) in
+NITManager.DefaultManager.SendEventWithEvent(feedback, (error) => {
     ...
-})
-</div>
-<div class="code-objc">
-// rating must be an integer between 0 and 5, and you can set a comment string.
-[manager sendEventWithEvent:event completionHandler:^(NSError * _Nullable error) {
-    ...
-}];
-</div>
+});
+```
 
     
 - `NITCoupon` with the following getters:
@@ -70,16 +64,11 @@ manager.sendEvent(feedbackEvent, completionHandler: { (error) in
 We handle the complete emission and redemption coupon cycle in our platform, and we deliver a coupon content only when a coupon is emitted (you will not be notified of recipes when a profile has already received the coupon, even if the coupon is still valid).
 You can ask the library to fetch the list of all the user current coupons with the method:
 
-<div class="code-swift">
-manager?.coupons({ (coupons, error) in
-    //Put your code here
-})
-</div>
-<div class="code-objc">
-[manager couponsWithCompletionHandler:^(NSArray<NITCoupon *> *coupons, NSError *error) {
-    //Put your code here
-}];
-</div>
+```swift
+NITManager.DefaultManager.CouponsWithCompletionHandler((coupons, error) => {
+    ...      
+});
+```
 
 
 

@@ -11,6 +11,7 @@ pages:
         - 'Push Notification' : 'ios/push-notifications.md'
         - 'In-app Content' : 'ios/handle-content.md'
         - 'User Profiling' : 'ios/user-profiling.md'
+        - 'Setup Notifications' : 'ios/setup-notifications.md'
     - 'Android' :
         - 'Setup' : 'android/setup.md'
         - 'Location Based Notifications' : 'android/location-based-notifications.md'
