@@ -29,6 +29,7 @@ and add the following code:
 ```
 
 Add the following Nuget packages:
+
 - Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
 - Xamarin.Android.Support.Compat v7 (min version: 26.0.2-rc1)
 - Xamarin.GooglePlayServices.Location (min version: 57.1104.0-beta1)
