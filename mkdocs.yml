@@ -4,5 +4,17 @@ extra_css : ["css/nearitdocs.css"]
 extra_javascript : ["js/extra.js"]
 pages:
     - 'Getting started' : 'index.md'
-    - 'User Guide' :
-        - 'Installation' : 'installation.md'
+    - 'Installation' : 'installation.md'
+    - 'iOS' :
+        - 'Setup' : 'ios/setup.md'
+        - 'Location Based Notifications' : 'ios/location-based-notifications.md'
+        - 'Push Notification' : 'ios/push-notifications.md'
+        - 'In-app Content' : 'ios/handle-content.md'
+        - 'User Profiling' : 'ios/user-profiling.md'
+    - 'Android' :
+        - 'Setup' : 'android/setup.md'
+        - 'Location Based Notifications' : 'android/location-based-notifications.md'
+        - 'Push Notifications' : 'android/push-notifications.md'
+        - 'In-app Content' : 'android/in-app-content.md'
+        - 'User Profiling' : 'android/user-profiling.md'
+
