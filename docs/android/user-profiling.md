@@ -1,12 +1,12 @@
-# User Profiling (Android)
+# User Profiling
 
 NearIT creates an anonymous profile for every user of your app. You can choose to add data to user profile. This data will be available inside recipes to allow the creation of user targets.
 
 ## Send User-Data to NearIT
 
 We automatically create an anonymous profile for every installation of the app. You can check that a profile was created by checking the existance of a profile ID.
-```java
-String profileId = NearItManager.getInstance().getProfileId();
+```csharp
+String profileId = NearItManager.Instance.ProfileId;
 ```
 If the result is null, it means that no profile is associated with the app installation (probably due to a network error). The SDK will re-try to create a profile at every start, and every time a new user data is set.
 
@@ -17,7 +17,7 @@ NearItManager.getInstance().setUserData("name", "John", new UserDataNotifier() {
     public void onDataCreated() {
         // data was set/created                                                
     }
-                                                       
+
     @Override
     public void onDataNotSetError(String error) {
         // there was an error                        
@@ -32,16 +32,16 @@ userDataMap.put("name", "John");
 userDataMap.put("age", "23");           // set everything as String
 userDataMap.put("saw_tutorial", "true") // even booleans, the server has all the right logic
 NearItManager.getInstance().setBatchUserData(userDataMap, new UserDataNotifier() {
-            @Override
-            public void onDataCreated() {
-                // data was set/created 
-            }
+	@Override
+	public void onDataCreated() {
+		// data was set/created
+	}
 
-            @Override
-            public void onDataNotSetError(String error) {
+	@Override
+	public void onDataNotSetError(String error) {
 
-            }
-        });
+	}
+});
 ```
 If you try to set user data before creating a profile the error callback will be called.
 
