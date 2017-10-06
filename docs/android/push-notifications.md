@@ -14,33 +14,11 @@ copy it in your **app module** root folder (not in the project root folder!).
 ![fcmkey](push_help/fcmkeylocation.png "")
 
 <br>
-**4.** Add the right dependency in your root-level build.gradle file:
-```xml
-buildscript {
-    // ...
-    dependencies {
-        // ...
-        classpath 'com.google.gms:google-services:3.1.0' // google-services plugin
-    }
-}
-```
+**4.** Add this Nuget package:
 
-Then, enable the plugin in your module Gradle file (usually the app/build.gradle):
-```xml
-apply plugin: 'com.android.application'
+- Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
+<br>
 
-android {
-  // ...
-}
-
-dependencies {
-  // ...
-}
-
-// ADD THIS AT THE BOTTOM
-apply plugin: 'com.google.gms.google-services'
-```
-<br><br>
 **5.** Open [NearIT](https://go.nearit.com), select your app and navigate to **“Settings > Push Settings”**.
 Paste your project FCM Key under the **“Setup Android push notifications”** block.
 ![nearitsettings](push_help/fcm_upload.gif "")
@@ -48,9 +26,6 @@ Paste your project FCM Key under the **“Setup Android push notifications”** 
 ___
 **WARNING**: Do not follow any further FCM-specific instructions: we automatically handle all the other part of the process inside the SDK code.
 ___
-
-
-
 
 
 <br>
@@ -63,8 +38,5 @@ If you want to customize your notifications, see this [section](custom-bkg-notif
 
 
 ___
-**WARNING**: If you experience build or runtime problems with google play services components, make sure to include the 11.4.0 version of any gms dependency in your app. Example:
-```xml
-compile 'com.google.android.gms:play-services-analytics:11.4.0'
-```
-Conflicting play services version may result in compile-time and run-time errors.
+**WARNING**: If you experience build or runtime problems with google play services components, make sure you are not including multiple versions of the google play services.
+NearIT includes the 11.4.0 version. Conflicting play services version may result in compile-time and run-time errors.
