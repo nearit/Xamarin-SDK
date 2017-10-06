@@ -8,7 +8,7 @@ ___
 When you want to start the radar for **geofences and beacons**, call the ```start``` method.
 <br>Typically, you would start the radar right after you get authorization:
 
-<div class="code-swift">
+```swift
 LocationManager = new CLLocationManager();
 
 LocationManager.AuthorizationChanged += (s, e) =>
@@ -20,24 +20,6 @@ LocationManager.AuthorizationChanged += (s, e) =>
 };
 
 LocationManager.RequestAlwaysAuthorization();
-</div>
-<div class="code-objc">
-- (void)requestAuthorization {
-    ...
-    locationManager.delegate = self;
-    [locationManager requestAlwaysAuthorization];
-    ...
-}
-
-// MARK: Location manager delegate
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    if (status == kCLAuthorizationStatusAuthorizedAlways) {
-        [nearManager start];
-    } else {
-        [nearManager stop];
-    }
-}
-</div>
+```
 
 To learn how to deal with in-app content see this [section](handle-content.md).

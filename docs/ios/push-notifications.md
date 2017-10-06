@@ -66,31 +66,20 @@ Inside Xcode, navigate to the “**Capabilities**” tab of your app. You will n
 
 In your app code, ask for the token:
 
-<div class="code-swift">
+```swift
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
     application.RegisterForRemoteNotifications();
 }
-</div>
-<div class="code-objc">
-public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
-{
-    application.RegisterForRemoteNotifications();
-}
-</div>
+```
 
 When you get the token, just give it to the SDK:
 
-<div class="code-swift">
+```swift
 public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
 {
     NITManager.DefaultManager.SetDeviceTokenWithData(deviceToken);
 }
-</div>
-<div class="code-objc">
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [manager setDeviceTokenWithData:token];
-}
-</div>
+```
 
 To learn how to deal with in-app content see this [section](handle-content.md).
