@@ -2,8 +2,7 @@
 
 NearIT allows to engage app users by sending **context-aware targeted content**.
 
-![platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-brightgreen.svg)
-[![Android](https://img.shields.io/badge/API-15%2B-blue.svg?style=flat)](https://developer.android.com/about/dashboards/index.html#Platform)
+[![Android](https://img.shields.io/badge/Android-15%2B-blue.svg?style=flat)](https://developer.android.com/about/dashboards/index.html#Platform)
 [![iOS](https://img.shields.io/badge/iOS-9-blue.svg)](https://developer.apple.com/ios/)
 
 [![Github](https://img.shields.io/badge/code-Github-green.svg)](https://github.com/nearit/Xamarin-SDK)
