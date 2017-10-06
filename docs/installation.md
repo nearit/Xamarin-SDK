@@ -12,7 +12,6 @@ ___
 
 To install NearIT for your Android component, add all the .dll files from the `dlls` folder on our GitHub repository in your References. To do that, left-click on References and select "Edit References". From the window, select the tab ".Net Assembly" and "Browse" to select the .dll files.
 
-
 To start using the SDK, include this in your app *Podfile*
 
 <div class="code-swift">
