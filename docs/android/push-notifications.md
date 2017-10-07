@@ -14,9 +14,11 @@ Select properties on that file and specify the following Build Action: GoogleSer
 ![fcmkey](push_help/fcmkeylocation.png "")
 
 <br>
-**4.** Add this Nuget package:
 
-- Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
+**4.** Add this Nuget package:
+```
+Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
+```
 <br>
 
 **5.** Open [NearIT](https://go.nearit.com), select your app and navigate to **“Settings > Push Settings”**.
@@ -32,8 +34,6 @@ ___
 The SDK creates a system notification for every push recipe it receives.
 On the notification tap, your launcher activity will start.
 To learn how to deal with in-app content once the user taps on the notification, see this [section](in-app-content.md).
-
-If you want to customize your notifications, see this [section](custom-bkg-notification.md).
 
 
 

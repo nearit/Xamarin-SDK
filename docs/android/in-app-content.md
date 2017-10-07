@@ -1,21 +1,17 @@
 # Handle In-app Content (Android)
 
-NearIT takes care of delivering content at the right time, you will just need to handle content presentation.
+After an user **taps on a notification**, you will receive content through an intent to your app launcher activity. If you want to just check if the intent carries NearIT content use this method:
+```csharp
+bool hasNearContent = NearUtils.CarriesNearItContent(intent);
+```
+To extract the content from an intent use the utility method:
+```csharp
+NearUtils.ParseCoreContents(intent, _coreContentListener);
+```
 
-## Foreground vs Background
-
-Recipes either deliver content in background or in foreground but not both. Check this table to see how you will be notified.
-
-| Type of trigger                  | Delivery           |
-|----------------------------------|--------------------|
-| Push (immediate or scheduled)    | Background intent  |
-| Enter and Exit on geofences      | Background intent  |
-| Enter and Exit on beacon regions | Background intent  |
-| Enter in a specific beacon range | Proximity listener (foreground) |
-
-## Foreground Content
-
-To receive foreground content (e.g. ranging recipes) set a proximity listener with the method
+## Beacon Interaction Content
+Beacon interaction (beacon ranging) is a peculiar trigger that works only when your app is in the foreground.
+<br>To receive this kind of content set a **proximity listener** with the method:
 ```csharp
 
 ProximityListener _proximityListener;
@@ -39,34 +35,26 @@ internal class ProximityListener : Java.Lang.Object, IProximityListener
     }
 ```
 
-## Background Content
-
-Any background working trigger will deliver the actual content through an intent that will call your app launcher activity and carry some extras.
-To extract the content from an intent use the utility method:
-```csharp
-NearUtils.ParseCoreContents(intent, _coreContentListener);
-```
-If you want to just check if the intent carries NearIT content, without having to eventually handle the actual content, use this method
-```csharp
-bool hasNearContent = NearUtils.CarriesNearItContent(intent);
-```
-
-If you want to customize the behavior of background notification see [this page](custom-bkg-notification.md)
-
 ## Trackings
 
-NearIT analytics on recipes are built from trackings describing the status of user engagement with a recipe. The two recipe states are "Notified" and "Engaged" to represent a recipe delivered to the user and a recipe that the user responded to.
-Built-in background recipes track themselves as notified and engaged.
+NearIT allows to track user engagement events on recipes. Any recipe has at least two default events:
 
-Foreground recipes don't have automatic tracking. You need to track both the "Notified" and the "Engaged" statuses when it's the best appropriate for you scenario.
+  - **Notified**: the user *received* a notification
+  - **Engaged**: the user *tapped* on the notification
+  
+Usually the SDK tracks those events automatically, but if you write custom code to show notification or content (i.e. to receive Beacon interaction content) please make sure that at least the "**notified**" event is tracked.
+<br>**Warning:** Failing in tracking this event cause some NearIT features to not work.
+
+
+You can track **default or custom events** using the "**sendTracking**" method:
 ```java
+// notified - notification received
 NearItManager.Instance.SendTracking(trackinginfo, Recipe.NotifiedStatus);
-// and
+// engaged - notification tapped
 NearItManager.Instance.SendTracking(trackinginfo, Recipe.EngagedStatus);
-// or
-NearItManager.Instance.SendTracking(trackinginfo, "custome")
+// custom recipe event
+NearItManager.Instance.SendTracking(trackinginfo, "my awesome custom event")
 ```
-The recipe cooldown feature uses tracking calls to hook its functionality, so failing to properly track user interactions will result in the cooldown not being applied.
 
 ## Content Objects
 

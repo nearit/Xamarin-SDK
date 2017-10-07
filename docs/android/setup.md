@@ -1,8 +1,8 @@
-# Setup #
+# Setup (Android)#
 
 **NOTE** Make sure that your are using Visual Studio 7.2+
 
-To install NearIT for your Android component, add all the .dll files from the `dlls` folder on our GitHub repository in your References. To do that, left-click on References and select "Edit References". From the window, select the tab ".Net Assembly" and "Browse" to select the .dll files.
+To install NearIT for your Android component, add all the .dll files from the `dlls` folder on our <a href="https://github.com/nearit/Xamarin-SDK/tree/android_docs" target="_blank">GitHub repository</a>. To do that, left-click on References and select "Edit References". From the window, select the tab ".Net Assembly" and "Browse" to select the .dll files.
 
 In your AndroidManifest.xml, add the following permissions:
 ```xml
@@ -24,7 +24,7 @@ and the following code:
 </receiver>
 ```
 
-Add the following Nuget package:
+Add the following NuGet package:
 
 - Xamarin.Android.Support.Compat v7 (min version: 26.0.2-rc1)
 
