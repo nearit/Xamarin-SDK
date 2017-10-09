@@ -66,7 +66,7 @@ Inside Xcode, navigate to the “**Capabilities**” tab of your app. You will n
 
 In your app code, ask for the token:
 
-```swift
+```csharp
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
     application.RegisterForRemoteNotifications();
@@ -75,7 +75,7 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
 
 When you get the token, just give it to the SDK:
 
-```swift
+```csharp
 public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
 {
     NITManager.DefaultManager.SetDeviceTokenWithData(deviceToken);

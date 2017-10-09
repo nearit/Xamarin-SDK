@@ -10,7 +10,7 @@ Rememeber to ask for the notification permissions.
 
 First you need to set the delegate for the `UNUserNotificationCenter`, with the code below you can react to a notification tap.
 
-```swift
+```csharp
 func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
     let userInfo = response.notification.request.content.userInfo
     let isNear = manager.processRecipe(userInfo) { (content, recipe, error) in
@@ -29,7 +29,7 @@ The result of `handleLocalNotificationResponse` means if a notification is from 
 
 In iOS 9 you only need to implement the `didReceiveLocalNotification` (`didReceive` in Swift) to handle the tap on a notification.
 
-```swift
+```csharp
 func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
     if let userInfo = notification.userInfo {
         let isNear = manager.processRecipe(userInfo) { (content, recipe, error) in

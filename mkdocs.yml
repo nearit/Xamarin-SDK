@@ -7,11 +7,11 @@ pages:
     - 'Installation' : 'installation.md'
     - 'iOS' :
         - 'Setup' : 'ios/setup.md'
+        - 'Setup Notifications' : 'ios/setup-notifications.md'
         - 'Location Based Notifications' : 'ios/location-based-notifications.md'
         - 'Push Notification' : 'ios/push-notifications.md'
         - 'In-app Content' : 'ios/handle-content.md'
         - 'User Profiling' : 'ios/user-profiling.md'
-        - 'Setup Notifications' : 'ios/setup-notifications.md'
     - 'Android' :
         - 'Setup' : 'android/setup.md'
         - 'Location Based Notifications' : 'android/location-based-notifications.md'
