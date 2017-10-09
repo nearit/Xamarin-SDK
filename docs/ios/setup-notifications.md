@@ -1,4 +1,4 @@
-## Notification Setup
+## Notification Setup (iOS)
 
 This setup allows NearIT to show notifications automatically.<br>
 When an user taps on a notification, an "**handleNearContent**" method will be called to let you manage in-app content presentation.

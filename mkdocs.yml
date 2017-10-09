@@ -6,7 +6,7 @@ pages:
     - 'Getting started' : 'index.md'
     - 'iOS' :
         - 'Setup' : 'ios/setup.md'
-        - 'Setup Notifications' : 'ios/setup-notifications.md'
+        - 'Notification Setup' : 'ios/setup-notifications.md'
         - 'Location Based Notifications' : 'ios/location-based-notifications.md'
         - 'Push Notification' : 'ios/push-notifications.md'
         - 'In-app Content' : 'ios/handle-content.md'
