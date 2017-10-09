@@ -4,7 +4,6 @@ extra_css : ["css/nearitdocs.css"]
 extra_javascript : ["js/extra.js"]
 pages:
     - 'Getting started' : 'index.md'
-    - 'Installation' : 'installation.md'
     - 'iOS' :
         - 'Setup' : 'ios/setup.md'
         - 'Setup Notifications' : 'ios/setup-notifications.md'
