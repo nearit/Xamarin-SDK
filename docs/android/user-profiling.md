@@ -11,45 +11,24 @@ String profileId = NearItManager.Instance.ProfileId;
 If the result is null, it means that no profile is associated with the app installation (probably due to a network error). The SDK will re-try to create a profile at every start, and every time a new user data is set.
 
 After the profile is created set user data:
-```java
-NearItManager.getInstance().setUserData("name", "John", new UserDataNotifier() {
-    @Override
-    public void onDataCreated() {
-        // data was set/created                                                
-    }
-
-    @Override
-    public void onDataNotSetError(String error) {
-        // there was an error                        
-    }
-});
+```csharp
+NearItManager.Instance.SetUserData("name", "peter", _successListener);
 ```
 
 If you have multiple data properties, set them in batch:
-```java
-HashMap<String, String> userDataMap = new HashMap<>();
-userDataMap.put("name", "John");
-userDataMap.put("age", "23");           // set everything as String
-userDataMap.put("saw_tutorial", "true") // even booleans, the server has all the right logic
-NearItManager.getInstance().setBatchUserData(userDataMap, new UserDataNotifier() {
-	@Override
-	public void onDataCreated() {
-		// data was set/created
-	}
-
-	@Override
-	public void onDataNotSetError(String error) {
-
-	}
-});
+```csharp
+var userData = new Dictionary<string, string> {
+  { "name", "John" } , {"age", "23"} , { "saw_tutorial" , "true" }
+};
+NearItManager.Instance.SetBatchUserData(userData, _successListener);
 ```
 If you try to set user data before creating a profile the error callback will be called.
 
 If you want to reset your profile use this method:
-```java
-NearItManager.getInstance().resetProfileId()
+```csharp
+NearItManager.Instance.ResetProfileId();
 ```
-Further calls to *getProfileId()* will return null.
+Further calls to *ProfileId* will return null.
 A creation of a new profile after the reset will create a profile with no user data.
 
 ## Save the profile ID!
@@ -62,11 +41,11 @@ If you can, we recommend you to store the NearIT profileID in your CRM database 
 
 Getting the local profile ID of an user is easy:
 ```java
-String profileId = NearItManager.getInstance().getProfileId();
+String profileId = NearItManager.Instance.ProfileId;
 ```
 
 
 If you detect that your user already has a NearIT profileID in your CRM database (i.e. after a login), you should manually write it on a local app installation:
 ```java
-NearItManager.getInstance().setProfileId(profileId);
+NearItManager.Instance.ProfileId = "FROM_SERVER";
 ```
