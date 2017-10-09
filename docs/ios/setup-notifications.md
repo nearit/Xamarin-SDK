@@ -7,7 +7,7 @@ When an user taps on a notification, an "**handleNearContent**" method will be c
 If your app is closed or in background, a system notification will be added to the Notification Center.
 If your app is in foreground, the notification will be shown inside the app.
 
-```swift
+```csharp
 // AppDelegate
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
@@ -45,7 +45,7 @@ public class UserNotificationDelegate : UNUserNotificationCenterDelegate
 If your app is closed or in background, a system notification will be added to the Notification Center.
 If your app is in foreground, an alert will be shown.
 
-```swift
+```csharp
 // Manage tap on remote notifications
 public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, System.Action<UIBackgroundFetchResult> completionHandler)
 {
@@ -95,7 +95,7 @@ Usually the SDK tracks those events automatically, but if you write custom code 
 
 You can track **default or custom events** using the "**sendTracking**" method:
  
-```swift
+```csharp
 // notified - notification received
 NITManager.DefaultManager.SendTrackingWithTrackingInfo(trackingInfo, "notified");
 

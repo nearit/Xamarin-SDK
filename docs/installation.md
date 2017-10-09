@@ -8,8 +8,9 @@ ___
 ___
 
 
-todo Explain how to get the library from Nuget/dlls
+## Android
 
+To install NearIT for your Android component, add all the .dll files from the `dlls` folder on our GitHub repository in your References. To do that, left-click on References and select "Edit References". From the window, select the tab ".Net Assembly" and "Browse" to select the .dll files.
 
 To start using the SDK, include this in your app *Podfile*
 
@@ -19,7 +20,7 @@ pod 'NearITSDKSwift' // For Swift
 <div class="code-objc">
 pod 'NearITSDK' // For Objective-C
 </div>
- 
+
 In the `application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool` method of your AppDelegate class, set the API token to the SDK a String
 
 
