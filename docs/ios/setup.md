@@ -1,5 +1,7 @@
 # Setup (iOS) #
 
+To install NearIT for your iOS component, add all the .dll files from the dlls folder on our GitHub repository. To do that, left-click on References and select "Edit References". From the window, select the tab ".Net Assembly" and "Browse" to select the .dll files.
+
 In the `FinishedLaunching(UIApplication application, NSDictionary launchOptions)` method of your AppDelegate class, set the API token to the SDK a String
 
 
