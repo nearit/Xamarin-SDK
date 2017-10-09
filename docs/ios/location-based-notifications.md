@@ -9,7 +9,7 @@ ___
 When you want to start the radar for **geofences and beacons**, call the ```start``` method.
 <br>Typically, you would start the radar right after you get authorization:
 
-```swift
+```csharp
 LocationManager = new CLLocationManager();
 
 LocationManager.AuthorizationChanged += (s, e) =>

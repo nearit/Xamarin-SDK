@@ -3,7 +3,7 @@
 In the `FinishedLaunching(UIApplication application, NSDictionary launchOptions)` method of your AppDelegate class, set the API token to the SDK a String
 
 
-```swift
+```csharp
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
     ...
@@ -20,7 +20,7 @@ You can find the API key on <a href="https://go.nearit.com/" target="_blank">**N
 The SDK **initialization is done automatically** and handles the task of syncing the recipes with our servers when your app starts up.
 <br>However, if you need to sync the recipes configuration more often, you can call this method:
 
-```swift
+```csharp
 NITManager.DefaultManager.RefreshConfigWithCompletionHandler((error) => {
     ...                
 });
