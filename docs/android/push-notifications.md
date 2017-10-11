@@ -40,5 +40,5 @@ To learn how to deal with in-app content once the user taps on the notification,
 
 
 ___
-**WARNING**: If you experience build or runtime problems with google play services components, make sure you are not including multiple versions of the google play services.
+**WARNING**: If you experience build or runtime problems with google play services components, make sure you are not including multiple versions of the google play services.<br>
 NearIT includes the 11.4.0 version. Conflicting play services version may result in compile-time and run-time errors.
