@@ -47,7 +47,7 @@ If your app is in foreground, an alert will be shown.
 
 ```csharp
 // Manage tap on remote notifications
-public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, System.Action<UIBackgroundFetchResult> completionHandler)
+public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 {
     NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
         if (content != null && content is NITReactionBundle)
