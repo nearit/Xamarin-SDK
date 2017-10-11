@@ -2,8 +2,7 @@
 
 Before you start:
 
-* You must add the `NSLocationAlwaysUsageDescription` or `NSLocationWhenInUseUsageDescription` in the project Info.plist
-* For iOS 11 you must add the `NSLocationAlwaysAndWhenInUseUsageDescription` in the project Info.plist under the section `Source`
+* You must add the `NSLocationAlwaysUsageDescription` or `NSLocationWhenInUseUsageDescription` in the project Info.plist under the section `Source`. If your device has iOS 11, you must also add the `NSLocationAlwaysAndWhenInUseUsageDescription`.
 * You will need to get `Always authorization`  from an instance of  `CLLocationManager`
 ___
 When you want to start the radar for **geofences and beacons**, call the ```start``` method.
