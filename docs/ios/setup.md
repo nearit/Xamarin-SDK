@@ -30,4 +30,4 @@ NITManager.DefaultManager.RefreshConfigWithCompletionHandler((error) => {
 });
 ```
 
-If the refreshConfig has succeeded, 'error' is nil.
+If the *refreshConfig* has succeeded, *error* is **nil**.
