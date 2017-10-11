@@ -33,8 +33,8 @@ ___
 
 
 <br>
-The SDK creates a system notification for every push recipe it receives.
-On the notification tap, your launcher activity will start.
+The SDK creates a system notification for every push recipe it receives.<br>
+On the notification tap, your launcher activity will start.<br>
 To learn how to deal with in-app content once the user taps on the notification, see this [section](in-app-content.md).
 
 
