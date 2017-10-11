@@ -2,7 +2,7 @@
 
 **NOTE** Make sure that your are using Visual Studio 7.2+
 
-To install NearIT for your iOS component, add all the *.dll* files from the `dlls` folder on our <a href="https://github.com/nearit/Xamarin-SDK/" target="_blank">GitHub repository</a>. To do that, right-click on “**References>Edit References**”. From the window, select the tab “**References**” and then “**Browse**” to select the *.dll* files.
+To install NearIT for your iOS component, add all the *.dll* files from the `dlls` folder on our <a href="https://github.com/nearit/Xamarin-SDK/" target="_blank">GitHub repository</a>. To do that, right-click on “**References>Edit References**”. From the window, select the tab “**References**” and then “**Browse**” to select the *.dll* file.
 
 In the `FinishedLaunching(UIApplication application, NSDictionary launchOptions)` method of your **AppDelegate** class, set the API token to the SDK a String
 
