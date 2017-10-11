@@ -4,7 +4,7 @@
 
 To install NearIT for your Android component, add all the *.dll* files from the `dlls` folder on our <a href="https://github.com/nearit/Xamarin-SDK/" target="_blank">GitHub repository</a>. To do that, right-click on “**References>Edit References**”. From the window, select the tab “**References**” and then “**Browse**” to select the *.dll* files.
 
-In your AndroidManifest.xml, add the following permissions:
+In your *AndroidManifest.xml*, add the following permissions:
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
