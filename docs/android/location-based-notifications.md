@@ -19,13 +19,16 @@ NearItManager.Instance.StartRadar();
 // to stop the radar call the method nearItManager.stopRadar()
 ```
 
-**VERY IMPORTANT** Call the method only when you are given the ACCESS_FINE_LOCATION permission.
+**VERY IMPORTANT** Call the method only when you are given the *ACCESS_FINE_LOCATION* permission.
 
 
 The SDK creates a system notification for every background recipe. On the notification tap, your launcher activity will start.
+
 To learn how to deal with in-app content once the user taps on the notification, see this [section](in-app-content.md).
 
 
 ___
-**WARNING**: If you experience build or runtime problems with google play services components, make sure you are not including multiple versions of the google play services.
-NearIT includes the 11.4.0 version. Conflicting play services version may result in compile-time and run-time errors.
+# Warning 
+If you experience build or runtime problems with google play services components, make sure you are not including multiple versions of the google play services.
+NearIT includes the 11.4.0 version.
+Conflicting play services version may result in compile-time and run-time errors.
