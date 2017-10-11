@@ -11,9 +11,10 @@ Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
 ```
 <br>
 **3.** Download `google-services.json` file to your computer and add the file in your Android component.
+<br>
 ![google-services.json](push_help/google_services_json.png "")
 <br><br>
-Select properties on that file and specify the following Build Action: GoogleServicesJson. If that Build Action is not available right after adding the file is added, close and re-open the solution.
+Select properties on that file and specify the following **“Build Action>GoogleServicesJson”**. If that **Build Action** is not available right after adding the file is added, close and re-open the solution.
 ![google-services-help](push_help/google-services-help.png )
 
 **4.** Copy your project ***FCM Cloud Messaging Server Key*** from [Google Firebase Console](https://console.firebase.google.com/)
