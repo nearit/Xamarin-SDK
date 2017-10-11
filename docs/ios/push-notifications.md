@@ -3,7 +3,7 @@
 <br>
 ### 1) Enable push capabilities
 
-Inside Xcode, navigate to the “**Capabilities**” tab of your app. You will need to enable “**Push Notifications**”.
+Open Xcode with a right-click on your *.storyboard* and choose “**Open With>Xcode Interface Builder**”, navigate to the “**Capabilities**” tab of your app. You will need to enable “**Push Notifications**”.
 
 ![capabilities](push_help/capabilities.png "")
 
@@ -16,7 +16,7 @@ Inside Xcode, navigate to the “**Capabilities**” tab of your app. You will n
 
 ![keychain_request](push_help/pushtutorial00.png "")
 
-2.3) Enter your e-mail, select “**Save to disk**” and press “**Continue**”. You should get a .certSigningRequest file.
+2.3) Enter your e-mail, select “**Save to disk**” and press “**Continue**”. You should get a *.certSigningRequest* file.
 
 ![save_request](push_help/pushtutorial01.png "")
 
@@ -36,11 +36,11 @@ Inside Xcode, navigate to the “**Capabilities**” tab of your app. You will n
 
 ![add_certificate](push_help/pushtutorial04.png "")
 
-3.4 Press “**Choose File**” and upload the .certSigningRequest file you generated previously (chapter 2.3)
+3.4 Press “**Choose File**” and upload the *.certSigningRequest* file you generated previously (chapter 2.3)
 
 ![add_certificate](push_help/pushtutorial05.png "")
 
-3.5 Your certificate is ready. Press “**Download**” to get the .cer file.
+3.5 Your certificate is ready. Press “**Download**” to get the *.cer* file.
 
 ![get_certificate](push_help/pushtutorial06.png "")
 
@@ -48,15 +48,15 @@ Inside Xcode, navigate to the “**Capabilities**” tab of your app. You will n
 <br>
 ### 4) Upload a .p12 Key to NearIT
 
-4.1 Click on the .cer certificate you generated previously (chapter 3.5). It will open the “**Keychain Access**” app on your mac.
+4.1 Click on the *.cer* certificate you generated previously (chapter 3.5). It will open the “**Keychain Access**” app on your mac.
 
 
-4.2 Find your certificate, click on it and select “**Export**”. Enter a password, you will get a .p12 file.
+4.2 Find your certificate, click on it and select “**Export**”. Enter a password, you will get a *.p12* file.
 
 ![export_p12](push_help/pushtutorial08.png "")
 
 
-4.3 Open [NearIT](https://go.nearit.com), select your app and navigate to “**Settings> Push Settings**”. Upload your .p12 under the “**Setup iOS push notifications**” block. You will be prompted to enter the password you have chosen previously (chapter 4.2)
+4.3 Open [NearIT](https://go.nearit.com), select your app and navigate to “**Settings> Push Settings**”. Upload your *.p12* under the “**Setup iOS push notifications**” block. You will be prompted to enter the password you have chosen previously (chapter 4.2)
 
 ![export_p12](push_help/09.gif "")
 
