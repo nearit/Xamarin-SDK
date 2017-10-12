@@ -9,7 +9,7 @@ Inside the project, select **"Add Firebase to your Android app"** (make sure to 
 <br>
 ![google-services.json](push_help/google_services_json.png "")
 <br><br>
-Select properties on that file and specify the following **“Build Action>GoogleServicesJson”**. If that **Build Action** is not available right after adding the file is added, close and re-open the solution.
+Select properties on that file and specify the following **“Build Action>GoogleServicesJson”**. If that **Build Action** is not available simply close and re-open the solution.
 ![google-services-help](push_help/google-services-help.png )
 
 **3.** Copy your project ***FCM Cloud Messaging Server Key*** from [Google Firebase Console](https://console.firebase.google.com/)
