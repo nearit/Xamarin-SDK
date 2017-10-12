@@ -7,10 +7,12 @@ Add those permissions in your `AndroidManifest.xml`:
 	android:maxSdkVersion="22" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
-And add the following NuGet package:
-
+And add the two following NuGet packages:
+```
 - Xamarin.GooglePlayServices.Location (min version: 57.1104.0-beta1)
 
+- Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
+```
 When you want to start the radar for **geofences and beacons**, you call this method:
 
 ```csharp
