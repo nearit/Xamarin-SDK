@@ -5,25 +5,20 @@ To enable push notification you will need to integrate **Google Firebase** in yo
 **1.** If you don't already have a **Firebase project**, create one at [Google Firebase Console](https://console.firebase.google.com/).<br>
 Inside the project, select **"Add Firebase to your Android app"** (make sure to enter the right package name of your app).
 <br><br>
-**2.** Add this Nuget package:
-```
-
-```
-<br>
-**3.** Download `google-services.json` file to your computer and add the file in your Android component.
+**2.** Download `google-services.json` file to your computer and add the file in your Android component.
 <br>
 ![google-services.json](push_help/google_services_json.png "")
 <br><br>
 Select properties on that file and specify the following **“Build Action>GoogleServicesJson”**. If that **Build Action** is not available right after adding the file is added, close and re-open the solution.
 ![google-services-help](push_help/google-services-help.png )
 
-**4.** Copy your project ***FCM Cloud Messaging Server Key*** from [Google Firebase Console](https://console.firebase.google.com/)
+**3.** Copy your project ***FCM Cloud Messaging Server Key*** from [Google Firebase Console](https://console.firebase.google.com/)
 (See the screenshot below and make sure to use the right api key)
 ![fcmkey](push_help/fcmkeylocation.png "")
 
 <br>
 
-**5.** Open [NearIT](https://go.nearit.com), select your app and navigate to **“Settings > Push Settings”**.
+**4.** Open [NearIT](https://go.nearit.com), select your app and navigate to **“Settings > Push Settings”**.
 Paste your project FCM Key under the **“Setup Android push notifications”** block.
 ![nearitsettings](push_help/fcm_upload.gif "")
 <br><br>
