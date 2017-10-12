@@ -7,7 +7,7 @@ Inside the project, select **"Add Firebase to your Android app"** (make sure to 
 <br><br>
 **2.** Add this Nuget package:
 ```
-Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
+
 ```
 <br>
 **3.** Download `google-services.json` file to your computer and add the file in your Android component.
