@@ -25,8 +25,11 @@ and the following code:
 ```
 
 Click on **Project>Add NuGet Packages** and find and add the following NuGet package:
-
+```
 - Xamarin.Android.Support.Compat v7 (min version: 26.0.2-rc1)
+
+- Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
+```
 
 In your code you can access the `NearItManager` instance with:
 ```csharp
