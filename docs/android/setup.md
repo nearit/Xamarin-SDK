@@ -1,6 +1,6 @@
 # Setup (Android)#
 
-**NOTE** Make sure that your are using Visual Studio 7.2+
+**NOTE** Make sure that your are using Visual Studio 7.2+ and target framework 8.0
 
 To install NearIT for your Android component, add all the *.dll* files from the `dlls` folder on our <a href="https://github.com/nearit/Xamarin-SDK/" target="_blank">GitHub repository</a>. To do that, right-click on “**References>Edit References**”. From the window, select the tab “**References**” and then “**Browse**” to select the *.dll* files.
 
@@ -32,6 +32,9 @@ Click on **Project>Add NuGet Packages** and find and add the following NuGet pac
 
 - Xamarin.GooglePlayServices.Location (min version: 57.1104.0-beta1)
 ```
+
+**WARNING**
+In either mode, **Debug** and **Release**, go to **Options>Android Application** and enable Multi-Dex mode.
 
 In your code you can access the `NearItManager` instance with:
 ```csharp
