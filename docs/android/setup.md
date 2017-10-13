@@ -34,7 +34,7 @@ Click on “**Project>Add NuGet Packages**” and find and add the following NuG
 ```
 
 **WARNING**
-In either mode, **Debug** and **Release**, go to “**Options>Android Application**” and enable Multi-Dex mode.
+In either mode, **Debug** and **Release**, make sure you have enabled Multi-Dex mode in “**Options>Android Application**”.
 
 In your code you can access the `NearItManager` instance with:
 ```csharp
