@@ -16,7 +16,6 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
 
     });
     UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
-    UIApplication.SharedApplication.RegisterForRemoteNotifications();
  
 }
 
