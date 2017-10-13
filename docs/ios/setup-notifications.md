@@ -3,18 +3,40 @@
 This setup allows NearIT to show notifications automatically.<br>
 When an user taps on a notification, an "**handleNearContent**" method will be called to let you manage in-app content presentation.
 
-### iOS10+
-If your app is closed or in background, a system notification will be added to the Notification Center.
-If your app is in foreground, the notification will be shown inside the app.
-
+### Check iOS Version
 ```csharp
 // AppDelegate
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
     ...
-    UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
+    if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+    {
+        UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
+
+           });
+        UNUserNotificationCenter.Current.Delegate = nsdelegate;
+        UIApplication.SharedApplication.RegisterForRemoteNotifications();
+    }
+    else if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+    {
+        var pushSettings = UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound,new NSSet());
+
+        UIApplication.SharedApplication.RegisterUserNotificationSettings(pushSettings);
+        UIApplication.SharedApplication.RegisterForRemoteNotifications();
+    }
+    else
+    {
+        UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound;
+        UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
+    }
 }
 
+```
+### iOS10+
+If your app is closed or in background, a system notification will be added to the Notification Center.
+If your app is in foreground, the notification will be shown inside the app.
+
+```csharp
 // Create a delegate class
 public class UserNotificationDelegate : UNUserNotificationCenterDelegate
 {
