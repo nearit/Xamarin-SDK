@@ -32,7 +32,7 @@ Open Xcode with a right-click on your *.storyboard* and choose “**Open With>Xc
 
 ![enable_push](push_help/pushtutorial03.gif "")
 
-3.3 You should find yourself in the “Add iOS Certificate” wizard. Press “**Continue**”.
+3.3 You should find yourself in the “**Add iOS Certificate**” wizard. Press “**Continue**”.
 
 ![add_certificate](push_help/pushtutorial04.png "")
 
