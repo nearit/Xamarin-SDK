@@ -24,7 +24,7 @@ and the following code:
 </receiver>
 ```
 
-Click on **Project>Add NuGet Packages** and find and add the following NuGet package:
+Click on “**Project>Add NuGet Packages**” and find and add the following NuGet package:
 ```
 - Xamarin.Android.Support.Compat v7 (min version: 26.0.2-rc1)
 
@@ -34,7 +34,7 @@ Click on **Project>Add NuGet Packages** and find and add the following NuGet pac
 ```
 
 **WARNING**
-In either mode, **Debug** and **Release**, go to **Options>Android Application** and enable Multi-Dex mode.
+In either mode, **Debug** and **Release**, go to “**Options>Android Application**” and enable Multi-Dex mode.
 
 In your code you can access the `NearItManager` instance with:
 ```csharp
