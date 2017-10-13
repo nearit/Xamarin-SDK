@@ -43,7 +43,7 @@ NearIT allows to track user engagement events on recipes. Any recipe has at leas
   - **Engaged**: the user *tapped* on the notification
   
 Usually the SDK tracks those events automatically, but if you write custom code to show notification or content (i.e. to receive Beacon interaction content) please make sure that at least the "**notified**" event is tracked.
-<br>**Warning:** Failing in tracking this event cause some NearIT features to not work.
+<br>**WARNING** Failing in tracking this event cause some NearIT features to not work.
 
 
 You can track **default or custom events** using the "**sendTracking**" method:
