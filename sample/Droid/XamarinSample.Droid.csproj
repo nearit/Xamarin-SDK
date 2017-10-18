@@ -178,7 +178,6 @@
     <AndroidResource Include="Resources\drawable\brandPoweredby.png" />
     <AndroidResource Include="Resources\drawable\NearIT.png" />
     <AndroidResource Include="Resources\drawable\ic_launcher.png" />
-    <AndroidResource Include="Resources\values\apikey.xml" />
   </ItemGroup>
   <ItemGroup>
     <GoogleServicesJson Include="google-services.json" />
