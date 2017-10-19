@@ -4187,7 +4187,7 @@ namespace XamarinSample.Droid
 			public const int abc_toolbar_collapse_description = 2131230777;
 			
 			// aapt resource value: 0x7f080056
-			public const int apiKey = 2131230806;
+			public const int apikey = 2131230806;
 			
 			// aapt resource value: 0x7f080048
 			public const int appbar_scrolling_view_behavior = 2131230792;

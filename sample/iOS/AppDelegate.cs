@@ -79,7 +79,7 @@ namespace XamarinSample.iOS
 
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
         {
-            Console.WriteLine("ERRORRegisteredForRemoteNotifications");
+            Console.WriteLine("FailedToRegisterForRemoteNotifications");
         }
 
         public void HandleNearContent(NSObject content)

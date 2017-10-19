@@ -5,7 +5,7 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="22" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<application android:label="XamarinSample" android:icon="@drawable/ic_launcher">
-		<meta-data android:name="near_api_key" android:value="@string/apiKey" />
+		<meta-data android:name="near_api_key" android:value="@string/apikey" />
 		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
 		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>
