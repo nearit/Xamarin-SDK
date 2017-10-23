@@ -2,9 +2,7 @@
 
 Add those permissions in your `AndroidManifest.xml`:
 ```csharp
-<uses-permission
-	android:name="android.permission.ACCESS_COARSE_LOCATION"
-	android:maxSdkVersion="22" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="22" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 When you want to start the radar for **geofences and beacons**, you call this method:
