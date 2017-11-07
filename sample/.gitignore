@@ -13,3 +13,6 @@ packages/
 
 # User-specific files
 *.userprefs
+
+Keys.plist
+secrets.xml
