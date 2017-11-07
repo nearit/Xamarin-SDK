@@ -28,8 +28,10 @@ If you want to reset your profile use this method:
 ```csharp
 NearItManager.Instance.ResetProfileId();
 ```
-Further calls to *ProfileId* will return null.
-A creation of a new profile after the reset will create a profile with no user data.
+Further calls to *ProfileId* will return null. A creation of a new profile after the reset will create a profile with no user data.
+<br><br>
+**Remember** <br>
+You will need to use the "**Settings> Data Mapping**" section of [NearIT](https://go.nearit.com) to configure the data fields to be used inside recipes.
 
 ## Save the profile ID!
 

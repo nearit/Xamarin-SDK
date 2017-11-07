@@ -1,0 +1,12 @@
+#build
+[Oo]bj/
+[Bb]in/
+packages/
+TestResults/
+Components/
+
+# Global
+google-services.json
+Keys.plist
+*.userprefs
+apikey.xml

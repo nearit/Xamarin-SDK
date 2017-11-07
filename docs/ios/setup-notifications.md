@@ -12,7 +12,11 @@ If your app is in foreground, the notification will be shown inside the app.
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
     ...
+    UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
+
+    });
     UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
+ 
 }
 
 // Create a delegate class
@@ -46,6 +50,14 @@ If your app is closed or in background, a system notification will be added to t
 If your app is in foreground, an alert will be shown.
 
 ```csharp
+//App Delegate
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    ...
+    UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound;
+    UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
+}  
+        
 // Manage tap on remote notifications
 public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 {

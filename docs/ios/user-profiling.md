@@ -9,7 +9,8 @@ You can set user data with this method, it can be called multiple times to set s
 NITManager.DefaultManager.SetDeferredUserDataWithKey("gender", "m");
 ```
 
-Please remember: you will need to use the "**Settings> Data Mapping**" section of [NearIT](https://go.nearit.com) to configure the data fields to be used inside recipes.
+**Remember** <br>
+You will need to use the "**Settings> Data Mapping**" section of [NearIT](https://go.nearit.com) to configure the data fields to be used inside recipes.
 
 
 
