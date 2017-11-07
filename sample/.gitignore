@@ -15,4 +15,4 @@ packages/
 *.userprefs
 
 Keys.plist
-secrets.xml
+*secrets.xml
