@@ -13,5 +13,6 @@ namespace XamarinBridge.PCL.Manager
         void GetProfileId();
         void SetProfileId(string profile);
         void ResetProfileId();
+        void OptOut();
     }
 }

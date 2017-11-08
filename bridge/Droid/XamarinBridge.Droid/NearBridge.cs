@@ -17,6 +17,7 @@ using IT.Near.Sdk.Recipes;
 using IT.Near.Sdk.Reactions.Feedbackplugin;
 using IT.Near.Sdk.Reactions.Couponplugin;
 using IT.Near.Sdk.Reactions;
+using IT.Near.Sdk.Communication;
 using IT.Near.Sdk.Operation;
 using XamarinBridge.PCL.Types;
 using XamarinBridge.PCL.Manager;
@@ -34,8 +35,8 @@ namespace XamarinBridge.Droid
         private static ICoreContentsListener _coreContentListener = new EventContent();
         private static IRecipeRefreshListener _refreshListener = new RefreshListener();
         private static ICouponListener _couponListener = new CouponListener();
-        private static IUserDataNotifier _userDataListener = new UserDataListener();
         private static NearItUserProfile.IProfileFetchListener _profileListener = new ProfileListener();
+        private static IOptOutNotifier _optOutListener = new OptOutListener();
 
         public static void ParseIntent(Intent intent)
         {
@@ -83,7 +84,7 @@ namespace XamarinBridge.Droid
 
         public void SetUserData(string key, string value)
         {
-            NearItManager.Instance.SetUserData(key,value, _userDataListener);
+            NearItManager.Instance.SetUserData(key,value);
         }
 
         public void GetProfileId()
@@ -101,9 +102,23 @@ namespace XamarinBridge.Droid
             NearItManager.Instance.ResetProfileId(_profileListener);
         }
 
+        public void OptOut()
+        {
+            NearItManager.Instance.InvokeOptOut(_optOutListener);
+        }
 
+        internal class OptOutListener : Java.Lang.Object, IOptOutNotifier
+        {
+            public void OnFailure(string p0)
+            {
+                Console.WriteLine("Error OptOut android");
+            }
 
-
+            public void OnSuccess()
+            {
+                Console.WriteLine("OptOut success android");
+            }
+        }
 
         internal class ProfileListener : Java.Lang.Object, NearItUserProfile.IProfileFetchListener
         {
@@ -115,19 +130,6 @@ namespace XamarinBridge.Droid
             public void OnProfileId(string p0)
             {
                 Console.WriteLine("Profile success android");
-            }
-        }
-
-        internal class UserDataListener : Java.Lang.Object, IUserDataNotifier
-        {
-            public void OnDataCreated()
-            {
-                Console.WriteLine("UserData created android");
-            }
-
-            public void OnDataNotSetError(string p0)
-            {
-                Console.WriteLine("Error UserData android");
             }
         }
 
@@ -172,8 +174,11 @@ namespace XamarinBridge.Droid
                 XContent.Cta.Label = ContentNotification.Cta.Label;
                 XContent.Cta.Url = ContentNotification.Cta.Url;
 
-                // TODO null check
-                NearPCL.GetContentManager().GotXContentNotification(XContent);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXContentNotification(XContent);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
             public void GotCouponNotification(Coupon p0, TrackingInfo p1)
@@ -189,7 +194,11 @@ namespace XamarinBridge.Droid
                 XCoupon.IconSet.FullSize = CouponNotification.IconSet.FullSize;
                 XCoupon.IconSet.SmallSize = CouponNotification.IconSet.SmallSize;
 
-                NearPCL.GetContentManager().GotXCouponNotification(XCoupon);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXCouponNotification(XCoupon);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
             public void GotCustomJSONNotification(CustomJSON p0, TrackingInfo p1)
@@ -200,7 +209,11 @@ namespace XamarinBridge.Droid
                 XCustomJSON.NotificationMessage = CustomJSONNotification.NotificationMessage;
                 XCustomJSON.Content = (System.Collections.Generic.Dictionary<string, object>)CustomJSONNotification.Content;
 
-                NearPCL.GetContentManager().GotXCustomJSONNotification(XCustomJSON);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXCustomJSONNotification(XCustomJSON);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
             public void GotFeedbackNotification(Feedback p0, TrackingInfo p1)
@@ -212,7 +225,11 @@ namespace XamarinBridge.Droid
                 XFeedback.Question = FeedbackNotification.Question;
                 XFeedback.RecipeId = p1.RecipeId;
 
-                NearPCL.GetContentManager().GotXFeedbackNotification(XFeedback);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXFeedbackNotification(XFeedback);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
             public void GotSimpleNotification(SimpleNotification p0, TrackingInfo p1)
@@ -222,7 +239,11 @@ namespace XamarinBridge.Droid
 
                 XSimple.NotificationMessage = SimpleNotification.NotificationMessage;
 
-                NearPCL.GetContentManager().GotXSimpleNotification(XSimple);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXSimpleNotification(XSimple);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
         }
 
