@@ -14,5 +14,8 @@ packages/
 # User-specific files
 *.userprefs
 
+#dll
+*.dll
+
 Keys.plist
 *secrets.xml
