@@ -138,9 +138,6 @@
     <Reference Include="Plugin.Connectivity">
       <HintPath>..\packages\Xam.Plugin.Connectivity.4.0.0-beta139\lib\MonoAndroid10\Plugin.Connectivity.dll</HintPath>
     </Reference>
-    <Reference Include="XamarinBridge.Droid">
-      <HintPath>..\..\XamarinBridge.Droid.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.GooglePlayServices.Basement">
       <HintPath>..\packages\Xamarin.GooglePlayServices.Basement.60.1142.0-beta2\lib\MonoAndroid80\Xamarin.GooglePlayServices.Basement.dll</HintPath>
     </Reference>
@@ -161,6 +158,9 @@
     </Reference>
     <Reference Include="Xamarin.GooglePlayServices.Location">
       <HintPath>..\packages\Xamarin.GooglePlayServices.Location.60.1142.0-beta2\lib\MonoAndroid80\Xamarin.GooglePlayServices.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="XamarinBridge.Droid">
+      <HintPath>..\..\..\..\Desktop\XamarinBridge.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

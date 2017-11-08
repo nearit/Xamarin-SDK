@@ -1,10 +1,13 @@
 ﻿using System;
 namespace XamarinBridge.PCL.Types
 {
-    public class XCEvent
+    public abstract class XCEvent
     {
+        public abstract string GetPluginName();
+
         public XCEvent()
         {
         }
+
     }
 }

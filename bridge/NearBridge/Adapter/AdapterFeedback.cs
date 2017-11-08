@@ -1,13 +1,12 @@
 ﻿using System;
 using XamarinBridge.PCL.Types;
-using IT.Near.Sdk.Reactions.Feedbackplugin;
-using IT.Near.Sdk.Reactions.Feedbackplugin.Model;
+using NearIT;
 
 namespace XamarinBridge.Droid.Adapter
 {
     public class AdapterFeedback
     {
-        public static Feedback GetNativeFeeback(Feedback native, XCFeedbackNotification xfeed)
+        public static NITFeedback GetNativeFeeback(NITFeedback native, XCFeedbackNotification xfeed)
         {
             native.NotificationMessage = xfeed.NotificationMessage;
             native.Question = xfeed.Question;
@@ -16,7 +15,7 @@ namespace XamarinBridge.Droid.Adapter
             return native;   
         }
 
-        public static XCFeedbackNotification GetXCFeedback(Feedback native, XCFeedbackNotification xfeed)
+        public static XCFeedbackNotification GetXCFeedback(NITFeedback native, XCFeedbackNotification xfeed)
         {
             xfeed.NotificationMessage = native.NotificationMessage;
             xfeed.Question = native.Question;
