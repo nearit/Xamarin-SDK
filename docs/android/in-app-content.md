@@ -8,6 +8,10 @@ To extract the content from an intent use the utility method:
 ```csharp
 NearUtils.ParseCoreContents(intent, _coreContentListener);
 ```
+**Instead**, if you want that the Bridge manages the tap, call this method in your **OnNewIntent**
+```csharp
+NearBridge.ParseIntent(intent);
+```
 
 ## Beacon Interaction Content
 Beacon interaction (beacon ranging) is a peculiar trigger that works only when your app is in the foreground.
@@ -47,14 +51,18 @@ Usually the SDK tracks those events automatically, but if you write custom code 
 
 
 You can track **default or custom events** using the "**sendTracking**" method:
-```java
+<div class="code-native">
 // notified - notification received
 NearItManager.Instance.SendTracking(trackinginfo, Recipe.NotifiedStatus);
 // engaged - notification tapped
 NearItManager.Instance.SendTracking(trackinginfo, Recipe.EngagedStatus);
 // custom recipe event
 NearItManager.Instance.SendTracking(trackinginfo, "my awesome custom event")
-```
+</div>
+<div class="code-bridge">
+NearPCL.SendTracking(trackingInfo, value);
+</div>
+
 
 ## Content Objects
 
@@ -99,12 +107,18 @@ NearItManager.Instance.SendEvent(new FeedbackEvent(...), _callbackHandler);
 
 - `CustomJSON` with the following fields:
     - `Content` returns the json content as an *IDictionary*
+    
+**NOTE** Click here the [Handle In-app Content (Bridge)](../bridge/handle-content.md) of the Bridge.
 
 ## Fetch current user coupon
 
 We handle the complete emission and redemption coupon cycle in our platform, and we deliver a coupon content only when a coupon is emitted (you will not be notified of recipes when a profile has already received the coupon, even if the coupon is still valid).
 You can ask the library to fetch the list of all the user current coupons with the method:
-```java
+<div class="code-native">
 NearItManager.Instance.GetCoupons(_couponlistener);
-```
+</div>
+<div class="code-bridge">
+NearPCL.GetCoupon();
+</div>
+
 The method will also return already redeemed coupons so you get to decide to filter them if necessary.

@@ -5,9 +5,12 @@ NearIT creates an anonymous profile for every user of your app. You can choose t
 ## Add user-data to NearIT
 
 You can set user data with this method, it can be called multiple times to set several user data:
-```csharp
+<div class="code-native">
 NITManager.DefaultManager.SetDeferredUserDataWithKey("gender", "m");
-```
+</div>
+<div class="code-bridge">
+NearPCL.SetUserData(key, value);
+</div>
 
 **Remember** <br>
 You will need to use the "**Settings> Data Mapping**" section of [NearIT](https://go.nearit.com) to configure the data fields to be used inside recipes.
@@ -23,12 +26,39 @@ If you can, we recommend you to store the NearIT profileID in your CRM database 
 
 
 Getting the local profile ID of an user is easy:
-```csharp
-NITManager.DefaultManager.ProfileId
-```
+<div class="code-native">
+NITManager.DefaultManager.ProfileIdWithCompletionHandler((profile, error) => {
+    ...
+});
+</div>
+<div class="code-bridge">
+NearPCL.GetProfileId();
+</div>
 
 
 If you detect that your user already has a NearIT profileID in your CRM database (i.e. after a login), you should manually write it on a local app installation:
-```csharp
+<div class="code-native">
 NITManager.DefaultManager.ProfileId = "your remote NearIT profile ID";
-```
+</div>
+<div class="code-bridge">
+NearPCL.SetProfileId(profile);
+</div>
+
+
+Whenever a users **signs out** from your app, you should reset the NearIT profileID:
+<div class="code-native">
+NITManager.DefaultManager.ResetProfile();
+</div>
+<div class="code-bridge">
+NearPCL.ResetProfileId();
+</div>
+
+## Opt-Out
+
+You can **opt-out** a profile and its device:
+<div class="code-native">
+NITManager.DefaultManager.ResetProfile();
+</div>
+<div class="code-bridge">
+NearPCL.OptOut();
+</div>

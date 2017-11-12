@@ -9,16 +9,21 @@ using XamarinBridge.PCL;
 using Xamarin.Forms;
 using XamarinBridge.Droid.Adapter;
 
-[assembly: Dependency(typeof(NearBridge.MyClass))]
+[assembly: Dependency(typeof(NearBridge.NearBridgeiOS))]
 namespace NearBridge
 {
-    public class MyClass : INearFunc
+    public class NearBridgeiOS : INearFunc
     {
         private static IContentsListener _contentsListener = new EventContent();
 
         public static void ParseContent(object content)
         {
             HandleNearContent.HandleContent(content, _contentsListener);
+        }
+
+        public void SetApiKey(string apiKey)
+        {
+            NITManager.SetupWithApiKey(apiKey);
         }
 
         public void RefreshConfiguration()
@@ -33,11 +38,14 @@ namespace NearBridge
 
         public void SendTrack(XCTrackingInfo trackingInfo, string value)
         {
-            /*NITTrackingInfo track = new NITTrackingInfo();
+            NITTrackingInfo track = new NITTrackingInfo();
             track.RecipeId = trackingInfo.RecipeId;
-            track.
+            foreach (var item in track.extras)
+            {
+                trackingInfo.extras.Add((NSString)item.Key, item.Value);
+            }
 
-            NITManager.DefaultManager.SendTrackingWithTrackingInfo(track, value);*/
+            NITManager.DefaultManager.SendTrackingWithTrackingInfo(track, value);
         }
 
         public void SendEvent(XCEvent ev)
@@ -77,7 +85,11 @@ namespace NearBridge
 
         public void GetProfileId()
         {
-            //NITManager.DefaultManager.
+            NITManager.DefaultManager.ProfileIdWithCompletionHandler(
+                (arg1, arg2) => {
+                if (arg2 != null) Console.WriteLine("GetProfileId error ios");
+                else Console.WriteLine("GetProfileId ios");
+                });
         }
 
         public void SetProfileId(string profile)
@@ -88,6 +100,15 @@ namespace NearBridge
         public void ResetProfileId()
         {
             NITManager.DefaultManager.ResetProfile();
+        }
+
+        public void OptOut()
+        {
+            NITManager.DefaultManager.OptOutWithCompletionHandler(
+                (error) => {
+                if(error)Console.WriteLine("OptOut error ios");
+                else Console.WriteLine("OptOut ios");
+            });
         }
 
 

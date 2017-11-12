@@ -1,4 +1,4 @@
-# Handle In-app content (iOS)
+# Handle In-app Content (iOS)
 
 If you followed the instruction inside [Notification Setup](setup-notifications.md) closely, every tap on notification should be leading to a "**handleNearContent**" method.<br>
 You should implement your handleNearContent method, inside it, you would typically check the content type and handle presentation.
@@ -10,7 +10,7 @@ You should implement your handleNearContent method, inside it, you would typical
 
 When `eventWithContent` gets called or inside `processRecipe` callback you will obtain the content and the tracking info as arguments. 
 
-Content can have several class types:
+In your native fragment, content can have several class types:
 
 - `NITSimpleNotification` instance representing the simple notification
 - `NITContent` instance representing the rich content if any
@@ -18,7 +18,7 @@ Content can have several class types:
 - `NITCoupon` instance representig the coupon if any
 - `NITFeedback` instance representing the feedback request if any
 
-## Content classes
+## Native content classes
 
 - `NITSimpleNotification` for the simple notification, with the following attributes:
     - `message` returns the notification message
@@ -58,17 +58,23 @@ NITManager.DefaultManager.SendEventWithEvent(feedback, (error) => {
     
 - `NITCustomJSON` with the following getters:
     - `content` returns the json content as a *[String: AnyObject]* (*[NSString**, id] in Objective-C)
+   
+**NOTE** Click here the [Handle In-app Content (Bridge)](../bridge/handle-content.md) of the Bridge.
 
 ## Fetch current user coupon
 
 We handle the complete emission and redemption coupon cycle in our platform, and we deliver a coupon content only when a coupon is emitted (you will not be notified of recipes when a profile has already received the coupon, even if the coupon is still valid).
 You can ask the library to fetch the list of all the user current coupons with the method:
 
-```csharp
+<div class="code-native">
 NITManager.DefaultManager.CouponsWithCompletionHandler((coupons, error) => {
-    ...      
+...
 });
-```
+</div>
+
+<div class="code-bridge">
+NearPCL.GetCoupon();
+</div>
 
 
 

@@ -25,10 +25,10 @@ using XamarinBridge.PCL;
 using XamarinBridge.Droid.Adapter;
 using System.Collections.Generic;
 
-[assembly: Dependency(typeof(XamarinBridge.Droid.NearBridge))]
+[assembly: Dependency(typeof(XamarinBridge.Droid.NearBridgeDroid))]
 namespace XamarinBridge.Droid
 {
-    public class NearBridge : INearFunc
+    public class NearBridgeDroid : INearFunc
     {
         int count = 1;
 
@@ -41,6 +41,11 @@ namespace XamarinBridge.Droid
         public static void ParseIntent(Intent intent)
         {
             NearUtils.ParseCoreContents(intent, _coreContentListener);
+        }
+
+        public void SetApiKey(string apiKey)
+        {
+            NearItManager.Instance.
         }
 
         public void RefreshConfiguration()

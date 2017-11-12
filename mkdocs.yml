@@ -4,6 +4,9 @@ extra_css : ["css/nearitdocs.css"]
 extra_javascript : ["js/extra.js"]
 pages:
     - 'Getting started' : 'index.md'
+    - 'Bridge' :
+        - 'Setup' : 'bridge/setup.md'
+        - 'In-app Content' : 'bridge/handle-content.md'
     - 'iOS' :
         - 'Setup' : 'ios/setup.md'
         - 'Notification Setup' : 'ios/setup-notifications.md'
