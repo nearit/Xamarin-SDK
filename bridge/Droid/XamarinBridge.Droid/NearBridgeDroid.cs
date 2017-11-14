@@ -28,6 +28,7 @@ using System.Collections.Generic;
 [assembly: Dependency(typeof(XamarinBridge.Droid.NearBridgeDroid))]
 namespace XamarinBridge.Droid
 {
+    [MetaData("near_api_key", Value = "@string/nearit_api_key")]
     public class NearBridgeDroid : INearFunc
     {
         int count = 1;
@@ -43,9 +44,9 @@ namespace XamarinBridge.Droid
             NearUtils.ParseCoreContents(intent, _coreContentListener);
         }
 
-        public void SetApiKey(string apiKey)
+        public static void vuoto()
         {
-            NearItManager.Instance.
+            System.Diagnostics.Debug.WriteLine("Chiamata a vuoto");
         }
 
         public void RefreshConfiguration()

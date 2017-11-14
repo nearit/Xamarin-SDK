@@ -35,7 +35,7 @@ public class UserNotificationDelegate : UNUserNotificationCenterDelegate
         NSDictionary userInfo = response.Notification.Request.Content.UserInfo;
         NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
             if (content != null && content is NITReactionBundle) {
-                ...
+                // see code below
             }
         });
     }
@@ -43,14 +43,14 @@ public class UserNotificationDelegate : UNUserNotificationCenterDelegate
 ```
 
 <div class="code-native">
-When an user taps on a notification, you can create an "HandleNearContent" method which will be called to let you manage in-app content presentation.<br><br>
+// When user taps on notification, create an "HandleNearContent" to manage in-app content
 if (content != null && content is NITReactionBundle)
 {
     HandleNearContent(content);
 }
 </div>
 <div class="code-bridge">
-When an user taps on a notification, call "ParseContent" method which will manage your in-app content and send it automatically in the common fragment.<br><br>
+// When an user taps on a notification, call "ParseContent" method which will manage your in-app content and send it automatically in the common fragment
 if (content != null && content is NITReactionBundle)
 {
     NearBridgeiOS.ParseContent(content);

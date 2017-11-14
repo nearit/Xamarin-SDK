@@ -4171,9 +4171,6 @@ namespace NearForms.Droid
 			// aapt resource value: 0x7f080039
 			public const int abc_toolbar_collapse_description = 2131230777;
 			
-			// aapt resource value: 0x7f080056
-			public const int apiKey = 2131230806;
-			
 			// aapt resource value: 0x7f080048
 			public const int appbar_scrolling_view_behavior = 2131230792;
 			
@@ -4311,6 +4308,9 @@ namespace NearForms.Droid
 			
 			// aapt resource value: 0x7f080026
 			public const int mr_user_route_category_name = 2131230758;
+			
+			// aapt resource value: 0x7f080056
+			public const int nearit_api_key = 2131230806;
 			
 			// aapt resource value: 0x7f08004b
 			public const int password_toggle_content_description = 2131230795;

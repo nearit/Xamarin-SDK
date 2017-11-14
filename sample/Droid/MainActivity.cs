@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -6,10 +7,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using XamarinBridge.Droid;
-using IT.Near.Sdk.Utils;
-using IT.Near.Sdk;
 using Android;
+using IT.Near.Sdk.Utils;
+using XamarinBridge.Droid;
+using IT.Near.Sdk;
 using Android.Gms.Common;
 
 namespace NearForms.Droid
@@ -31,8 +32,10 @@ namespace NearForms.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             LoadApplication(new App());
-            GetLocationPermission();
 
+            NearBridgeDroid.vuoto();
+
+            GetLocationPermission();
         }
 
         protected override void OnPostCreate(Bundle savedInstanceState)
@@ -45,7 +48,7 @@ namespace NearForms.Droid
         {
             if (intent != null && NearUtils.CarriesNearItContent(intent))
             {
-                NearBridge.ParseIntent(intent);
+                NearBridgeDroid.ParseIntent(intent);
             }
         }
 

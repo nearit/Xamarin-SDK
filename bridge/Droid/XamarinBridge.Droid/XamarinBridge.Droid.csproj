@@ -162,7 +162,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NearBridge.cs" />
+    <Compile Include="NearBridgeDroid.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Adapter\AdapterFeedback.cs" />

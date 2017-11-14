@@ -16,6 +16,8 @@ NearBridge.ParseIntent(intent);
 ## Beacon Interaction Content
 Beacon interaction (beacon ranging) is a peculiar trigger that works only when your app is in the foreground.
 <br>To receive this kind of content set a **proximity listener** with the method:
+
+
 ```csharp
 
 ProximityListener _proximityListener;
