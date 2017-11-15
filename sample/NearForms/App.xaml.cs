@@ -10,7 +10,7 @@ namespace NearForms
         public App()
         {
             InitializeComponent();
-
+            System.Diagnostics.Debug.WriteLine("App.xaml");
             MainPage = new NearFormsPage();
             NearPCL.SetContentManager(this);
         }
@@ -32,26 +32,27 @@ namespace NearForms
 
         public void GotXContentNotification(XCContentNotification notification)
         {
+            throw new System.NotImplementedException();
         }
 
         public void GotXCouponNotification(XCCouponNotification notification)
         {
+            throw new System.NotImplementedException();
         }
 
         public void GotXCustomJSONNotification(XCCustomJSONNotification notification)
         {
+            throw new System.NotImplementedException();
         }
 
         public void GotXSimpleNotification(XCSimpleNotification notification)
         {
+            throw new System.NotImplementedException();
         }
 
         public void GotXFeedbackNotification(XCFeedbackNotification notification)
         {
-            System.Diagnostics.Debug.WriteLine("Noti message: ");
-            System.Diagnostics.Debug.WriteLine(notification.NotificationMessage);
-            System.Diagnostics.Debug.WriteLine("Question: ");
-            System.Diagnostics.Debug.WriteLine(notification.Question);
+            
         }
     }
 }

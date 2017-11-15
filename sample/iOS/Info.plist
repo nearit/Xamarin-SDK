@@ -43,10 +43,10 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>NearIT need your postition</string>
+	<string>New Entry</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>NearIT need your postition</string>
+	<string>New Entry</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>NearIT need your postition</string>
+	<string></string>
 </dict>
 </plist>

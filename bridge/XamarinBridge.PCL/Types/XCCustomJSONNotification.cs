@@ -7,6 +7,7 @@ namespace XamarinBridge.PCL.Types
     {
         public string NotificationMessage;
         public Dictionary<string, object> Content;
+        public string Id;
 
         public XCCustomJSONNotification()
         {

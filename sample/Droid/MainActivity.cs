@@ -33,8 +33,6 @@ namespace NearForms.Droid
 
             LoadApplication(new App());
 
-            NearBridgeDroid.vuoto();
-
             GetLocationPermission();
         }
 

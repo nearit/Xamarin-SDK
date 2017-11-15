@@ -44,9 +44,9 @@ namespace XamarinBridge.Droid
             NearUtils.ParseCoreContents(intent, _coreContentListener);
         }
 
-        public static void vuoto()
+        public static void ParseForegroundEvent(IParcelable parcelable, TrackingInfo track)
         {
-            System.Diagnostics.Debug.WriteLine("Chiamata a vuoto");
+            NearUtils.ParseCoreContents(parcelable, track, _coreContentListener);
         }
 
         public void RefreshConfiguration()
@@ -65,14 +65,13 @@ namespace XamarinBridge.Droid
 
         public void SendEvent(XCEvent ev)
         {
-            if(ev.GetPluginName() == XCFeedbackEvent.PluginName)
+            if (ev.GetPluginName() == XCFeedbackEvent.PluginName)
             {
                 XCFeedbackEvent feedbackEvent = (XamarinBridge.PCL.Types.XCFeedbackEvent)ev;
 
                 XCFeedbackNotification feedback = feedbackEvent.FeedbackNotification;
-                Feedback nativeFeedback = new Feedback();
 
-                nativeFeedback = AdapterFeedback.GetNativeFeeback(nativeFeedback, feedback);
+                Feedback nativeFeedback = AdapterFeedback.GetNative(feedback);
 
                 FeedbackEvent nativeFeedbackEvent = new FeedbackEvent(nativeFeedback, feedbackEvent.rating, feedbackEvent.comment);
                 NearItManager.Instance.SendEvent(nativeFeedbackEvent);
@@ -90,7 +89,7 @@ namespace XamarinBridge.Droid
 
         public void SetUserData(string key, string value)
         {
-            NearItManager.Instance.SetUserData(key,value);
+            NearItManager.Instance.SetUserData(key, value);
         }
 
         public void GetProfileId()
@@ -169,16 +168,7 @@ namespace XamarinBridge.Droid
         {
             public void GotContentNotification(Content p0, TrackingInfo p1)
             {
-                Content ContentNotification = p0;
-                XCContentNotification XContent = new XCContentNotification();
-
-                XContent.NotificationMessage = ContentNotification.NotificationMessage;
-                XContent.Title = ContentNotification.Title;
-                XContent.Content = ContentNotification.ContentString;
-                XContent.ImageLink.FullSize = ContentNotification.ImageLink.FullSize;
-                XContent.ImageLink.SmallSize = ContentNotification.ImageLink.SmallSize;
-                XContent.Cta.Label = ContentNotification.Cta.Label;
-                XContent.Cta.Url = ContentNotification.Cta.Url;
+                XCContentNotification XContent = AdapterContent.GetCommonType(p0);
 
                 if (NearPCL.GetContentManager() != null)
                 {
@@ -189,17 +179,8 @@ namespace XamarinBridge.Droid
 
             public void GotCouponNotification(Coupon p0, TrackingInfo p1)
             {
-                Coupon CouponNotification = p0;
-                XCCouponNotification XCoupon = new XCCouponNotification();
-
-                XCoupon.NotificationMessage = CouponNotification.NotificationMessage;
-                XCoupon.Description = CouponNotification.Description;
-                XCoupon.Value = CouponNotification.Value;
-                XCoupon.ExpiresAt = CouponNotification.ExpiresAt;
-                XCoupon.ReedemableFrom = CouponNotification.RedeemableFrom;
-                XCoupon.IconSet.FullSize = CouponNotification.IconSet.FullSize;
-                XCoupon.IconSet.SmallSize = CouponNotification.IconSet.SmallSize;
-
+                XCCouponNotification XCoupon = AdapterCoupon.GetCommonType(p0);
+                    
                 if (NearPCL.GetContentManager() != null)
                 {
                     NearPCL.GetContentManager().GotXCouponNotification(XCoupon);
@@ -209,11 +190,7 @@ namespace XamarinBridge.Droid
 
             public void GotCustomJSONNotification(CustomJSON p0, TrackingInfo p1)
             {
-                CustomJSON CustomJSONNotification = p0;
-                XCCustomJSONNotification XCustomJSON = new XCCustomJSONNotification();
-
-                XCustomJSON.NotificationMessage = CustomJSONNotification.NotificationMessage;
-                XCustomJSON.Content = (System.Collections.Generic.Dictionary<string, object>)CustomJSONNotification.Content;
+                XCCustomJSONNotification XCustomJSON = AdapterCustom.GetCommonType(p0);
 
                 if (NearPCL.GetContentManager() != null)
                 {
@@ -224,12 +201,7 @@ namespace XamarinBridge.Droid
 
             public void GotFeedbackNotification(Feedback p0, TrackingInfo p1)
             {
-                Feedback FeedbackNotification = p0;
-                XCFeedbackNotification XFeedback = new XCFeedbackNotification();
-
-                XFeedback.NotificationMessage = FeedbackNotification.NotificationMessage;
-                XFeedback.Question = FeedbackNotification.Question;
-                XFeedback.RecipeId = p1.RecipeId;
+                XCFeedbackNotification XFeedback = AdapterFeedback.GetCommonType(p0);
 
                 if (NearPCL.GetContentManager() != null)
                 {
@@ -240,10 +212,7 @@ namespace XamarinBridge.Droid
 
             public void GotSimpleNotification(SimpleNotification p0, TrackingInfo p1)
             {
-                SimpleNotification SimpleNotification = p0;
-                XCSimpleNotification XSimple = new XCSimpleNotification();
-
-                XSimple.NotificationMessage = SimpleNotification.NotificationMessage;
+                XCSimpleNotification XSimple = AdapterSimple.GetCommonType(p0);
 
                 if (NearPCL.GetContentManager() != null)
                 {

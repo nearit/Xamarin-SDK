@@ -21,10 +21,26 @@ namespace NearBridge
             HandleNearContent.HandleContent(content, _contentsListener);
         }
 
-        public void SetApiKey(string apiKey)
+        public static void SetApiKey()
         {
-            NITManager.SetupWithApiKey(apiKey);
+            Console.WriteLine("Your ApiKey: ");
+            Console.WriteLine(loadApiKey());
+            NITManager.SetupWithApiKey(loadApiKey());
         }
+
+        private static string loadApiKey()
+        {
+            NSDictionary settings = NSDictionary.FromFile("Keys.plist");
+
+            if (settings != null)
+            {
+                var value = settings.ValueForKey(new NSString("apiKey"));
+                if (value != null) return value.ToString();
+            }
+
+            return "";
+        }
+
 
         public void RefreshConfiguration()
         {
@@ -57,12 +73,12 @@ namespace NearBridge
                 XCFeedbackNotification feedback = feedbackEvent.FeedbackNotification;
                 NITFeedback nativeFeedback = new NITFeedback();
 
-                nativeFeedback = AdapterFeedback.GetNativeFeeback(nativeFeedback, feedback);
+                nativeFeedback = AdapterFeedback.GetNative(feedback);
 
-                NITFeedbackEvent naviveFeedbackEvent = new NITFeedbackEvent(nativeFeedback, feedbackEvent.rating, feedbackEvent.comment);
-                NITManager.DefaultManager.SendEventWithEvent(naviveFeedbackEvent,
+                NITFeedbackEvent nativeFeedbackEvent = new NITFeedbackEvent(nativeFeedback, feedbackEvent.rating, feedbackEvent.comment);
+                NITManager.DefaultManager.SendEventWithEvent(nativeFeedbackEvent,
                                                              (error) => {
-                                                                 if (error != null) Console.WriteLine("SendEventWithEvent error ios");
+                                                                 if (error != null) Console.WriteLine("SendEventWithEvent error ios" + error);
                                                                  else Console.WriteLine("SendEventWithEvent ios");
                                                              });
             }
@@ -80,26 +96,34 @@ namespace NearBridge
 
         public void SetUserData(string key, string value)
         {
-            NITManager.DefaultManager.SetDeferredUserDataWithKey(key,value);
+            NITManager.DefaultManager.SetUserData(key, value);
         }
 
         public void GetProfileId()
         {
             NITManager.DefaultManager.ProfileIdWithCompletionHandler(
-                (arg1, arg2) => {
-                if (arg2 != null) Console.WriteLine("GetProfileId error ios");
-                else Console.WriteLine("GetProfileId ios");
+                (arg1, arg2) =>
+                {
+                    if (arg2 != null) Console.WriteLine("GetProfileId error ios");
+                    else Console.WriteLine("GetProfileId ios");
                 });
         }
 
         public void SetProfileId(string profile)
         {
-            NITManager.DefaultManager.ProfileId = profile;
+            NITManager.DefaultManager.ProfileIdWithCompletionHandler((arg1, arg2) =>
+            {
+                if (arg2 != null) Console.WriteLine("SetProfileId error ios");
+                else Console.WriteLine("SetProfileId ios");
+            });
         }
 
         public void ResetProfileId()
         {
-            NITManager.DefaultManager.ResetProfile();
+            NITManager.DefaultManager.ResetProfileWithCompletionHandler((arg1, arg2) => {
+                if(arg2 != null) Console.WriteLine("ResetProfileId error ios");
+                else Console.WriteLine("ResetProfileId ios");
+            });
         }
 
         public void OptOut()
@@ -119,71 +143,58 @@ namespace NearBridge
         {
             public void GotContentNotification(NITContent content)
             {
-                NITContent ContentNotification = content;
-                XCContentNotification XContent = new XCContentNotification();
+                XCContentNotification XContent = AdapterContent.GetCommonType(content);
 
-                XContent.NotificationMessage = ContentNotification.NotificationMessage;
-                XContent.Title = ContentNotification.Title;
-                XContent.Content = ContentNotification.Content;
-                XContent.ImageLink.FullSize = ContentNotification.Image.Url.AbsoluteString;
-                XContent.ImageLink.SmallSize = ContentNotification.Image.SmallSizeURL.AbsoluteString;
-                XContent.Cta.Label = ContentNotification.Link.Label;
-                XContent.Cta.Url = ContentNotification.Link.Url.AbsoluteString;
-
-                // TODO null check
-                NearPCL.GetContentManager().GotXContentNotification(XContent);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXContentNotification(XContent);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
             public void GotCouponNotification(NITCoupon content)
             {
-                NITCoupon CouponNotification = content;
-                XCCouponNotification XCoupon = new XCCouponNotification();
+                XCCouponNotification XCoupon = AdapterCoupon.GetCommonType(content);
 
-                XCoupon.NotificationMessage = CouponNotification.NotificationMessage;
-                XCoupon.Description = CouponNotification.Description;
-                XCoupon.Value = CouponNotification.Value;
-                XCoupon.ExpiresAt = CouponNotification.ExpiresAt;
-                XCoupon.ReedemableFrom = CouponNotification.RedeemableFrom;
-                XCoupon.IconSet.FullSize = CouponNotification.Icon.Url.AbsoluteString;
-                XCoupon.IconSet.SmallSize = CouponNotification.Icon.SmallSizeURL.AbsoluteString;
-
-                NearPCL.GetContentManager().GotXCouponNotification(XCoupon);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXCouponNotification(XCoupon);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
             public void GotCustomJSONNotification(NITCustomJSON content)
             {
-                NITCustomJSON CustomJSONNotification = content;
-                XCCustomJSONNotification XCustomJSON = new XCCustomJSONNotification();
+                XCCustomJSONNotification XCustomJSON = AdapterCustom.GetCommonType(content);
 
-                XCustomJSON.NotificationMessage = CustomJSONNotification.NotificationMessage;
-                foreach (var item in CustomJSONNotification.Content)
+                if (NearPCL.GetContentManager() != null)
                 {
-                    XCustomJSON.Content.Add((NSString)item.Key, item.Value);
+                    NearPCL.GetContentManager().GotXCustomJSONNotification(XCustomJSON);
                 }
-
-                NearPCL.GetContentManager().GotXCustomJSONNotification(XCustomJSON);
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
             public void GotFeedbackNotification(NITFeedback content)
             {
-                NITFeedback FeedbackNotification = content;
-                XCFeedbackNotification XFeedback = new XCFeedbackNotification();
+                XCFeedbackNotification XFeedback = AdapterFeedback.GetCommonType(content);
 
-                XFeedback.NotificationMessage = FeedbackNotification.NotificationMessage;
-                XFeedback.Question = FeedbackNotification.Question;
-                XFeedback.RecipeId = FeedbackNotification.RecipeId;
-
-                NearPCL.GetContentManager().GotXFeedbackNotification(XFeedback);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXFeedbackNotification(XFeedback);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
+
 
             public void GotSimpleNotification(NITSimpleNotification content)
             {
-                NITSimpleNotification SimpleNotification = content;
-                XCSimpleNotification XSimple = new XCSimpleNotification();
+                XCSimpleNotification XSimple = AdapterSimple.GetCommonType(content);
 
-                XSimple.NotificationMessage = SimpleNotification.NotificationMessage;
-
-                NearPCL.GetContentManager().GotXSimpleNotification(XSimple);
+                if (NearPCL.GetContentManager() != null)
+                {
+                    NearPCL.GetContentManager().GotXSimpleNotification(XSimple);
+                }
+                else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
         }
     }

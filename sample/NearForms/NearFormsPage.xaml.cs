@@ -1,25 +1,13 @@
-﻿using System;
-using Xamarin.Forms;
-using XamarinBridge.PCL;
-using XamarinBridge.PCL.Manager;
+﻿using Xamarin.Forms;
 
 namespace NearForms
 {
-    public partial class NearFormsPage : ContentPage, INearFunc
+    public partial class NearFormsPage : ContentPage
     {
+
         public NearFormsPage()
         {
             InitializeComponent();
-        }
-
-        public void Refresh(object sender, EventArgs args)
-        {
-            RefreshConfiguration();
-        }
-
-        public void RefreshConfiguration()
-        {
-            NearPCL.RefreshConfiguration();
         }
     }
 }

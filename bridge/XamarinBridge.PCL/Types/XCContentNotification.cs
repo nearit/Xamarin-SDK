@@ -10,6 +10,7 @@ namespace XamarinBridge.PCL.Types
         public string Content;
         public XCImageSet ImageLink;
         public XCContentLink Cta;
+        public string Id;
 
         public XCContentNotification()
         {

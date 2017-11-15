@@ -166,6 +166,10 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Adapter\AdapterFeedback.cs" />
+    <Compile Include="Adapter\AdapterContent.cs" />
+    <Compile Include="Adapter\AdapterCoupon.cs" />
+    <Compile Include="Adapter\AdapterCustom.cs" />
+    <Compile Include="Adapter\AdapterSimple.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

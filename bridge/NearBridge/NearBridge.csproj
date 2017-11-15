@@ -45,9 +45,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="NearIT.iOS">
-      <HintPath>..\packages\Xamarin.NearIT.iOS.2.2.7\lib\NearIT.iOS.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Forms.Core">
       <HintPath>..\packages\Xamarin.Forms.2.5.0.19271-pre2\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -60,6 +57,9 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.5.0.19271-pre2\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="NeariOSBind">
+      <HintPath>..\..\..\..\Desktop\NeariOSBind\NeariOSBind\bin\Debug\NeariOSBind.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -67,11 +67,15 @@
     <Folder Include="Adapter\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyClass.cs" />
+    <Compile Include="NearBridgeiOS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Parser\HandleNearContent.cs" />
     <Compile Include="Parser\IContentsListener.cs" />
     <Compile Include="Adapter\AdapterFeedback.cs" />
+    <Compile Include="Adapter\AdapterContent.cs" />
+    <Compile Include="Adapter\AdapterCoupon.cs" />
+    <Compile Include="Adapter\AdapterCustom.cs" />
+    <Compile Include="Adapter\AdapterSimple.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamarinBridge.PCL\XamarinBridge.PCL.csproj">

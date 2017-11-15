@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{43EB77B5-4688-4384-B98C-B9488C456C2B}</ProjectGuid>
+    <ProjectGuid>{020D20D1-976D-4B60-9351-A927C2116BA5}</ProjectGuid>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>NearForms</RootNamespace>
@@ -31,13 +31,11 @@
     <EmbeddedResource Include="NearFormsPage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
     <Compile Include="NearFormsPage.xaml.cs">
       <DependentUpon>NearFormsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="App.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -50,7 +48,7 @@
       <HintPath>..\packages\Xamarin.Forms.2.4.0.38779\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="XamarinBridge.PCL">
-      <HintPath>..\..\..\..\Desktop\XamarinBridge.PCL.dll</HintPath>
+      <HintPath>..\packages\Xamarin.NearIT.Bridge.2.3.1\lib\XamarinBridge.PCL.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

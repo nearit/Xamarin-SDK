@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -33,13 +32,13 @@
     <Compile Include="Types\XCFeedbackNotification.cs" />
     <Compile Include="Types\XCContentNotification.cs" />
     <Compile Include="Types\XCCouponNotification.cs" />
-    <Compile Include="Types\XCCustomJSONNotification.cs" />
     <Compile Include="Types\XCImageSet.cs" />
     <Compile Include="Types\XCContentLink.cs" />
     <Compile Include="Manager\IContentManager.cs" />
     <Compile Include="Manager\INearFunc.cs" />
     <Compile Include="Types\XCTrackingInfo.cs" />
     <Compile Include="Types\XCEvent.cs" />
+    <Compile Include="Types\XCCustomJSONNotification.cs" />
     <Compile Include="Types\XCFeedbackEvent.cs" />
   </ItemGroup>
   <ItemGroup>

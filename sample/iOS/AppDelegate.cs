@@ -1,13 +1,12 @@
-﻿using Xamarin.Forms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreLocation;
 using Foundation;
+using NearBridge;
 using NearIT;
 using UIKit;
 using UserNotifications;
-using NearBridge;
 
 namespace NearForms.iOS
 {
@@ -20,13 +19,10 @@ namespace NearForms.iOS
 
             LoadApplication(new App());
 
-
-
-
-            var apiKey = loadApiKey();
-            Console.WriteLine(apiKey);
-
-            NITManager.SetupWithApiKey(apiKey);
+            NearBridgeiOS.SetApiKey();
+            /*var ApiKey = loadApiKey();
+            Console.WriteLine(ApiKey);
+            NITManager.SetupWithApiKey(ApiKey);*/
 
             CLLocationManager LocationManager = new CLLocationManager();
             LocationManager.AuthorizationChanged += (s, e) =>
@@ -39,20 +35,8 @@ namespace NearForms.iOS
 
             LocationManager.RequestAlwaysAuthorization();
 
-
-
-
-            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
-
-            });
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => { });
             UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
-
-
-
-
-            EventContent ec = new EventContent();
-
-            app.RegisterForRemoteNotifications();
 
             return base.FinishedLaunching(app, options);
         }
@@ -80,61 +64,60 @@ namespace NearForms.iOS
         {
             Console.WriteLine("ERRORRegisteredForRemoteNotifications");
         }
-    }
 
-    public class UserNotificationDelegate : UNUserNotificationCenterDelegate
-    {
-        public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+        internal class UserNotificationDelegate : UNUserNotificationCenterDelegate
         {
-            completionHandler(UNNotificationPresentationOptions.Alert);
-        }
-
-        public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
-        {
-            var userInfo = response.Notification.Request.Content.UserInfo;
-
-            ReceiveResponse(userInfo);
-        }
-
-        public void ReceiveResponse(NSDictionary userInfo)
-        {
-            NSString[] keys = new NSString[userInfo.Keys.Length];
-            int i;
-            for (i = 0; i < userInfo.Keys.Length; i++)
+            public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
             {
-                if (userInfo.Keys[i] is NSString)
-                    keys[i] = userInfo.Keys[i] as NSString;
-                else
-                    i = int.MaxValue;
+                completionHandler(UNNotificationPresentationOptions.Alert);
             }
-            if (i != int.MaxValue)
+
+            public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
             {
-                NSDictionary<NSString, NSObject> notif = new NSDictionary<NSString, NSObject>(keys, userInfo.Values);
-                NITManager.DefaultManager.ProcessRecipeWithUserInfo(notif, (content, recipe, error) =>
+                var userInfo = response.Notification.Request.Content.UserInfo;
+
+                ReceiveResponse(userInfo);
+            }
+
+            public void ReceiveResponse(NSDictionary userInfo) 
+            {
+                NSString[] keys = new NSString[userInfo.Keys.Length];
+                int i;
+                for (i = 0; i < userInfo.Keys.Length; i++)
                 {
-                    if (content != null && content is NITReactionBundle)
+                    if (userInfo.Keys[i] is NSString)
+                        keys[i] = userInfo.Keys[i] as NSString;
+                    else
+                        i = int.MaxValue;
+                }
+                if (i != int.MaxValue)
+                {
+                    NSDictionary<NSString, NSObject> notif = new NSDictionary<NSString, NSObject>(keys, userInfo.Values);
+                    NITManager.DefaultManager.ProcessRecipeWithUserInfo(notif, (content, recipe, error) =>
                     {
-                        Console.WriteLine("Near notification tap: " + content.NotificationMessage);
-                        MyClass.ParseContent(content);
-                    }
-                });
+                        if (content != null && content is NITReactionBundle)
+                        {
+                            Console.WriteLine("Near notification tap: " + content.NotificationMessage);
+                            NearBridgeiOS.ParseContent(content);
+                       }
+                    });
+                }
             }
         }
 
-
-    }
-
-    public class EventContent : NITManagerDelegate
-    {
-        public override void EventFailureWithError(NITManager manager, NSError error)
+        internal class EventContent : NITManagerDelegate
         {
-            Console.WriteLine("error");
+            public override void EventFailureWithError(NITManager manager, NSError error)
+            {
+                Console.WriteLine("error");
+            }
+
+            public override void EventWithContent(NITManager manager, NSObject content, NITTrackingInfo trackingInfo)
+            {
+                Console.WriteLine("EventWithContent");
+                NearBridgeiOS.ParseContent(content);
+            }
         }
 
-        public override void EventWithContent(NITManager manager, NSObject content, NITTrackingInfo trackingInfo)
-        {
-            Console.WriteLine("EventWithContent");
-            MyClass.ParseContent(content);
-        }
     }
 }
