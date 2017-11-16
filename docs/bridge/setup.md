@@ -2,7 +2,7 @@
 
 This Bridge allows you to manage significant SDK's method directly in the common fragment of your project.
 
-To install NearIT Bridge, click on “**Project>Add NuGet Packages**”, find and add the following NuGet package in your shared fragment:
+To install NearIT Bridge, click on “**Project>Add NuGet Packages**”, make sure you have "**Show pre-release packages**" option checked, find and add the following NuGet package in your shared fragment:
 ```
 - Xamarin.NearIT.PCL
 ```

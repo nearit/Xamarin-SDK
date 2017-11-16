@@ -2,7 +2,7 @@
 
 **NOTE** Make sure that your are using Visual Studio 7.2+
 
-To install NearIT for your iOS component, click on “**Project>Add NuGet Packages**”, find and add the following NuGet package:
+To install NearIT for your iOS component, click on “**Project>Add NuGet Packages**”, make sure you have "**Show pre-release packages**" option checked, find and add the following NuGet package:
 ```
 - Xamarin.NearIT.iOS
 ```
