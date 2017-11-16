@@ -2,7 +2,7 @@
 
 **NOTE** Make sure that your are using Visual Studio 7.2+ and **target framework** 8.0
 
-To install NearIT for your Android component, click on “**Project>Add NuGet Packages**” and find and add the following NuGet package:
+To install NearIT for your Android component, click on “**Project>Add NuGet Packages**”, make sure you have "**Show pre-release packages**" option checked, find and add the following NuGet package:
 ```
 - Xamarin.NearIT.Android
 ```

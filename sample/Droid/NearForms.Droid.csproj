@@ -139,16 +139,16 @@
       <HintPath>..\packages\Xamarin.GooglePlayServices.Location.60.1142.0-beta2\lib\MonoAndroid80\Xamarin.GooglePlayServices.Location.dll</HintPath>
     </Reference>
     <Reference Include="AltBeacon.Droid">
-      <HintPath>..\packages\Xamarin.NearIT.Android.2.3.0\lib\AltBeacon.Droid.dll</HintPath>
+      <HintPath>..\packages\Xamarin.NearIT.Android.2.3.0\lib\NearITSDK\AltBeacon.Droid.dll</HintPath>
     </Reference>
     <Reference Include="BindDroid">
-      <HintPath>..\packages\Xamarin.NearIT.Android.2.3.0\lib\BindDroid.dll</HintPath>
-    </Reference>
-    <Reference Include="XamarinBridge.Droid">
-      <HintPath>..\packages\Xamarin.NearIT.Android.2.3.0\lib\XamarinBridge.Droid.dll</HintPath>
+      <HintPath>..\packages\Xamarin.NearIT.Android.2.3.0\lib\NearITSDK\BindDroid.dll</HintPath>
     </Reference>
     <Reference Include="GoogleServices">
-      <HintPath>..\packages\Xamarin.NearIT.Android.2.3.0\lib\GoogleServices.dll</HintPath>
+      <HintPath>..\packages\Xamarin.NearIT.Android.2.3.0\lib\NearITSDK\GoogleServices.dll</HintPath>
+    </Reference>
+    <Reference Include="XamarinBridge.Droid">
+      <HintPath>..\packages\Xamarin.NearIT.Android.2.3.0\lib\NearITSDK\XamarinBridge.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

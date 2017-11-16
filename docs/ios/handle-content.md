@@ -65,16 +65,11 @@ NITManager.DefaultManager.SendEventWithEvent(feedback, (error) => {
 
 We handle the complete emission and redemption coupon cycle in our platform, and we deliver a coupon content only when a coupon is emitted (you will not be notified of recipes when a profile has already received the coupon, even if the coupon is still valid).
 You can ask the library to fetch the list of all the user current coupons with the method:
-
-<div class="code-native">
+```
 NITManager.DefaultManager.CouponsWithCompletionHandler((coupons, error) => {
 ...
 });
-</div>
-
-<div class="code-bridge">
-NearPCL.GetCoupon();
-</div>
+```
 
 
 

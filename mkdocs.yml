@@ -4,14 +4,16 @@ extra_css : ["css/nearitdocs.css"]
 extra_javascript : ["js/extra.js"]
 pages:
     - 'Getting started' : 'index.md'
-    - 'Bridge' :
+    - 'Portable Class Library' :
         - 'Setup' : 'bridge/setup.md'
+        - 'Notification Setup' : 'bridge/notification-setup.md'
         - 'In-app Content' : 'bridge/handle-content.md'
+        - 'User Profiling' : 'bridge/user-profiling.md'
     - 'iOS' :
         - 'Setup' : 'ios/setup.md'
         - 'Notification Setup' : 'ios/setup-notifications.md'
         - 'Location Based Notifications' : 'ios/location-based-notifications.md'
-        - 'Push Notification' : 'ios/push-notifications.md'
+        - 'Push Notifications' : 'ios/push-notifications.md'
         - 'In-app Content' : 'ios/handle-content.md'
         - 'User Profiling' : 'ios/user-profiling.md'
     - 'Android' :

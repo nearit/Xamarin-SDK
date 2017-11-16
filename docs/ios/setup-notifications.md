@@ -41,27 +41,19 @@ public class UserNotificationDelegate : UNUserNotificationCenterDelegate
     }
 }
 ```
-
-<div class="code-native">
-// When user taps on notification, create an "HandleNearContent" to manage in-app content
+When user taps on notification, create an **HandleNearContent** method to manage in-app content.
+```
 if (content != null && content is NITReactionBundle)
 {
     HandleNearContent(content);
 }
-</div>
-<div class="code-bridge">
-// When an user taps on a notification, call "ParseContent" method which will manage your in-app content and send it automatically in the common fragment
-if (content != null && content is NITReactionBundle)
-{
-    NearBridgeiOS.ParseContent(content);
-}
-
-</div>
+```
+The code below is called when a notification arrived.
 
 ```csharp
 {
     ...
-    manager.delegate = &lt;NearManagerDelegate&gt;
+    manager.delegate = <NearManagerDelegate>;
     ...
 }
 
@@ -93,7 +85,7 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
 
 ```
 
-<div class="code-native">
+```
 // Manage tap on remote notifications
 public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 {
@@ -126,43 +118,8 @@ public class NearDelegate : NITManagerDelegate
         HandleNearContent(content);
     }
 }
+```
 
-</div>
-
-<div class="code-bridge">
-// Manage tap on remote notifications
-public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
-{
-    NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
-        if (content != null && content is NITReactionBundle)
-        {
-            NearBridgeiOS.ParseContent(content);
-        }
-    });
-}
-
-// Manage tap on local notifications
-public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
-{
-    NSDictionary userInfo = notification.UserInfo;
-    NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
-        if (content != null && content is NITReactionBundle)
-        {
-            NearBridgeiOS.ParseContent(content);
-        }
-    });
-}
-
-// Manage tap on iOS9 in-app alert
-public class NearDelegate : NITManagerDelegate
-{
-
-    public override void AlertWantsToShowContent(NITManager manager, NSObject content)
-    {
-        NearBridgeiOS.ParseContent(content);
-    }
-}
-</div>
 
 <br>If you want to customize your notifications, see this [section](../customize-notifications.md).
 
@@ -178,7 +135,7 @@ Usually the SDK tracks those events automatically, but if you write custom code 
 
 You can track **default or custom events** using the "**sendTracking**" method:
 
-<div class="code-native">
+```
 // notified - notification received
 NITManager.DefaultManager.SendTrackingWithTrackingInfo(trackingInfo, "notified");
 
@@ -187,13 +144,4 @@ NITManager.DefaultManager.SendTrackingWithTrackingInfo(trackingInfo, "engaged");
 
 // custom recipe event
 NITManager.DefaultManager.SendTrackingWithTrackingInfo(trackingInfo, "my awesome custom event");
-</div>
-
-<div class="code-bridge">
-NearPCL.SendTracking(trackingInfo, value);
-</div>
-
-
-
-
-
+```

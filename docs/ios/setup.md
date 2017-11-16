@@ -2,7 +2,7 @@
 
 **NOTE** Make sure that your are using Visual Studio 7.2+
 
-To install NearIT for your iOS component, click on “**Project>Add NuGet Packages**”, find and add the following NuGet package:
+To install NearIT for your iOS component, click on “**Project>Add NuGet Packages**”, make sure you have "**Show pre-release packages**" option checked, find and add the following NuGet package:
 ```
 - Xamarin.NearIT.iOS
 ```
@@ -20,20 +20,17 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
 
 You can find the API key on <a href="https://go.nearit.com/" target="_blank">**NearIT web interface**</a>, under the "**Settings>SDK Integration**" section.
 
-<br>
-##Manual Configuration Refresh##
+
+## Manual Configuration Refresh ##
 
 The SDK **initialization is done automatically** and handles the task of syncing the recipes with our servers when your app starts up.
 <br>However, if you need to sync the recipes configuration more often, you can call this method:
 
-<div class="code-native">
+```
 NITManager.DefaultManager.RefreshConfigWithCompletionHandler((error) => {
 ...
 });
-</div>
-<div class="code-bridge">
-NearPCL.RefreshConfiguration();
-</div>
+```
 
 If the method has succeeded, *error* is **null**.
 
