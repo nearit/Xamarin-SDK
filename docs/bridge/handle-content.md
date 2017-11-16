@@ -23,7 +23,7 @@ In your native fragment, content can have several class types:
     - `NotificationMessage` returns the notification message
 
 - `XCContentNotification` for the notification with content, with the following attributes:
-   - `Title` returns the notification title
+    - `Title` returns the notification title
     - `Content` returns the text content, without processing the html
     - `ImageLink` returns the link of the image object
     - `Cta` returns a `ContentLink` with a label and url fields

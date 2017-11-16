@@ -7,8 +7,9 @@ To install NearIT Bridge, click on “**Project>Add NuGet Packages**”, find an
 - Xamarin.NearIT.PCL
 ```
 
-Then move to the native fragments, install its NuGet (you can find it here, [Setup (iOS)](../ios/setup.md) or [Setup (Android)](../android/setup.md)) and set the Api Key.<br>
-To set the Api Key of **iOS** you can follow the docs or call inside `FinishedLaunching` method of your **AppDelegate** class this method:
+Then move to the native fragments, install its NuGet (you can find it in [Setup (iOS)](../ios/setup.md) or [Setup (Android)](../android/setup.md)) and set the Api Key.<br>
+
+To set the Api Key of **iOS** you can follow the docs or (if you have created a *Keys.plist* file where you define a variable **apiKey**),  call inside `FinishedLaunching` method of your **AppDelegate** class this method:
 ```
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
