@@ -1,4 +1,4 @@
-# Setup (Android)#
+# Setup (Android) #
 
 **NOTE** Make sure that your are using Visual Studio 7.2+ and **target framework** 8.0
 
