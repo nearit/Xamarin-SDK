@@ -11,12 +11,9 @@ String profileId = NearItManager.Instance.ProfileId;
 If the result is null, it means that no profile is associated with the app installation (probably due to a network error). The SDK will re-try to create a profile at every start, and every time a new user data is set.
 
 After the profile is created set user data:
-<div class="code-native">
+```
 NearItManager.Instance.SetUserData(key,value);
-</div>
-<div class="code-bridge">
-NearPCL.SetUserData(key, value);
-</div>
+```
 
 If you have multiple data properties, set them in batch:
 ```csharp
@@ -28,12 +25,9 @@ NearItManager.Instance.SetBatchUserData(userData, _successListener);
 If you try to set user data before creating a profile the error callback will be called.
 
 If you want to reset your profile use this method:
-div class="code-native">
+```
 NearItManager.Instance.ResetProfileId();
-</div>
-<div class="code-bridge">
-NearPCL.ResetProfileId();
-</div>
+```
 
 Further calls to *ProfileId* will return null. A creation of a new profile after the reset will create a profile with no user data.
 <br><br>
@@ -49,17 +43,18 @@ If you can, we recommend you to store the NearIT profileID in your CRM database 
 
 
 Getting the local profile ID of an user is easy:
-<div class="code-native">
+```
 String profileId = NearItManager.Instance.ProfileId;
-</div>
-<div class="code-bridge">
-NearPCL.GetProfileId();
-</div>
+```
 
 If you detect that your user already has a NearIT profileID in your CRM database (i.e. after a login), you should manually write it on a local app installation:
-<div class="code-native">
+```
 NearItManager.Instance.ProfileId = "FROM_SERVER";
-</div>
-<div class="code-bridge">
-NearPCL.SetProfileId(profile);
-</div>
+```
+
+## Opt-Out
+
+You can **opt-out** a profile and its device:
+```
+NearItManager.Instance.InvokeOptOut(_optOutListener);
+```

@@ -4,9 +4,21 @@ This Bridge allows you to manage significant SDK's method directly in the common
 
 To install NearIT Bridge, click on “**Project>Add NuGet Packages**”, find and add the following NuGet package in your shared fragment:
 ```
-- Xamarin.NearIT.Bridge
+- Xamarin.NearIT.PCL
 ```
-Then implement `INearFunc` and  `IContentManager` interfaces.
+
+Then move to the native fragments, install its NuGet (you can find it here, [Setup (iOS)](../ios/setup.md) or [Setup (Android)](../android/setup.md)) and set the Api Key.<br>
+To set the Api Key of **iOS** you can follow the docs or call inside `FinishedLaunching` method of your **AppDelegate** class this method:
+```
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    ...
+    NearBridgeiOS.SetApiKey();
+    ...
+}
+```
+<br>
+Now you can implement `INearFunc` and  `IContentManager` interfaces.
 
 
 ##INearFunc Interface##

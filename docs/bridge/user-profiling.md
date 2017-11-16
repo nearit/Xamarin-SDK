@@ -6,7 +6,7 @@ NearIT creates an anonymous profile for every user of your app. You can choose t
 
 You can set user data with this method, it can be called multiple times to set several user data:
 ```
-NITManager.DefaultManager.SetDeferredUserDataWithKey("gender", "m");
+NearPCL.SetUserData(key, value);
 ```
 
 **Remember** <br>
@@ -24,26 +24,24 @@ If you can, we recommend you to store the NearIT profileID in your CRM database 
 
 Getting the local profile ID of an user is easy:
 ```
-NITManager.DefaultManager.ProfileIdWithCompletionHandler((profile, error) => {
-    ...
-});
+NearPCL.GetProfileId();
 ```
 
 
 If you detect that your user already has a NearIT profileID in your CRM database (i.e. after a login), you should manually write it on a local app installation:
 ```
-NITManager.DefaultManager.ProfileId = "your remote NearIT profile ID";
+NearPCL.SetProfileId(profile);
 ```
 
 
 Whenever a users **signs out** from your app, you should reset the NearIT profileID:
 ```
-NITManager.DefaultManager.ResetProfile();
+NearPCL.ResetProfileId();
 ```
 
 ## Opt-Out
 
 You can **opt-out** a profile and its device:
 ```
-NITManager.DefaultManager.ResetProfile();
+NearPCL.OptOut();
 ```
