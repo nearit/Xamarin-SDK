@@ -15,6 +15,8 @@ a.icon-home {
 /* Always show version selector */
 .rst-current-version { display:none !important }
 .rst-other-versions { display:block !important }
+.rst-other-versions .injected hr {display: none !important}
+.rst-other-versions .injected dl:first-child {display: none !important}
 .injected dl:not(:first-child) { display:none }
 .injected dl dt { display:inline-block }
 .injected hr { margin: 13px 0 !important }
