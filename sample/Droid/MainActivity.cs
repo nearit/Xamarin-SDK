@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -6,32 +7,20 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using IT.Near.Sdk;
-using IT.Near.Sdk.Geopolis.Beacons.Ranging;
-using IT.Near.Sdk.Utils;
-using IT.Near.Sdk.Reactions.Simplenotificationplugin.Model;
-using IT.Near.Sdk.Trackings;
-using IT.Near.Sdk.Operation;
-using IT.Near.Sdk.Reactions.Contentplugin.Model;
-using IT.Near.Sdk.Reactions.Couponplugin.Model;
-using IT.Near.Sdk.Reactions.Customjsonplugin.Model;
-using IT.Near.Sdk.Reactions.Feedbackplugin.Model;
 using Android;
+using IT.Near.Sdk.Utils;
+using XamarinBridge.Droid;
+using IT.Near.Sdk;
 using Android.Gms.Common;
-using System.Collections.Generic;
-using IT.Near.Sdk.Recipes;
 
-namespace XamarinSample.Droid
+namespace NearForms.Droid
 {
-    [Activity(Label = "XamarinSample.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "NearForms.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        ProximityListener _proximityListener;
         readonly string[] PermissionsLocation = { Manifest.Permission.AccessFineLocation };
         const int RequestLocationId = 0;
         TextView msgText;
-        UserDataListener _successListener;
-
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -44,16 +33,21 @@ namespace XamarinSample.Droid
 
             LoadApplication(new App());
 
-            _proximityListener = new ProximityListener();
-
-            NearItManager.Instance.AddProximityListener(_proximityListener);
-
-            var userData = new Dictionary<string, string> {
-                { "name", "John" } , {"age", "23"} , { "saw_tutorial" , "true" }
-            };
-            NearItManager.Instance.SetBatchUserData(userData, new UserDataListener());
-
             GetLocationPermission();
+        }
+
+        protected override void OnPostCreate(Bundle savedInstanceState)
+        {
+            base.OnPostCreate(savedInstanceState);
+            OnNewIntent((Intent)Intent);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            if (intent != null && NearUtils.CarriesNearItContent(intent))
+            {
+                NearBridgeDroid.ParseIntent(intent);
+            }
         }
 
         public void GetLocationPermission()
@@ -69,7 +63,7 @@ namespace XamarinSample.Droid
             RequestPermissions(PermissionsLocation, RequestLocationId);
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -113,95 +107,5 @@ namespace XamarinSample.Droid
                 return true;
             }
         }
-
-        public void RefreshConfig()
-        {
-            RecipeRefreshListener recipeRefreshListener = new RecipeRefreshListener(this);
-            NearItManager.Instance.RefreshConfigs(recipeRefreshListener);
-        }
-
     }
-
-    internal class RecipeRefreshListener : Java.Lang.Object, IRecipeRefreshListener
-    {
-
-        Context context;
-
-        public RecipeRefreshListener(Context context)
-        {
-            this.context = context;
-        }
-
-        public void OnRecipesRefresh()
-        {
-            Console.WriteLine("Recipe refreshed");
-            //Toast.MakeText(context, "Recipe refreshed", ToastLength.Short).Show();
-        }
-
-        public void OnRecipesRefreshFail()
-        {
-
-        }
-    }
-
-
-    internal class ProximityListener : Java.Lang.Object, IProximityListener
-    {
-        private ICoreContentsListener _coreContentListener;
-
-        public void ForegroundEvent(IParcelable p0, TrackingInfo p1)
-        {
-            Console.WriteLine("Ranging Beacon");
-        }
-    }
-
-
-
-
-    internal class EventContent : Java.Lang.Object, ICoreContentsListener
-    {
-        public void GotContentNotification(Content p0, TrackingInfo p1)
-        {
-            Console.WriteLine("GotContentNotification ", p0.NotificationMessage);
-        }
-
-        public void GotCouponNotification(Coupon p0, TrackingInfo p1)
-        {
-            Console.WriteLine("GotCouponNotification ", p0.NotificationMessage);
-        }
-
-        public void GotCustomJSONNotification(CustomJSON p0, TrackingInfo p1)
-        {
-            Console.WriteLine("GotCustomJSONNotification ", p0.NotificationMessage);
-        }
-
-        public void GotFeedbackNotification(Feedback p0, TrackingInfo p1)
-        {
-            Console.WriteLine("GotFeedbackNotification ", p0.NotificationMessage);
-        }
-
-        public void GotSimpleNotification(SimpleNotification p0, TrackingInfo p1)
-        {
-            Console.WriteLine("Simple Notification: ", p0.NotificationMessage);
-        }
-    }
-
-
-
-
-    internal class UserDataListener : Java.Lang.Object, IUserDataNotifier
-    {
-        public void OnDataCreated()
-        {
-            Console.WriteLine("on data created");
-        }
-
-        public void OnDataNotSetError(string p0)
-        {
-            Console.WriteLine("on data not set error");
-        }
-    }
-
-
-
 }

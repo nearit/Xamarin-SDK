@@ -8,10 +8,16 @@ To extract the content from an intent use the utility method:
 ```csharp
 NearUtils.ParseCoreContents(intent, _coreContentListener);
 ```
+**Instead**, if you want that the Bridge manages the tap, call this method in your **OnNewIntent**
+```csharp
+NearBridge.ParseIntent(intent);
+```
 
 ## Beacon Interaction Content
 Beacon interaction (beacon ranging) is a peculiar trigger that works only when your app is in the foreground.
 <br>To receive this kind of content set a **proximity listener** with the method:
+
+
 ```csharp
 
 ProximityListener _proximityListener;
@@ -41,13 +47,13 @@ NearIT allows to track user engagement events on recipes. Any recipe has at leas
 
   - **Notified**: the user *received* a notification
   - **Engaged**: the user *tapped* on the notification
-  
+
 Usually the SDK tracks those events automatically, but if you write custom code to show notification or content (i.e. to receive Beacon interaction content) please make sure that at least the "**notified**" event is tracked.
 <br>**WARNING** Failing in tracking this event cause some NearIT features to not work.
 
 
 You can track **default or custom events** using the "**sendTracking**" method:
-```java
+```
 // notified - notification received
 NearItManager.Instance.SendTracking(trackinginfo, Recipe.NotifiedStatus);
 // engaged - notification tapped
@@ -83,7 +89,7 @@ NearItManager.Instance.SendEvent(new FeedbackEvent(...), _callbackHandler);
 ```
 
 - `Coupon` with the following getters and fields:
-    - `Name` returns the coupon name
+    - `Title` returns the coupon title
     - `Description` returns the coupon description
     - `Value` returns the value string
     - `ExpiresAt` returns the expiring date (as a string), might be null
@@ -99,12 +105,15 @@ NearItManager.Instance.SendEvent(new FeedbackEvent(...), _callbackHandler);
 
 - `CustomJSON` with the following fields:
     - `Content` returns the json content as an *IDictionary*
+    
+**NOTE** Click here the [Handle In-app Content (Bridge)](../bridge/handle-content.md) of the Bridge.
 
 ## Fetch current user coupon
 
 We handle the complete emission and redemption coupon cycle in our platform, and we deliver a coupon content only when a coupon is emitted (you will not be notified of recipes when a profile has already received the coupon, even if the coupon is still valid).
 You can ask the library to fetch the list of all the user current coupons with the method:
-```java
+```
 NearItManager.Instance.GetCoupons(_couponlistener);
 ```
+
 The method will also return already redeemed coupons so you get to decide to filter them if necessary.

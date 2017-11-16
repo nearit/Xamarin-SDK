@@ -1,7 +1,6 @@
 ## Notification Setup (iOS)
 
 This setup allows NearIT to show notifications automatically.<br>
-When an user taps on a notification, an "**handleNearContent**" method will be called to let you manage in-app content presentation.
 
 ### iOS10+
 If your app is closed or in background, a system notification will be added to the Notification Center.
@@ -36,9 +35,35 @@ public class UserNotificationDelegate : UNUserNotificationCenterDelegate
         NSDictionary userInfo = response.Notification.Request.Content.UserInfo;
         NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
             if (content != null && content is NITReactionBundle) {
-                Console.WriteLine("Near notification tap: " + content.NotificationMessage);
+                // see code below
             }
         });
+    }
+}
+```
+When user taps on notification, create an **HandleNearContent** method to manage in-app content.
+```
+if (content != null && content is NITReactionBundle)
+{
+    HandleNearContent(content);
+}
+```
+The code below is called when a notification arrived.
+
+```csharp
+{
+    ...
+    manager.delegate = <NearManagerDelegate>;
+    ...
+}
+
+class NearSDKManager : NearManagerDelegate {
+    func manager(_ manager: NearManager, eventWithContent content: Any, trackingInfo: NITTrackingInfo) {
+    // Handle the content
+    }
+
+    func manager(_ manager: NearManager, eventFailureWithError error: Error) {
+    // handle errors (only for information purpose)
     }
 }
 ```
@@ -57,9 +82,12 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
     UIRemoteNotificationType notificationTypes = UIRemoteNotificationType.Alert | UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound;
     UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
 }  
-        
+
+```
+
+```
 // Manage tap on remote notifications
-public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, System.Action<UIBackgroundFetchResult> completionHandler)
+public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
 {
     NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
         if (content != null && content is NITReactionBundle)
@@ -92,9 +120,9 @@ public class NearDelegate : NITManagerDelegate
 }
 ```
 
+
 <br>If you want to customize your notifications, see this [section](../customize-notifications.md).
 
-<br>
 ## Trackings
 NearIT allows to track user engagement events on recipes. Any recipe has at least two default events:
 
@@ -106,8 +134,8 @@ Usually the SDK tracks those events automatically, but if you write custom code 
 
 
 You can track **default or custom events** using the "**sendTracking**" method:
- 
-```csharp
+
+```
 // notified - notification received
 NITManager.DefaultManager.SendTrackingWithTrackingInfo(trackingInfo, "notified");
 

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>XamarinSample</string>
+	<string>NearForms</string>
 	<key>CFBundleName</key>
-	<string>XamarinSample</string>
+	<string>NearForms</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.XamarinSample</string>
+	<string>com.companyname.NearForms</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -42,15 +42,11 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>NearIT need your location</string>
+	<string>New Entry</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>NearIT need your location</string>
+	<string>New Entry</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>NearIT need your location</string>
+	<string></string>
 </dict>
 </plist>

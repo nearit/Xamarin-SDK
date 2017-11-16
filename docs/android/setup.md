@@ -1,8 +1,11 @@
 # Setup (Android)#
 
-**NOTE** Make sure that your are using Visual Studio 7.2+ and target framework 8.0
+**NOTE** Make sure that your are using Visual Studio 7.2+ and **target framework** 8.0
 
-To install NearIT for your Android component, add all the *.dll* files from the `dlls` folder on our <a href="https://github.com/nearit/Xamarin-SDK/" target="_blank">GitHub repository</a>. To do that, right-click on “**References>Edit References**”. From the window, select the tab “**References**” and then “**Browse**” to select the *.dll* files.
+To install NearIT for your Android component, click on “**Project>Add NuGet Packages**”, make sure you have "**Show pre-release packages**" option checked, find and add the following NuGet package:
+```
+- Xamarin.NearIT.Android
+```
 
 In your *AndroidManifest.xml*, under the section *Source*, add the following permissions:
 ```xml
@@ -24,17 +27,8 @@ and the following code:
 </receiver>
 ```
 
-Click on “**Project>Add NuGet Packages**” and find and add the following NuGet package:
-```
-- Xamarin.Android.Support.Compat v7 (min version: 26.0.2-rc1)
-
-- Xamarin.Firebase.Messaging (min version: 57.1104.0-beta1)
-
-- Xamarin.GooglePlayServices.Location (min version: 57.1104.0-beta1)
-```
-
 **WARNING**
-In either mode, **Debug** and **Release**, make sure you have enabled Multi-Dex mode in “**Options>Android Build**”.
+In either mode, **Debug** and **Release**, make sure you have enabled **Multi-Dex** mode in “**Options>Android Build**”.
 
 In your code you can access the `NearItManager` instance with:
 ```csharp

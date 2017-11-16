@@ -1,11 +1,11 @@
 $(function(){
 
-  $('.code-swift').replaceWith(function() {
-    return $('<div class="code-switcher"> <button class="tab-swift" onclick="switchCode(0)">Swift</button> <button class="tab-objc" onclick="switchCode(1)">Objective-C</button> </div><pre class="code swift"><code>' + this.innerHTML + '</code></pre>');
+  $('.code-native').replaceWith(function() {
+    return $('<div class="code-switcher"> <button class="tab-native" onclick="switchCode(0)">Native</button> <button class="tab-bridge" onclick="switchCode(1)">Bridge</button> </div><pre class="code native"><code>' + this.innerHTML + '</code></pre>');
   });
 
-  $('.code-objc').replaceWith(function() {
-    return $('<pre class="code objc"><code>' + this.innerHTML + '</code></pre>');
+  $('.code-bridge').replaceWith(function() {
+    return $('<pre class="code bridge"><code>' + this.innerHTML + '</code></pre>');
   });
 
   switchCode(0);
@@ -20,19 +20,19 @@ function switchCode(item) {
   // show selected code blocks and change selected tab
   switch (item) {
     case 0:
-      $('.swift').show();
-      $('.tab-swift').addClass('active')
-      $('.tab-objc').removeClass('active')
+      $('.native').show();
+      $('.tab-native').addClass('active')
+      $('.tab-bridge').removeClass('active')
       break;
     case 1:
-      $('.objc').show();
-      $('.tab-objc').addClass('active')
-      $('.tab-swift').removeClass('active')
+      $('.bridge').show();
+      $('.tab-bridge').addClass('active')
+      $('.tab-native').removeClass('active')
       break;
     default:
-      $('.swift').show();
-      $('.tab-swift').addClass('active')
-      $('.tab-objc').removeClass('active')
+      $('.native').show();
+      $('.tab-native').addClass('active')
+      $('.tab-bridge').removeClass('active')
       break;
   }
 

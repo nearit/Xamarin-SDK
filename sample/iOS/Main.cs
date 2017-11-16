@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace XamarinSample.iOS
+namespace NearForms.iOS
 {
     public class Application
     {
