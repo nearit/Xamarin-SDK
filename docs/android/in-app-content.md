@@ -8,10 +8,6 @@ To extract the content from an intent use the utility method:
 ```csharp
 NearUtils.ParseCoreContents(intent, _coreContentListener);
 ```
-**Instead**, if you want that the Bridge manages the tap, call this method in your **OnNewIntent**
-```csharp
-NearBridge.ParseIntent(intent);
-```
 
 ## Beacon Interaction Content
 Beacon interaction (beacon ranging) is a peculiar trigger that works only when your app is in the foreground.
