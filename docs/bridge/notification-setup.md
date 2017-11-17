@@ -2,7 +2,7 @@
 
 This setup allows you receive location based notification and beacon notification.
 
-First of all add the permission to the native fragment you want to use and start the radar, [Notification Setup (iOS)](../ios/setup-notifications.md) or [Setup (Android)](../android/setup.md)<br>
+First of all add the permission to the native fragment you want to use and start the radar, [Notification Setup (iOS)](../ios/setup-notifications.md) or [Setup (Android)](../android/location-based-notifications.md)<br>
 
 ## iOS ##
 

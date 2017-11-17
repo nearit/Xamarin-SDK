@@ -54,12 +54,12 @@ namespace XamarinBridge.PCL
             DependencyService.Get<INearFunc>().SetProfileId(profile);
         }
 
-        public void ResetProfileId()
+        public static void ResetProfileId()
         {
             DependencyService.Get<INearFunc>().ResetProfileId();
         }
 
-        public void OptOut()
+        public static void OptOut()
         {
             DependencyService.Get<INearFunc>().OptOut();
         }
