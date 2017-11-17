@@ -127,5 +127,6 @@ This interface allows to manage the notification using a common type:
 
 `void GotXSimpleNotification(XCSimpleNotification notification);`
 
+**Remember** to call the method `NearPCL.SetContentManager(this);` in the constructor of the class where you implement this interface. 
 <br>
 **NOTE** The methods will be explain during the docs.
