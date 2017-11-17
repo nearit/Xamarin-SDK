@@ -15,6 +15,7 @@ namespace NearForms
 
         public void OptOut(object sender, System.EventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("qwerty");
             NearPCL.OptOut();
         }
 
