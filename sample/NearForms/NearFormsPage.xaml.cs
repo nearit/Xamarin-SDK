@@ -1,4 +1,7 @@
 ﻿using Xamarin.Forms;
+using XamarinBridge.PCL;
+using XamarinBridge.PCL.Manager;
+using XamarinBridge.PCL.Types;
 
 namespace NearForms
 {
@@ -9,5 +12,14 @@ namespace NearForms
         {
             InitializeComponent();
         }
+
+        public void OptOut(object sender, System.EventArgs e)
+        {
+            NearPCL.OptOut();
+        }
+
+
+
+
     }
 }
