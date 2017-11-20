@@ -11,8 +11,17 @@ NearUtils.ParseCoreContents(intent, _coreContentListener);
 
 ## Beacon Interaction Content
 Beacon interaction (beacon ranging) is a peculiar trigger that works only when your app is in the foreground.
-<br>To receive this kind of content set a **proximity listener** with the method:
+<br>
+NearIT Android SDK will automatically show heads-up notifications.
 
+<br>
+If you need to disable the default behaviour, call this method in the **onCreate** method of your application:
+
+```
+NearItManager.Instance.DisableDefaultRangingNotifications();
+```
+
+And if you want to receive ranging contents and handle them manually, set a **proximity listener** with the method:
 
 ```csharp
 
