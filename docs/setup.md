@@ -90,6 +90,4 @@ NearItManager.Instance.RefreshConfigs(<IRecipeRefreshListener>);
 
 Implement `IContentManager` interface that allows you to manage the notification using a common type.
 
-**Remember** to call the method `NearPCL.SetContentManager(this);` in the constructor of the class where you implement this interface. 
-<br><br>
-**NOTE** The methods will be explain during the docs.
+**Remember** to call the method `NearPCL.SetContentManager(this);` in the constructor of the class where you implement this interface.
