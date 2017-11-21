@@ -88,45 +88,6 @@ NearItManager.Instance.RefreshConfigs(<IRecipeRefreshListener>);
 <br>
 ## Portable Class Library
 
-Implement `INearFunc` and  `IContentManager` interfaces.
+Implement `IContentManager` interface that allows you to manage the notification using a common type.
 
-
-### INearFunc Interface
-
-This interface allows to use the main methods:
-
-`void RefreshConfiguration();`
-
-`void SendTrack(XCTrackingInfo trackingInfo, string value);`
-
-`void SendEvent(XCEvent ev);`
-
-`void GetCoupon();`
-
-`void SetUserData(string key, string value);`
-
-`void GetProfileId();`
-
-`void SetProfileId(string profile);`
-
-`void ResetProfileId();`
-
-`void OptOut();`
-
-### IContentManager Interface
-
-This interface allows to manage the notification using a common type:
-
-`void GotXContentNotification(XCContentNotification notification);`
-
-`void GotXCouponNotification(XCCouponNotification notification);`
-
-`void GotXCustomJSONNotification(XCCustomJSONNotification notification);`
-
-`void GotXFeedbackNotification(XCFeedbackNotification notification);`
-
-`void GotXSimpleNotification(XCSimpleNotification notification);`
-
-**Remember** to call the method `NearPCL.SetContentManager(this);` in the constructor of the class where you implement this interface. 
-<br><br>
-**NOTE** The methods will be explain during the docs.
+**Remember** to call the method `NearPCL.SetContentManager(this);` in the constructor of the class where you implement this interface.
