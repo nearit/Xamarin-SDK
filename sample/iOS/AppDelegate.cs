@@ -20,9 +20,9 @@ namespace NearForms.iOS
             LoadApplication(new App());
 
             NearBridgeiOS.SetApiKey();
-            /*var ApiKey = loadApiKey();
-            Console.WriteLine(ApiKey);
-            NITManager.SetupWithApiKey(ApiKey);*/
+
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {});
+            UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
 
             CLLocationManager LocationManager = new CLLocationManager();
             LocationManager.AuthorizationChanged += (s, e) =>
@@ -35,23 +35,8 @@ namespace NearForms.iOS
 
             LocationManager.RequestAlwaysAuthorization();
 
-            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => { });
-            UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
 
             return base.FinishedLaunching(app, options);
-        }
-
-        public string loadApiKey()
-        {
-            NSDictionary settings = NSDictionary.FromFile("Keys.plist");
-
-            if (settings != null)
-            {
-                var value = settings.ValueForKey(new NSString("apiKey"));
-                if (value != null) return value.ToString();
-            }
-
-            return "";
         }
 
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
