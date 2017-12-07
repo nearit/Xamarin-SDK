@@ -13,6 +13,9 @@ namespace NearForms.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+
+            CLLocationManager LocationManager = new CLLocationManager();
+
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
@@ -21,19 +24,34 @@ namespace NearForms.iOS
 
             NearBridgeiOS.SetApiKey();
 
-            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {});
+
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
+                if(approved)
+                {
+                    InvokeOnMainThread(() => {
+                        // manipulate UI controls
+                        LocationManager.AuthorizationChanged += (s, e) =>
+                        {
+                            if (e.Status == CLAuthorizationStatus.AuthorizedAlways)
+                                NITManager.DefaultManager.Start();
+                            else
+                                NITManager.DefaultManager.Stop();
+
+                            NITManager.DefaultManager.RefreshConfigWithCompletionHandler((NSError err2) => {
+                                if (err2 == null) {
+									Console.WriteLine("Recipes refreshed!");
+                                } else {
+                                    Console.WriteLine(err2);
+                                }
+                            });
+                        };
+                        LocationManager.RequestAlwaysAuthorization();
+                    });
+
+
+                }
+            });
             UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
-
-            CLLocationManager LocationManager = new CLLocationManager();
-            LocationManager.AuthorizationChanged += (s, e) =>
-            {
-                if (e.Status == CLAuthorizationStatus.AuthorizedAlways)
-                    NITManager.DefaultManager.Start();
-                else
-                    NITManager.DefaultManager.Stop();
-            };
-
-            LocationManager.RequestAlwaysAuthorization();
 
 
             return base.FinishedLaunching(app, options);

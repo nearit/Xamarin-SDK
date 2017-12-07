@@ -53,17 +53,19 @@ The code below is called when a notification arrived.
 ```csharp
 {
     ...
-    manager.delegate = <NearManagerDelegate>;
+    manager.delegate = <NITManagerDelegate>;
     ...
 }
 
-class NearSDKManager : NearManagerDelegate {
-    func manager(_ manager: NearManager, eventWithContent content: Any, trackingInfo: NITTrackingInfo) {
-    // Handle the content
+public class NearSDKManager : NITManagerDelegate {
+    public override void EventFailureWithError(NITManager manager, NSError error)
+    {
+        ...
     }
 
-    func manager(_ manager: NearManager, eventFailureWithError error: Error) {
-    // handle errors (only for information purpose)
+    public override void EventWithContent(NITManager manager, NSObject content, NITTrackingInfo trackingInfo)
+    {
+        ...
     }
 }
 ```

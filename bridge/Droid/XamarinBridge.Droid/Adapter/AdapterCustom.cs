@@ -11,7 +11,9 @@ namespace XamarinBridge.Droid.Adapter
             XCCustomJSONNotification XCustomJSON = new XCCustomJSONNotification();
 
             XCustomJSON.NotificationMessage = CustomJSONNotification.NotificationMessage;
-            XCustomJSON.Content = (System.Collections.Generic.Dictionary<string, object>)CustomJSONNotification.Content;
+
+            XCustomJSON.Content = CustomJSONNotification.Content;
+
             XCustomJSON.Id = CustomJSONNotification.Id;
 
             return XCustomJSON;

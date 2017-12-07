@@ -32,7 +32,7 @@ namespace NearForms
 
         public void GotXContentNotification(XCContentNotification notification)
         {
-            throw new System.NotImplementedException();
+            System.Diagnostics.Debug.WriteLine("Content");
         }
 
         public void GotXCouponNotification(XCCouponNotification notification)
@@ -42,7 +42,7 @@ namespace NearForms
 
         public void GotXCustomJSONNotification(XCCustomJSONNotification notification)
         {
-            throw new System.NotImplementedException();
+            System.Diagnostics.Debug.WriteLine("Custom");
         }
 
         public void GotXSimpleNotification(XCSimpleNotification notification)
@@ -52,7 +52,7 @@ namespace NearForms
 
         public void GotXFeedbackNotification(XCFeedbackNotification notification)
         {
-            
+            System.Diagnostics.Debug.WriteLine("feedback");
         }
     }
 }

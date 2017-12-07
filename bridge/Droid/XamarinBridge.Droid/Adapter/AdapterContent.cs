@@ -13,10 +13,20 @@ namespace XamarinBridge.Droid.Adapter
             XContent.NotificationMessage = ContentNotification.NotificationMessage;
             XContent.Title = ContentNotification.Title;
             XContent.Content = ContentNotification.ContentString;
-            XContent.ImageLink.FullSize = ContentNotification.ImageLink.FullSize;
-            XContent.ImageLink.SmallSize = ContentNotification.ImageLink.SmallSize;
-            XContent.Cta.Label = ContentNotification.Cta.Label;
-            XContent.Cta.Url = ContentNotification.Cta.Url;
+
+            if (ContentNotification.ImageLink != null)
+            {
+                XContent.ImageLink = new XCImageSet();
+                XContent.ImageLink.FullSize = ContentNotification.ImageLink.FullSize;
+                XContent.ImageLink.SmallSize = ContentNotification.ImageLink.SmallSize;
+            }
+
+            if (ContentNotification.Cta != null)
+            {
+                XContent.Cta = new XCContentLink();
+                XContent.Cta.Label = ContentNotification.Cta.Label;
+                XContent.Cta.Url = ContentNotification.Cta.Url;
+            }
             XContent.Id = ContentNotification.Id;
 
             return XContent;

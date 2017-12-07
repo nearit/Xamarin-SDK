@@ -15,8 +15,12 @@ namespace XamarinBridge.Droid.Adapter
             XCoupon.Value = CouponNotification.Value;
             XCoupon.ExpiresAt = CouponNotification.ExpiresAt;
             XCoupon.ReedemableFrom = CouponNotification.RedeemableFrom;
-            XCoupon.IconSet.FullSize = CouponNotification.Icon.Url.AbsoluteString;
-            XCoupon.IconSet.SmallSize = CouponNotification.Icon.SmallSizeURL.AbsoluteString;
+            if (CouponNotification.Icon != null)
+            {
+                XCoupon.IconSet = new XCImageSet();
+                XCoupon.IconSet.FullSize = CouponNotification.Icon.Url.AbsoluteString;
+                XCoupon.IconSet.SmallSize = CouponNotification.Icon.SmallSizeURL.AbsoluteString;
+            }
             XCoupon.Id = CouponNotification.ID;
 
             return XCoupon;

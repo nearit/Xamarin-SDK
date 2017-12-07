@@ -95,14 +95,14 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.5.0.91635\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
-    <Reference Include="NearBridge">
-      <HintPath>..\packages\Xamarin.NearIT.iOS.2.4.2\lib\NearITSDK\NearBridge.dll</HintPath>
-    </Reference>
     <Reference Include="NeariOSBind">
-      <HintPath>..\packages\Xamarin.NearIT.iOS.2.4.2\lib\NearITSDK\NeariOSBind.dll</HintPath>
+      <HintPath>..\packages\Xamarin.NearIT.iOS.2.4.3\lib\NearITSDK\NeariOSBind.dll</HintPath>
     </Reference>
     <Reference Include="XamarinBridge.PCL">
-      <HintPath>..\packages\Xamarin.NearIT.iOS.2.4.2\lib\NearITSDK\XamarinBridge.PCL.dll</HintPath>
+      <HintPath>..\packages\Xamarin.NearIT.iOS.2.4.3\lib\NearITSDK\XamarinBridge.PCL.dll</HintPath>
+    </Reference>
+    <Reference Include="NearBridge">
+      <HintPath>..\..\bridge\NearBridge\bin\Debug\NearBridge.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -147,6 +147,7 @@ namespace NearBridge
 
                 if (NearPCL.GetContentManager() != null)
                 {
+                    Console.WriteLine("prima di gotxcontent");
                     NearPCL.GetContentManager().GotXContentNotification(XContent);
                 }
                 else Console.WriteLine("You receive a content but you haven't registered a content manager");
