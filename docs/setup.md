@@ -67,25 +67,6 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
 You can find the API key on <a href="https://go.nearit.com/" target="_blank">**NearIT web interface**</a>, under the "**Settings>SDK Integration**" section.
 <br><br>
 
-## Manual Configuration Refresh ##
-
-The SDK **initialization is done automatically** and handles the task of syncing the recipes with our servers when your app starts up.
-<br>However, if you need to sync the recipes configuration more often, you can call this method:
-
-### iOS
-```
-NITManager.DefaultManager.RefreshConfigWithCompletionHandler((error) => {
-    ...
-});
-```
-
-If the method has succeeded, *error* is **null**.
-
-### Android
-```
-NearItManager.Instance.RefreshConfigs(<IRecipeRefreshListener>);
-```
-<br>
 ## Portable Class Library
 
 Implement `IContentManager` interface that allows you to manage the notification using a common type.
