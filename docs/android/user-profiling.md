@@ -58,3 +58,5 @@ You can **opt-out** a profile and its device:
 ```
 NearItManager.Instance.InvokeOptOut(_optOutListener);
 ```
+If the opt-out call is successful all the **user-data** and **trackings** will be deleted and the **SDK will cease to work** (the user's devices will not receive further notifications).
+
