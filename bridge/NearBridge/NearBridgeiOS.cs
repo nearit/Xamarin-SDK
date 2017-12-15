@@ -28,7 +28,7 @@ namespace NearBridge
             NITManager.SetupWithApiKey(loadApiKey());
         }
 
-        private static string loadApiKey()
+        private static string loadApiKey()s
         {
             NSDictionary settings = NSDictionary.FromFile("Keys.plist");
 
@@ -41,6 +41,7 @@ namespace NearBridge
             return "";
         }
 
+        [ObsoleteAttribute("RefreshConfiguration is an obsolete method.")]
         public void RefreshConfiguration()
         {
             NITManager.DefaultManager.RefreshConfigWithCompletionHandler(

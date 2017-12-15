@@ -23,7 +23,7 @@ Also, add your NearIT API-Key in the `application` element.
 and the following code:
 ```xml
 <receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
-<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true"                             android:permission="com.google.android.c2dm.permission.SEND">
+<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
     <intent-filter>
         <action android:name="com.google.android.c2dm.intent.RECEIVE" />
         <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
@@ -63,29 +63,29 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
     ...
 }
 ```
+To keep your app up to date even if a user is not using the app, you have to call the sdk method developed to support the iOS feature called **background fetch**.
+```
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+    ...
+    UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(MINIMUM_BACKGROUND_FETCH_INTERVAL);    //MINIMUM_BACKGROUND_FETCH_INTERVAL usually set to 900
+    ...
+}
 
+public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+{
+    NITManager.DefaultManager.PerformFetchWithCompletionHandler(application, (UIBackgroundFetchResult obj) =>
+    {
+        completionHandler(obj);
+    });
+}
+```
+
+<br><br>
 You can find the API key on <a href="https://go.nearit.com/" target="_blank">**NearIT web interface**</a>, under the "**Settings>SDK Integration**" section.
 <br><br>
 
-## Manual Configuration Refresh ##
 
-The SDK **initialization is done automatically** and handles the task of syncing the recipes with our servers when your app starts up.
-<br>However, if you need to sync the recipes configuration more often, you can call this method:
-
-### iOS
-```
-NITManager.DefaultManager.RefreshConfigWithCompletionHandler((error) => {
-    ...
-});
-```
-
-If the method has succeeded, *error* is **null**.
-
-### Android
-```
-NearItManager.Instance.RefreshConfigs(<IRecipeRefreshListener>);
-```
-<br>
 ## Portable Class Library
 
 Implement `IContentManager` interface that allows you to manage the notification using a common type.

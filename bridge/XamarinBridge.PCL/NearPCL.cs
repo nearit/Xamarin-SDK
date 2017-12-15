@@ -19,6 +19,7 @@ namespace XamarinBridge.PCL
             return contentManager;
         }
 
+        [ObsoleteAttribute("RefreshConfiguration is an obsolete method.")]
         public static void RefreshConfiguration()
         {
             DependencyService.Get<INearFunc>().RefreshConfiguration();
