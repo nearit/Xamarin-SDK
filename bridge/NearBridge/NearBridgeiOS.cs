@@ -41,7 +41,6 @@ namespace NearBridge
             return "";
         }
 
-
         public void RefreshConfiguration()
         {
             NITManager.DefaultManager.RefreshConfigWithCompletionHandler(
@@ -135,9 +134,10 @@ namespace NearBridge
             });
         }
 
-
-
-
+        public void ProcessCustomTrigger(string key)
+        {
+            NITManager.DefaultManager.ProcessCustomTriggerWithKey(key);
+        }
 
         internal class EventContent : IContentsListener
         {

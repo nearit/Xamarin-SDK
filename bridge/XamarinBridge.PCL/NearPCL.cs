@@ -64,5 +64,10 @@ namespace XamarinBridge.PCL
             DependencyService.Get<INearFunc>().OptOut();
         }
 
+        public static void ProcessCustomTrigger(string key)
+        {
+            DependencyService.Get<INearFunc>().ProcessCustomTrigger(key);
+        }
+
     }
 }
