@@ -54,7 +54,7 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
     ...
 }
 ```
-**Instead** if you have created a *Keys.plist* file where you define a variable **apiKey**, you can call inside `FinishedLaunching` method of your **AppDelegate** class this method:
+**Instead** if you have created a *Keys.plist* file where you define a variable **apiKey** and after set **Build Action>BundleResource**, you can call inside `FinishedLaunching` method of your **AppDelegate** class this method:
 ```
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
