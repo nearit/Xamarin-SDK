@@ -52,7 +52,7 @@ If you detect that your user already has a NearIT profileID in your CRM database
 NearItManager.Instance.ProfileId = "FROM_SERVER";
 ```
 
-## Opt-Out
+## User profiling & Opt-out
 
 You can **opt-out** a profile and its device:
 ```

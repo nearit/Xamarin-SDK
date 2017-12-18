@@ -39,7 +39,7 @@ Whenever a users **signs out** from your app, you should reset the NearIT profil
 NearPCL.ResetProfileId();
 ```
 
-## Opt-Out
+## User profiling & Opt-out
 
 You can **opt-out** a profile and its device:
 ```

@@ -28,7 +28,7 @@ namespace NearBridge
             NITManager.SetupWithApiKey(loadApiKey());
         }
 
-        private static string loadApiKey()s
+        private static string loadApiKey()
         {
             NSDictionary settings = NSDictionary.FromFile("Keys.plist");
 
