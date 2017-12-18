@@ -1,4 +1,4 @@
-# User Profiling (Android)
+# User Profiling & Opt-Out (Android)
 
 NearIT creates an anonymous profile for every user of your app. You can choose to add data to user profile. This data will be available inside recipes to allow the creation of user targets.
 
@@ -52,7 +52,7 @@ If you detect that your user already has a NearIT profileID in your CRM database
 NearItManager.Instance.ProfileId = "FROM_SERVER";
 ```
 
-## User profiling & Opt-out
+## Opt-Out
 
 You can **opt-out** a profile and its device:
 ```

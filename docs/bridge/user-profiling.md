@@ -1,4 +1,4 @@
-# User profiling (Android)
+# User profiling & Opt-Out (Bridge)
 
 NearIT creates an anonymous profile for every user of your app. You can choose to add data to user profile. This data will be available inside recipes to allow the creation of user targets.
 
@@ -39,7 +39,7 @@ Whenever a users **signs out** from your app, you should reset the NearIT profil
 NearPCL.ResetProfileId();
 ```
 
-## User profiling & Opt-out
+## Opt-Out
 
 You can **opt-out** a profile and its device:
 ```
