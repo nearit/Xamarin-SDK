@@ -33,7 +33,7 @@ namespace XamarinBridge.Droid
     {
         int count = 1;
 
-        private static ICoreContentsListener _coreContentListener = new EventContent();
+        private static IContentsListener _contentListener = new EventContent();
         private static IRecipeRefreshListener _refreshListener = new RefreshListener();
         private static ICouponListener _couponListener = new CouponListener();
         private static NearItUserProfile.IProfileFetchListener _profileListener = new ProfileListener();
@@ -41,14 +41,15 @@ namespace XamarinBridge.Droid
 
         public static void ParseIntent(Intent intent)
         {
-            NearUtils.ParseCoreContents(intent, _coreContentListener);
+            NearUtils.ParseContents(intent, _contentListener);
         }
 
         public static void ParseForegroundEvent(IParcelable parcelable, TrackingInfo track)
         {
-            NearUtils.ParseCoreContents(parcelable, track, _coreContentListener);
+            NearUtils.ParseContents(parcelable, track, _contentListener);
         }
 
+        [ObsoleteAttribute("RefreshConfiguration is an obsolete method.")]
         public void RefreshConfiguration()
         {
             NearItManager.Instance.RefreshConfigs(_refreshListener);
@@ -112,6 +113,11 @@ namespace XamarinBridge.Droid
             NearItManager.Instance.InvokeOptOut(_optOutListener);
         }
 
+        public void ProcessCustomTrigger(string key)
+        {
+            NearItManager.Instance.ProcessCustomTrigger(key);
+        }
+
         internal class OptOutListener : Java.Lang.Object, IOptOutNotifier
         {
             public void OnFailure(string p0)
@@ -164,7 +170,7 @@ namespace XamarinBridge.Droid
             }
         }
 
-        internal class EventContent : Java.Lang.Object, ICoreContentsListener
+        internal class EventContent : Java.Lang.Object, IContentsListener
         {
             public void GotContentNotification(Content p0, TrackingInfo p1)
             {

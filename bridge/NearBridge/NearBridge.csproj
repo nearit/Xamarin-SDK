@@ -58,7 +58,7 @@
       <HintPath>..\packages\Xamarin.Forms.2.5.0.19271-pre2\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="NeariOSBind">
-      <HintPath>..\..\..\..\Desktop\NeariOSBind\NeariOSBind\bin\Debug\NeariOSBind.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\Xamarin\NearIT-Bind\iOS-Bind\NeariOSBind\bin\Debug\NeariOSBind.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

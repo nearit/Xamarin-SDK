@@ -19,6 +19,7 @@ namespace XamarinBridge.PCL
             return contentManager;
         }
 
+        [ObsoleteAttribute("RefreshConfiguration is an obsolete method.")]
         public static void RefreshConfiguration()
         {
             DependencyService.Get<INearFunc>().RefreshConfiguration();
@@ -62,6 +63,11 @@ namespace XamarinBridge.PCL
         public static void OptOut()
         {
             DependencyService.Get<INearFunc>().OptOut();
+        }
+
+        public static void ProcessCustomTrigger(string key)
+        {
+            DependencyService.Get<INearFunc>().ProcessCustomTrigger(key);
         }
 
     }

@@ -1,4 +1,4 @@
-# User profiling (iOS)
+# User profiling & Opt-Out (iOS)
 
 NearIT creates an anonymous profile for every user of your app. You can choose to add data to user profile. This data will be available inside recipes to allow the creation of user targets.
 

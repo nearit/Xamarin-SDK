@@ -154,11 +154,11 @@
     <Reference Include="AltBeacon.Droid">
       <HintPath>..\..\packages\Andrea.Near.8.11.0\lib\AltBeacon.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="BindDroid">
-      <HintPath>..\..\packages\Andrea.Near.8.11.0\lib\BindDroid.dll</HintPath>
-    </Reference>
     <Reference Include="GoogleServices">
       <HintPath>..\..\packages\Andrea.Near.8.11.0\lib\GoogleServices.dll</HintPath>
+    </Reference>
+    <Reference Include="BindDroid">
+      <HintPath>..\..\..\..\..\Desktop\Xamarin\Xamarin.NearIT.Android\lib\BindDroid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

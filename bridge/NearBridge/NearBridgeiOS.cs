@@ -41,7 +41,7 @@ namespace NearBridge
             return "";
         }
 
-
+        [ObsoleteAttribute("RefreshConfiguration is an obsolete method.")]
         public void RefreshConfiguration()
         {
             NITManager.DefaultManager.RefreshConfigWithCompletionHandler(
@@ -135,9 +135,10 @@ namespace NearBridge
             });
         }
 
-
-
-
+        public void ProcessCustomTrigger(string key)
+        {
+            NITManager.DefaultManager.ProcessCustomTriggerWithKey(key);
+        }
 
         internal class EventContent : IContentsListener
         {
