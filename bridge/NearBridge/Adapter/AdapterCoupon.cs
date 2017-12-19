@@ -22,6 +22,9 @@ namespace XamarinBridge.Droid.Adapter
                 XCoupon.IconSet.SmallSize = CouponNotification.Icon.SmallSizeURL.AbsoluteString;
             }
             XCoupon.Id = CouponNotification.ID;
+            XCoupon.Serial = CouponNotification.Claims[0].SerialNumber;
+            XCoupon.ClaimedAt = CouponNotification.Claims[0].ClaimedAt;
+            XCoupon.ReedemedAt = CouponNotification.Claims[0].RedeemedAt;
 
             return XCoupon;
         }

@@ -8,6 +8,7 @@ using XamarinBridge.PCL.Manager;
 using XamarinBridge.PCL;
 using Xamarin.Forms;
 using XamarinBridge.Droid.Adapter;
+using System.Collections.Generic;
 
 [assembly: Dependency(typeof(NearBridge.NearBridgeiOS))]
 namespace NearBridge
@@ -24,7 +25,6 @@ namespace NearBridge
         public static void SetApiKey()
         {
             Console.WriteLine("Your ApiKey: ");
-            Console.WriteLine(loadApiKey());
             NITManager.SetupWithApiKey(loadApiKey());
         }
 
@@ -39,17 +39,6 @@ namespace NearBridge
             }
 
             return "";
-        }
-
-        [ObsoleteAttribute("RefreshConfiguration is an obsolete method.")]
-        public void RefreshConfiguration()
-        {
-            NITManager.DefaultManager.RefreshConfigWithCompletionHandler(
-                (error) => {
-                    if (error != null) Console.WriteLine("Refresh error ios");
-                    else Console.WriteLine("Refresh ios");
-                }
-            );
         }
 
         public void SendTrack(XCTrackingInfo trackingInfo, string value)
@@ -77,7 +66,8 @@ namespace NearBridge
 
                 NITFeedbackEvent nativeFeedbackEvent = new NITFeedbackEvent(nativeFeedback, feedbackEvent.rating, feedbackEvent.comment);
                 NITManager.DefaultManager.SendEventWithEvent(nativeFeedbackEvent,
-                                                             (error) => {
+                                                             (error) =>
+                                                             {
                                                                  if (error != null) Console.WriteLine("SendEventWithEvent error ios" + error);
                                                                  else Console.WriteLine("SendEventWithEvent ios");
                                                              });
@@ -85,12 +75,15 @@ namespace NearBridge
 
         }
 
-        public void GetCoupon()
+        public static void GetCoupon(Action<NSArray<NITCoupon>> OnSuccess, Action<NSError> OnFailure)
         {
-            NITManager.DefaultManager.CouponsWithCompletionHandler(
-                (arg1, arg2) => {
-                    if(arg2 != null) Console.WriteLine("GetCoupon error ios");
-                    else Console.WriteLine("GetCoupon ios");
+            NITManager.DefaultManager.CouponsWithCompletionHandler((NSArray<NITCoupon> coupons, NSError error) => 
+            {
+                if (error != null) {
+                    OnFailure.Invoke(error);
+                } else {
+                    OnSuccess.Invoke(coupons);
+                }
             });
         }
 
@@ -99,45 +92,94 @@ namespace NearBridge
             NITManager.DefaultManager.SetUserData(key, value);
         }
 
-        public void GetProfileId()
+        public static void GetProfileId(Action<NSString> OnSuccess, Action<NSError> OnError)
         {
-            NITManager.DefaultManager.ProfileIdWithCompletionHandler(
-                (arg1, arg2) =>
-                {
-                    if (arg2 != null) Console.WriteLine("GetProfileId error ios");
-                    else Console.WriteLine("GetProfileId ios");
-                });
-        }
-
-        public void SetProfileId(string profile)
-        {
-            NITManager.DefaultManager.ProfileIdWithCompletionHandler((arg1, arg2) =>
+            NITManager.DefaultManager.ProfileIdWithCompletionHandler((NSString profileId, NSError error) =>
             {
-                if (arg2 != null) Console.WriteLine("SetProfileId error ios");
-                else Console.WriteLine("SetProfileId ios");
+                if (error != null)
+                {
+                    OnError.Invoke(error);
+                }
+                else
+                {
+                    OnSuccess.Invoke(profileId);
+                }
             });
         }
 
-        public void ResetProfileId()
+        public void SetProfileId(string profileId)
         {
-            NITManager.DefaultManager.ResetProfileWithCompletionHandler((arg1, arg2) => {
-                if(arg2 != null) Console.WriteLine("ResetProfileId error ios");
-                else Console.WriteLine("ResetProfileId ios");
+            NITManager.DefaultManager.SetProfileId(profileId);
+        }
+
+        public static void ResetProfileId(Action<NSString> OnSuccess, Action<NSError> OnError)
+        {
+            NITManager.DefaultManager.ResetProfileWithCompletionHandler((NSString profileId, NSError error) =>
+            {
+                if (error != null)
+                {
+                    OnError.Invoke(error);
+                }
+                else
+                {
+                    OnSuccess.Invoke(profileId);
+                }
             });
         }
 
-        public void OptOut()
-        {
+        public static void OptOut(Action<int> OnSuccess, Action<int> OnError) {
             NITManager.DefaultManager.OptOutWithCompletionHandler(
-                (error) => {
-                if(error)Console.WriteLine("OptOut error ios");
-                else Console.WriteLine("OptOut ios");
-            });
+                (error) =>
+                    {
+                        if (error) OnError.Invoke(1);
+                        else OnSuccess.Invoke(0);
+                 });
         }
 
         public void ProcessCustomTrigger(string key)
         {
             NITManager.DefaultManager.ProcessCustomTriggerWithKey(key);
+        }
+
+        public void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<string> OnCouponDownloadError)
+        {
+            GetCoupon((coupons) => {
+                IList<XCCouponNotification> list = new List<XCCouponNotification>();
+                foreach(NITCoupon coupon in coupons) {
+                    list.Add(AdapterCoupon.GetCommonType(coupon));
+                }
+                OnCouponsDownloaded.Invoke(list);
+            },(error) => {
+                OnCouponDownloadError.Invoke(error.ToString());
+            });
+        }
+
+        public void GetProfileIdFromPCL(Action<string> OnProfile, Action<string> OnError)
+        {
+            GetProfileId((profileId) => {
+                OnProfile.Invoke(profileId);
+            }, (error) => {
+                OnError.Invoke(error.ToString());
+            });
+        }
+
+        public void ResetProfileIdFromPCL(Action<string> OnProfile, Action<string> OnError)
+        {
+            ResetProfileId((profileId) =>
+            {
+                OnProfile.Invoke(profileId);
+            }, (error) =>
+            {
+                OnError.Invoke(error.ToString());
+            });
+        }
+
+        public void OptOutFromPCL(Action<int> OnSuccess, Action<string> OnFailure)
+        {
+            OptOut(OnSuccess, (error) =>
+            {
+                OnFailure.Invoke("Error");
+            });
         }
 
         internal class EventContent : IContentsListener

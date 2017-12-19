@@ -28,16 +28,9 @@ using System.Collections.Generic;
 [assembly: Dependency(typeof(XamarinBridge.Droid.NearBridgeDroid))]
 namespace XamarinBridge.Droid
 {
-    [MetaData("near_api_key", Value = "@string/nearit_api_key")]
     public class NearBridgeDroid : INearFunc
     {
-        int count = 1;
-
         private static IContentsListener _contentListener = new EventContent();
-        private static IRecipeRefreshListener _refreshListener = new RefreshListener();
-        private static ICouponListener _couponListener = new CouponListener();
-        private static NearItUserProfile.IProfileFetchListener _profileListener = new ProfileListener();
-        private static IOptOutNotifier _optOutListener = new OptOutListener();
 
         public static void ParseIntent(Intent intent)
         {
@@ -47,12 +40,6 @@ namespace XamarinBridge.Droid
         public static void ParseForegroundEvent(IParcelable parcelable, TrackingInfo track)
         {
             NearUtils.ParseContents(parcelable, track, _contentListener);
-        }
-
-        [ObsoleteAttribute("RefreshConfiguration is an obsolete method.")]
-        public void RefreshConfiguration()
-        {
-            NearItManager.Instance.RefreshConfigs(_refreshListener);
         }
 
         public void SendTrack(XCTrackingInfo trackingInfo, string value)
@@ -83,9 +70,23 @@ namespace XamarinBridge.Droid
             }
         }
 
-        public void GetCoupon()
+        public void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<String> OnCouponDownloadError)
         {
-            NearItManager.Instance.GetCoupons(_couponListener);
+            NearItManager.Instance.GetCoupons(new CouponDelegate((couponList) => {
+                IList<XCCouponNotification> XCcouponList = new List<XCCouponNotification>();
+
+                foreach(Coupon item in couponList)
+                {
+                    XCcouponList.Add(AdapterCoupon.GetCommonType(item));
+                }
+
+                OnCouponsDownloaded.Invoke(XCcouponList);
+            }, OnCouponDownloadError));
+        }
+
+        public static void GetCoupons(Action<IList<Coupon>> OnCouponsDownloaded, Action<String> OnCouponDownloadError)
+        {
+            NearItManager.Instance.GetCoupons(new CouponDelegate(OnCouponsDownloaded, OnCouponDownloadError));
         }
 
         public void SetUserData(string key, string value)
@@ -93,9 +94,15 @@ namespace XamarinBridge.Droid
             NearItManager.Instance.SetUserData(key, value);
         }
 
-        public void GetProfileId()
+
+        public void GetProfileIdFromPCL(Action<String> OnProfile, Action<String> OnError)
         {
-            NearItManager.Instance.GetProfileId(_profileListener);
+            NearBridgeDroid.GetProfileId(OnProfile, OnError);
+        }
+
+        public static void GetProfileId(Action<String> OnProfile, Action<String> OnError)
+        {
+            NearItManager.Instance.GetProfileId(new ProfileDelegate(OnProfile, OnError));
         }
 
         public void SetProfileId(string profile)
@@ -103,70 +110,97 @@ namespace XamarinBridge.Droid
             NearItManager.Instance.ProfileId = profile;
         }
 
-        public void ResetProfileId()
-        {
-            NearItManager.Instance.ResetProfileId(_profileListener);
+
+
+        public void ResetProfileIdFromPCL(Action<String> OnProfile, Action<String> OnError) {
+            NearBridgeDroid.ResetProfileId(OnProfile, OnError);
         }
 
-        public void OptOut()
+        public static void ResetProfileId(Action<String> OnProfile, Action<String> OnError)
         {
-            NearItManager.Instance.InvokeOptOut(_optOutListener);
+            NearItManager.Instance.ResetProfileId(new ProfileDelegate(OnProfile, OnError));
         }
+
+
+
+        public void OptOutFromPCL(Action<int> OnSuccess, Action<String> OnFailure)
+        {
+            NearBridgeDroid.OptOut(OnSuccess, OnFailure);
+        }
+
+        public static void OptOut(Action<int> OnSuccess, Action<String> OnFailure)
+        {
+            NearItManager.Instance.InvokeOptOut(new OptOutDelegate(OnSuccess, OnFailure));
+        }
+
 
         public void ProcessCustomTrigger(string key)
         {
             NearItManager.Instance.ProcessCustomTrigger(key);
         }
 
-        internal class OptOutListener : Java.Lang.Object, IOptOutNotifier
+        internal class OptOutDelegate : Java.Lang.Object, IOptOutNotifier
         {
+            Action<int> success;
+            Action<String> failure;
+
+            public OptOutDelegate(Action<int> OnSuccess, Action<String> OnFailure)
+            {
+                this.success = OnSuccess;
+                this.failure = OnFailure;
+            }
+ 
             public void OnFailure(string p0)
             {
-                Console.WriteLine("Error OptOut android");
+                failure.Invoke(p0);
             }
 
             public void OnSuccess()
             {
-                Console.WriteLine("OptOut success android");
+                success.Invoke(0);
             }
         }
 
-        internal class ProfileListener : Java.Lang.Object, NearItUserProfile.IProfileFetchListener
+        internal class ProfileDelegate : Java.Lang.Object, NearItUserProfile.IProfileFetchListener
         {
+            Action<String> success;
+            Action<String> failure;
+
+            public ProfileDelegate(Action<String> OnProfile, Action<String> OnError)
+            {
+                this.success = OnProfile;
+                this.failure = OnError;
+            }
             public void OnError(string p0)
             {
-                Console.WriteLine("Error Profile android");
+                failure.Invoke(p0);
             }
 
             public void OnProfileId(string p0)
             {
-                Console.WriteLine("Profile success android");
+                success.Invoke(p0);
             }
         }
 
-        internal class CouponListener : Java.Lang.Object, ICouponListener
+        internal class CouponDelegate : Java.Lang.Object, ICouponListener
         {
+            Action<IList<Coupon>> success;
+            Action<String> failure;
+
+            public CouponDelegate(Action<IList<Coupon>> OnCouponsDownloaded,Action<String> OnCouponDownloadError)
+            {
+                success = OnCouponsDownloaded;
+                failure = OnCouponDownloadError;
+            }
+
             public void OnCouponDownloadError(string p0)
             {
-                Console.WriteLine("GetCoupon android");
+                failure.Invoke(p0);
             }
 
             public void OnCouponsDownloaded(IList<Coupon> p0)
             {
-                Console.WriteLine("Error GetCoupon android");
-            }
-        }
-
-        internal class RefreshListener : Java.Lang.Object, IRecipeRefreshListener
-        {
-            public void OnRecipesRefresh()
-            {
-                Console.WriteLine("Refresh android");
-            }
-
-            public void OnRecipesRefreshFail()
-            {
-                Console.WriteLine("Error Refresh android");
+                success.Invoke(p0);
             }
         }
 

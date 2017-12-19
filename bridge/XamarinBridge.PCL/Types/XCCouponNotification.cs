@@ -10,6 +10,9 @@ namespace XamarinBridge.PCL.Types
         public string ReedemableFrom;
         public XCImageSet IconSet;
         public string Id;
+        public string Serial;
+        public string ClaimedAt;
+        public string ReedemedAt;
 
         public XCCouponNotification()
         {
