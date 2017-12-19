@@ -7,12 +7,11 @@ To install NearIT, click on “**Project>Add NuGet Packages**”, make sure you 
 - Xamarin.NearIT.iOS        (in your native iOS fragment)
 - Xamarin.NearIT.Android    (in your native Android fragment)
 ```
+**NOTE** Make sure that your Android **target framework** is set to 8.0
 <br>
 ## Android
 
-**NOTE** Make sure that your **target framework** is set to 8.0
-
-In your *AndroidManifest.xml*, under the section *Source*, add the following permissions:
+In your *AndroidManifest.xml*, under the *Source* section, add the following permission:
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
@@ -33,7 +32,7 @@ and the following code:
 ```
 
 **WARNING**
-In either mode, **Debug** and **Release**, make sure you have enabled **Multi-Dex** mode in “**Options>Android Build**”.
+In both **Debug** and **Release** mode, make sure you have **Multi-Dex** enabled in the “**Options>Android Build**” settings.
 
 In your code you can access the `NearItManager` instance with:
 ```csharp
