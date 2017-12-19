@@ -63,12 +63,9 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
     ...
 }
 ```
-<<<<<<< HEAD
-
 You can find the API key on <a href="https://go.nearit.com/" target="_blank">**NearIT web interface**</a>, under the "**Settings>SDK Integration**" section.
 <br><br>
 
-=======
 To keep your app up to date even if a user is not using the app, you have to call the sdk method developed to support the iOS feature called **background fetch**.
 ```
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
@@ -91,8 +88,6 @@ public override void PerformFetch(UIApplication application, Action<UIBackground
 You can find the API key on <a href="https://go.nearit.com/" target="_blank">**NearIT web interface**</a>, under the "**Settings>SDK Integration**" section.
 <br><br>
 
-
->>>>>>> develop
 ## Portable Class Library
 
 Implement `IContentManager` interface that allows you to manage the notification using a common type.
