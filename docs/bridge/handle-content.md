@@ -35,9 +35,8 @@ To give a feedback call this method:
 
 ```csharp
 // rating must be an integer between 0 and 5, and you can set a comment string.
-NearPCL.SendEvent(ev);
+NearPCL.SendEvent(new XCFeedbackEvent(originalFeedback, "Awesome!", 4));
 ```
-
 
 - `XCCouponNotification` with the following getters:
     - `Description` returns the description
@@ -45,6 +44,9 @@ NearPCL.SendEvent(ev);
     - `ExpiresAt` returns the expiring date
     - `RedeemableFrom` returns the redeemable date, it's a start date of when you can reedem the coupon
     - `IconSet` returns an *Image* object containing the source links for the icon
+    - `Serial` returns the serial code of the coupon
+    - `ClaimedAt` returns the date the coupon was claimed 
+    - `RedeemedAt` returns the date the coupon was redeemed
 
 - `XCCustomJSONNotification` with the following getters:
     - `Content` returns the json content
@@ -54,5 +56,9 @@ NearPCL.SendEvent(ev);
 We handle the complete emission and redemption coupon cycle in our platform, and we deliver a coupon content only when a coupon is emitted (you will not be notified of recipes when a profile has already received the coupon, even if the coupon is still valid).
 You can ask the library to fetch the list of all the user current coupons with the method:
 ```
-NearPCL.GetCoupon();
+NearPCL.GetCoupons((couponlist) => { 
+                // do something with the list
+            }, (error) => {
+                // handle the error
+            });
 ```

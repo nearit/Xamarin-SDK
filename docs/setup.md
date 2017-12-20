@@ -11,7 +11,7 @@ To install NearIT, click on “**Project>Add NuGet Packages**”, make sure you 
 <br>
 ## Android
 
-In your *AndroidManifest.xml*, under the *Source* section, add the following permission:
+In your *AndroidManifest.xml*, under the *Source* tab, add the following permission:
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
