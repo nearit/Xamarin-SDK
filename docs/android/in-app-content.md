@@ -118,7 +118,12 @@ NearItManager.Instance.SendEvent(new FeedbackEvent(...), _callbackHandler);
 We handle the complete emission and redemption coupon cycle in our platform, and we deliver a coupon content only when a coupon is emitted (you will not be notified of recipes when a profile has already received the coupon, even if the coupon is still valid).
 You can ask the library to fetch the list of all the user current coupons with the method:
 ```
-NearItManager.Instance.GetCoupons(_couponlistener);
+NearBridgeDroid.GetCoupons(
+                (couponList) => {
+                // handle the List of coupons
+            }, (error) => {
+                // handle the error
+            });
 ```
 
 The method will also return already redeemed coupons so you get to decide to filter them if necessary.

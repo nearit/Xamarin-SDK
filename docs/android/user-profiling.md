@@ -6,7 +6,12 @@ NearIT creates an anonymous profile for every user of your app. You can choose t
 
 We automatically create an anonymous profile for every installation of the app. You can check that a profile was created by checking the existance of a profile ID.
 ```csharp
-String profileId = NearItManager.Instance.ProfileId;
+NearBridgeDroid.GetProfileId(
+                (profileId) => {
+                // handle the proifleId
+            }, (error) => {
+                // handle the error
+            });
 ```
 If the result is null, it means that no profile is associated with the app installation (probably due to a network error). The SDK will re-try to create a profile at every start, and every time a new user data is set.
 
@@ -25,8 +30,13 @@ NearItManager.Instance.SetBatchUserData(userData, _successListener);
 If you try to set user data before creating a profile the error callback will be called.
 
 If you want to reset your profile use this method:
-```
-NearItManager.Instance.ResetProfileId();
+```csharp
+NearBridgeDroid.ResetProfileId(
+                (profileId) => {
+                // handle the proifleId
+            }, (error) => {
+                // handle the error
+            });
 ```
 
 Further calls to *ProfileId* will return null. A creation of a new profile after the reset will create a profile with no user data.
@@ -43,20 +53,29 @@ If you can, we recommend you to store the NearIT profileID in your CRM database 
 
 
 Getting the local profile ID of an user is easy:
-```
-String profileId = NearItManager.Instance.ProfileId;
+```csharp
+NearBridgeDroid.GetProfileId(
+                (profileId) => {
+                // handle the proifleId
+            }, (error) => {
+                // handle the error
+            });
 ```
 
 If you detect that your user already has a NearIT profileID in your CRM database (i.e. after a login), you should manually write it on a local app installation:
-```
+```csharp
 NearItManager.Instance.ProfileId = "FROM_SERVER";
 ```
 
 ## Opt-Out
 
 You can **opt-out** a profile and its device:
-```
-NearItManager.Instance.InvokeOptOut(_optOutListener);
+```csharp
+NearBridgeDroid.OptOut( (success) => {
+                // opt out successfully (the argument value is not important)
+            }, (error) => {
+                // deal with the error 
+            });
 ```
 If the opt-out call is successful all the **user-data** and **trackings** will be deleted and the **SDK will cease to work** (the user's devices will not receive further notifications).
 
