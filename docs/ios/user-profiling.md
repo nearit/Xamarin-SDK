@@ -5,7 +5,7 @@ NearIT creates an anonymous profile for every user of your app. You can choose t
 ## Add user-data to NearIT
 
 You can set user data with this method, it can be called multiple times to set several user data:
-```
+```csharp
 NITManager.DefaultManager.SetDeferredUserDataWithKey("gender", "m");
 ```
 
@@ -23,28 +23,38 @@ If you can, we recommend you to store the NearIT profileID in your CRM database 
 
 
 Getting the local profile ID of an user is easy:
-```
-NITManager.DefaultManager.ProfileIdWithCompletionHandler((profile, error) => {
-    ...
-});
+```csharp
+NearBridgeiOS.GetProfileId((profileId) => {
+                // handle the profileId (NSString)
+            },(error) => {
+                // hadle the error (NSError)
+            });
 ```
 
 
 If you detect that your user already has a NearIT profileID in your CRM database (i.e. after a login), you should manually write it on a local app installation:
-```
+```csharp
 NITManager.DefaultManager.ProfileId = "your remote NearIT profile ID";
 ```
 
 
 Whenever a users **signs out** from your app, you should reset the NearIT profileID:
-```
-NITManager.DefaultManager.ResetProfile();
+```csharp
+NearBridgeiOS.ResetProfileId((profileId) => {
+                // handle the profileId (NSString)
+            },(error) => {
+                // hadle the error (NSError)
+            });
 ```
 
 ## Opt-Out
 
 You can **opt-out** a profile and its device:
 ```
-NITManager.DefaultManager.ResetProfile();
+NearBridgeiOS.OptOut((success) => {
+                // opt out successfully (the argument value is not important)
+            }, (failure) => {
+                // failure (the argument value is not important)
+            });
 ```
 If the opt-out call is successful all the **user-data** and **trackings** will be deleted and the **SDK will cease to work** (the user's devices will not receive further notifications).

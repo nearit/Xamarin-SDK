@@ -24,7 +24,13 @@ If you can, we recommend you to store the NearIT profileID in your CRM database 
 
 Getting the local profile ID of an user is easy:
 ```
-NearPCL.GetProfileId();
+NearPCL.GetProfileId(
+        (profileId) => {
+            // handle the profileId
+        },
+        (error) => {
+            // handle the error
+        });
 ```
 
 
@@ -36,13 +42,25 @@ NearPCL.SetProfileId(profile);
 
 Whenever a users **signs out** from your app, you should reset the NearIT profileID:
 ```
-NearPCL.ResetProfileId();
+NearPCL.ResetProfileId(
+        (profileId) => {
+            // handle the profileId
+        },
+        (error) => {
+            // handle the error
+        });
 ```
 
 ## Opt-Out
 
 You can **opt-out** a profile and its device:
 ```
-NearPCL.OptOut();
+NearPCL.OptOut(
+                (success) => {
+                // opt out successfully (the argument value is not important)
+                },
+                (error) => {
+                // deal with the error
+                });
 ```
 If the opt-out call is successful all the **user-data** and **trackings** will be deleted and the **SDK will cease to work** (the user's devices will not receive further notifications).

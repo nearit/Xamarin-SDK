@@ -50,7 +50,7 @@ NITManager.DefaultManager.SendEventWithEvent(feedback, (error) => {
     - `redeemable` returns the redeemable date, it's a start date of when you can reedem the coupon
     - `icon` returns an *Image* object containing the source links for the icon
     - `claims` returns a list of *NITClaim* which are the actual instances for the current profile
-    - a `NITClaim` is composed by:
+    - `NITClaim` is composed by:
         - `serialNumber` the unique number assigned to the coupon instance
         - `claimed` a date representing when the coupon has been claimed
         - `redeemed` a date representing when the coupon has ben used
@@ -65,10 +65,12 @@ NITManager.DefaultManager.SendEventWithEvent(feedback, (error) => {
 
 We handle the complete emission and redemption coupon cycle in our platform, and we deliver a coupon content only when a coupon is emitted (you will not be notified of recipes when a profile has already received the coupon, even if the coupon is still valid).
 You can ask the library to fetch the list of all the user current coupons with the method:
-```
-NITManager.DefaultManager.CouponsWithCompletionHandler((coupons, error) => {
-...
-});
+```csharp
+NearBridgeiOS.GetCoupon((coupons) => {
+                // hanlde the NSArray of NITCoupon
+            }, (error) => {
+                // handle the NSError
+            });
 ```
 
 
