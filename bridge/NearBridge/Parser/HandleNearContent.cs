@@ -1,11 +1,12 @@
 ﻿using System;
+using Foundation;
 using NearIT;
 
 namespace NearBridge.Parser
 {
     public class HandleNearContent
     {
-        public static void HandleContent(Object content, IContentsListener listener)
+        public static void HandleContent(NSObject content, IContentsListener listener)
         {
             if (content.GetType() == typeof(NITContent))
             {

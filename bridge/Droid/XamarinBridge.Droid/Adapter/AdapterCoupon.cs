@@ -14,7 +14,7 @@ namespace XamarinBridge.Droid.Adapter
             XCoupon.Description = CouponNotification.Description;
             XCoupon.Value = CouponNotification.Value;
             XCoupon.ExpiresAt = CouponNotification.ExpiresAt;
-            XCoupon.ReedemableFrom = CouponNotification.RedeemableFrom;
+            XCoupon.RedeemableFrom = CouponNotification.RedeemableFrom;
             if (CouponNotification.IconSet != null)
             {
                 XCoupon.IconSet = new XCImageSet();
@@ -24,7 +24,7 @@ namespace XamarinBridge.Droid.Adapter
             XCoupon.Id = CouponNotification.Id;
             XCoupon.Serial = CouponNotification.Serial;
             XCoupon.ClaimedAt = CouponNotification.ClaimedAt;
-            XCoupon.ReedemedAt = CouponNotification.RedeemedAt;
+            XCoupon.RedeemedAt = CouponNotification.RedeemedAt;
 
             return XCoupon;
         }

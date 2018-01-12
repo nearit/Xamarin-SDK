@@ -6,7 +6,11 @@ namespace XamarinBridge.PCL.Types
         public string Id;
         public string NotificationMessage;
         public string Question;
+
+        [ObsoleteAttribute("Use TrackingInfo instead.")]
         public string RecipeId;
+
+        public XCTrackingInfo TrackingInfo;
 
         public XCFeedbackNotification()
         {
