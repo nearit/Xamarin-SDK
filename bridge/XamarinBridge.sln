@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearBridge", "NearBridge\Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS-Tests", "iOS-Tests\iOS-Tests.csproj", "{2AD0C961-7195-44FE-A1D4-F14C5BD2D8D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Android-Tests", "Android-Tests\Android-Tests.csproj", "{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -67,5 +69,17 @@ Global
 		{2AD0C961-7195-44FE-A1D4-F14C5BD2D8D6}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{2AD0C961-7195-44FE-A1D4-F14C5BD2D8D6}.Release|Any CPU.ActiveCfg = Release|iPhone
 		{2AD0C961-7195-44FE-A1D4-F14C5BD2D8D6}.Release|Any CPU.Build.0 = Release|iPhone
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Release|iPhone.Build.0 = Release|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2A5C88-1A1C-4610-9FE1-505F625D5E8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

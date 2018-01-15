@@ -77,6 +77,8 @@ namespace NearBridge.Adapter
                 return nsO.ToString();
             }
 
+            //array di stringhe
+
             return nsO;
         }
     }

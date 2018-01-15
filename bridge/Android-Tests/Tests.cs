@@ -1,16 +1,25 @@
-﻿using NearBridge.Adapter;
-using System;
+﻿using System;
+using IT.Near.Sdk.Reactions.Feedbackplugin.Model;
 using NUnit.Framework;
 using XamarinBridge.PCL.Types;
-using NearIT;
+using XamarinBridge.Droid.Adapter;
 using System.Collections.Generic;
-using Foundation;
+using IT.Near.Sdk.Trackings;
+using System.Collections;
+using Java.Util;
 
-namespace iOSTests
+namespace AndroidTests
 {
     [TestFixture]
-    public class MyTests
+    public class Tests
     {
+        [SetUp]
+        public void Setup() { }
+
+
+        [TearDown]
+        public void Tear() { }
+
         [Test]
         public void FromBridgeToNative()
         {
@@ -24,36 +33,31 @@ namespace iOSTests
             XFeed.NotificationMessage = "ciao";
             XFeed.RecipeId = "rec-id";
             XFeed.TrackingInfo = xtrack;
-            NITFeedback nativeFeed = AdapterFeedback.GetNative(XFeed);
 
-            NSObject val = nativeFeed.TrackingInfo.extras["key"];
-            Assert.True(nativeFeed.Question.Equals(XFeed.Question));
+            Feedback NFeed = AdapterFeedback.GetNative(XFeed);
 
+            Assert.True(NFeed.Question.Equals(XFeed.Question));
         }
 
         [Test]
         public void FromNativeToBridge()
         {
-            var XKeys = new NSString[]{(NSString)"key"};
-            var XObj = new NSObject[]{(NSString)"value"};
-
-            NITTrackingInfo NTrack = new NITTrackingInfo();
+            TrackingInfo NTrack = new TrackingInfo();
             NTrack.RecipeId = "recid";
-            NTrack.extras = new NSDictionary<NSString, NSObject>(XKeys, XObj);
+            NTrack.Metadata = new Dictionary<Java.Lang.String, Java.Lang.Object>();
+            NTrack.Metadata.Add("key", "value");
 
-            NITFeedback NFeed = new NITFeedback();
+            Feedback NFeed = new Feedback();
             NFeed.Question = "Question?";
             NFeed.NotificationMessage = "ciao";
             NFeed.RecipeId = "rec-id";
             NFeed.TrackingInfo = NTrack;
+
             XCFeedbackNotification XFeed = AdapterFeedback.GetCommonType(NFeed);
 
             Assert.True(XFeed.Question.Equals(NFeed.Question));
-            Assert.NotNull(XFeed.TrackingInfo.extras);
-            object value = XFeed.TrackingInfo.extras["key"];
-            Assert.NotNull(value);
-            Assert.True(value is string);
             Assert.True(XFeed.TrackingInfo.extras["key"].Equals("value"));
         }
+
     }
 }

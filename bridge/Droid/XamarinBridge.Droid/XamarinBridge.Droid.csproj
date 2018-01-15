@@ -158,7 +158,7 @@
       <HintPath>..\..\packages\Andrea.Near.8.11.0\lib\GoogleServices.dll</HintPath>
     </Reference>
     <Reference Include="BindDroid">
-      <HintPath>..\..\..\..\..\Desktop\Xamarin\Xamarin.NearIT.Android\lib\BindDroid.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Xamarin\NearIT-Bind\Android-Bind\BindDroid\bin\Debug\BindDroid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

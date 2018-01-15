@@ -4178,8 +4178,8 @@ namespace XamarinBridge.Droid
 			// aapt resource value: 0x7f090039
 			public const int abc_toolbar_collapse_description = 2131296313;
 			
-			// aapt resource value: 0x7f090056
-			public const int app_name = 2131296342;
+			// aapt resource value: 0x7f090057
+			public const int app_name = 2131296343;
 			
 			// aapt resource value: 0x7f090048
 			public const int appbar_scrolling_view_behavior = 2131296328;
@@ -4319,8 +4319,11 @@ namespace XamarinBridge.Droid
 			// aapt resource value: 0x7f090026
 			public const int mr_user_route_category_name = 2131296294;
 			
-			// aapt resource value: 0x7f090057
-			public const int nearit_api_key = 2131296343;
+			// aapt resource value: 0x7f090055
+			public const int near_framework_type = 2131296341;
+			
+			// aapt resource value: 0x7f090058
+			public const int nearit_api_key = 2131296344;
 			
 			// aapt resource value: 0x7f09004b
 			public const int password_toggle_content_description = 2131296331;
@@ -4343,8 +4346,8 @@ namespace XamarinBridge.Droid
 			// aapt resource value: 0x7f09003b
 			public const int status_bar_notification_info_overflow = 2131296315;
 			
-			// aapt resource value: 0x7f090055
-			public const int unknown_geofence_transition = 2131296341;
+			// aapt resource value: 0x7f090056
+			public const int unknown_geofence_transition = 2131296342;
 			
 			static String()
 			{
