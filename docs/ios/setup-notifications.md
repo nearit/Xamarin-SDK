@@ -32,22 +32,47 @@ public class UserNotificationDelegate : UNUserNotificationCenterDelegate
 
     public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
     {
-        NSDictionary userInfo = response.Notification.Request.Content.UserInfo;
-        NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
-            if (content != null && content is NITReactionBundle) {
-                // see code below
-            }
-        });
+        // see code below
     }
 }
 ```
-When user taps on notification, create an **HandleNearContent** method to manage in-app content.
+When user taps on notification, you have two ways to manage this event:
+#### Without the use of our bridge
 ```
-if (content != null && content is NITReactionBundle)
+var userInfo = response.Notification.Request.Content.UserInfo;
+
+NSString[] keys = new NSString[userInfo.Keys.Length];
+int i;
+for (i = 0; i < userInfo.Keys.Length; i++)
 {
-    HandleNearContent(content);
+    if (userInfo.Keys[i] is NSString)
+        keys[i] = userInfo.Keys[i] as NSString;
+    else
+        i = int.MaxValue;
+}
+if (i != int.MaxValue)
+{
+    NSDictionary<NSString, NSObject> notif = new NSDictionary<NSString, NSObject>(keys, userInfo.Values);
+    NITManager.DefaultManager.ProcessRecipeWithUserInfo(notif, (content, trackingInfo, error) =>
+    {
+        if (content != null && content is NITReactionBundle)
+        {
+            //call the ParseContent to manage your notification
+            NITManager.DefaultManager.ParseContent(content, trackingInfo, <NITContentDelegateListener>);
+        }
+    });
 }
 ```
+#### Using our bridge
+```
+NearBridge.NearBridgeiOS.ProcessRecipeWithUserInfo(response, (NITReactionBundle content, NITTrackingInfo trackingInfo) =>
+{
+    //call the ParseContent to manage your notification
+    NITManager.DefaultManager.ParseContent(content, trackingInfo, <NITContentDelegateListener>);
+});
+
+```
+<br><br>
 The code below is called when a notification arrived.
 
 ```csharp
@@ -94,7 +119,7 @@ public override void ReceivedRemoteNotification(UIApplication application, NSDic
     NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
         if (content != null && content is NITReactionBundle)
         {
-            HandleNearContent(content);
+            NITManager.DefaultManager.ParseContent(content, trackingInfo, <NITContentDelegateListener>);
         }
     });
 }
@@ -106,7 +131,7 @@ public override void ReceivedLocalNotification(UIApplication application, UILoca
     NITManager.DefaultManager.ProcessRecipeWithUserInfo((Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject>)userInfo, (content, trackingInfo, error) => {
         if (content != null && content is NITReactionBundle)
         {
-            HandleNearContent(content);
+            NITManager.DefaultManager.ParseContent(content, trackingInfo, <NITContentDelegateListener>);
         }
     });
 }
@@ -114,7 +139,6 @@ public override void ReceivedLocalNotification(UIApplication application, UILoca
 // Manage tap on iOS9 in-app alert
 public class NearDelegate : NITManagerDelegate
 {
-
     public override void AlertWantsToShowContent(NITManager manager, NSObject content)
     {
         HandleNearContent(content);

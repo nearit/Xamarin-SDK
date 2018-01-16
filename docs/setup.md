@@ -39,17 +39,17 @@ In your code you can access the `NearItManager` instance with:
 NearItManager.Instance
 ```
 <br>
+
 ## iOS
 
-To install NearIT for your iOS component, click on “**Project>Add NuGet Packages**”, make sure you have "**Show pre-release packages**" option checked, find and add the following NuGet package:
-
-In the `FinishedLaunching` method of your **AppDelegate** class, set the API token to the SDK
+In the `FinishedLaunching` method of your **AppDelegate** class, set the API token to the SDK and also the framework name.
 
 ```csharp
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
     ...
     NITManager.SetupWithApiKey("<your API token here>");
+    NITManager.SetFrameworkName("xamarin");
     ...
 }
 ```
@@ -62,8 +62,8 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
     ...
 }
 ```
-You can find the API key on <a href="https://go.nearit.com/" target="_blank">**NearIT web interface**</a>, under the "**Settings>SDK Integration**" section.
-<br><br>
+This method automatically set the framework name.
+<br>
 
 To keep your app up to date even if a user is not using the app, you have to call the sdk method developed to support the iOS feature called **background fetch**.
 ```
