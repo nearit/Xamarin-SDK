@@ -25,33 +25,25 @@ namespace NearForms.iOS
             NearBridgeiOS.SetApiKey();
 
 
-            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
-                if(approved)
-                {
-                    InvokeOnMainThread(() => {
-                        // manipulate UI controls
-                        LocationManager.AuthorizationChanged += (s, e) =>
-                        {
-                            if (e.Status == CLAuthorizationStatus.AuthorizedAlways)
-                                NITManager.DefaultManager.Start();
-                            else
-                                NITManager.DefaultManager.Stop();
-
-                            NITManager.DefaultManager.RefreshConfigWithCompletionHandler((NSError err2) => {
-                                if (err2 == null) {
-									Console.WriteLine("Recipes refreshed!");
-                                } else {
-                                    Console.WriteLine(err2);
-                                }
-                            });
-                        };
-                        LocationManager.RequestAlwaysAuthorization();
-                    });
-
-
-                }
-            });
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {});
             UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
+
+            LocationManager.AuthorizationChanged += (s, e) =>
+            {
+                if (e.Status == CLAuthorizationStatus.AuthorizedAlways || e.Status == CLAuthorizationStatus.AuthorizedWhenInUse)
+                    NITManager.DefaultManager.Start();
+                else
+                    NITManager.DefaultManager.Stop();
+
+            };
+            LocationManager.RequestAlwaysAuthorization();
+
+            NearBridge.NearBridgeiOS.GetCoupon((NSArray<NITCoupon> obj) => {
+                System.Diagnostics.Debug.WriteLine(obj);
+            }, (obj) => {
+                System.Diagnostics.Debug.WriteLine(obj);
+            });
+
 
 
             return base.FinishedLaunching(app, options);

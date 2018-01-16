@@ -7,25 +7,34 @@ using XamarinBridge.PCL.Types;
 using XamarinBridge.PCL.Manager;
 using XamarinBridge.PCL;
 using Xamarin.Forms;
-using XamarinBridge.Droid.Adapter;
+using NearBridge.Adapter;
 using System.Collections.Generic;
+using UserNotifications;
 
 [assembly: Dependency(typeof(NearBridge.NearBridgeiOS))]
 namespace NearBridge
 {
     public class NearBridgeiOS : INearFunc
     {
-        private static IContentsListener _contentsListener = new EventContent();
+        private static NITContentDelegate _contentsListener = new EventContent();
 
-        public static void ParseContent(object content)
+        public static void ParseContent(NSObject Content, NITTrackingInfo TrackingInfo)
         {
-            HandleNearContent.HandleContent(content, _contentsListener);
+            //HandleNearContent.HandleContent(content, _contentsListener);      this is mine handlecontent --> implement in the internal class EVENTCONTENT : IContentsListener
+
+            NITManager.DefaultManager.ParseContent(Content, TrackingInfo, _contentsListener);
         }
 
         public static void SetApiKey()
         {
-            Console.WriteLine("Your ApiKey: ");
+            Console.WriteLine("Your ApiKey: " + loadApiKey());
             NITManager.SetupWithApiKey(loadApiKey());
+            SetFrameworkName();
+        }
+
+        public static void SetFrameworkName()
+        {
+            NITManager.SetFrameworkName("xamarin");
         }
 
         private static string loadApiKey()
@@ -182,23 +191,48 @@ namespace NearBridge
             });
         }
 
-        internal class EventContent : IContentsListener
+        public static void ProcessRecipeWithUserInfo(UNNotificationResponse response, Action<NITReactionBundle, NITTrackingInfo> OnSuccess)
         {
-            public void GotContentNotification(NITContent content)
+            var userInfo = response.Notification.Request.Content.UserInfo;
+
+            NSString[] keys = new NSString[userInfo.Keys.Length];
+            int i;
+            for (i = 0; i < userInfo.Keys.Length; i++)
             {
-                XCContentNotification XContent = AdapterContent.GetCommonType(content);
+                if (userInfo.Keys[i] is NSString)
+                    keys[i] = userInfo.Keys[i] as NSString;
+                else
+                    i = int.MaxValue;
+            }
+            if (i != int.MaxValue)
+            {
+                NSDictionary<NSString, NSObject> notif = new NSDictionary<NSString, NSObject>(keys, userInfo.Values);
+                NITManager.DefaultManager.ProcessRecipeWithUserInfo(notif, (content, trackingInfo, error) =>
+                {
+                    if (content != null && content is NITReactionBundle)
+                    {
+                        OnSuccess.Invoke(content, trackingInfo);
+                    }
+                });
+            }
+        }
+
+        internal class EventContent : NITContentDelegate
+        {
+            public override void GotContent(NITContent Content, NITTrackingInfo TrackingInfo)
+            {
+                XCContentNotification XContent = AdapterContent.GetCommonType(Content);
 
                 if (NearPCL.GetContentManager() != null)
                 {
-                    Console.WriteLine("prima di gotxcontent");
                     NearPCL.GetContentManager().GotXContentNotification(XContent);
                 }
                 else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
-            public void GotCouponNotification(NITCoupon content)
+            public override void GotCoupon(NITCoupon Coupon, NITTrackingInfo TrackingInfo)
             {
-                XCCouponNotification XCoupon = AdapterCoupon.GetCommonType(content);
+                XCCouponNotification XCoupon = AdapterCoupon.GetCommonType(Coupon);
 
                 if (NearPCL.GetContentManager() != null)
                 {
@@ -207,9 +241,9 @@ namespace NearBridge
                 else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
-            public void GotCustomJSONNotification(NITCustomJSON content)
+            public override void GotCustomJSON(NITCustomJSON CustomJSON, NITTrackingInfo TrackingInfo)
             {
-                XCCustomJSONNotification XCustomJSON = AdapterCustom.GetCommonType(content);
+                XCCustomJSONNotification XCustomJSON = AdapterCustom.GetCommonType(CustomJSON);
 
                 if (NearPCL.GetContentManager() != null)
                 {
@@ -218,9 +252,9 @@ namespace NearBridge
                 else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
-            public void GotFeedbackNotification(NITFeedback content)
+            public override void GotFeedback(NITFeedback Feedback, NITTrackingInfo TrackingInfo)
             {
-                XCFeedbackNotification XFeedback = AdapterFeedback.GetCommonType(content);
+                XCFeedbackNotification XFeedback = AdapterFeedback.GetCommonType(Feedback);
 
                 if (NearPCL.GetContentManager() != null)
                 {
@@ -229,10 +263,9 @@ namespace NearBridge
                 else Console.WriteLine("You receive a content but you haven't registered a content manager");
             }
 
-
-            public void GotSimpleNotification(NITSimpleNotification content)
+            public override void GotSimpleNotification(NITSimpleNotification Notification, NITTrackingInfo TrackingInfo)
             {
-                XCSimpleNotification XSimple = AdapterSimple.GetCommonType(content);
+                XCSimpleNotification XSimple = AdapterSimple.GetCommonType(Notification);
 
                 if (NearPCL.GetContentManager() != null)
                 {

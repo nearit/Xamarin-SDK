@@ -5,7 +5,7 @@ using Foundation;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace XamarinBridge.Droid.Adapter
+namespace NearBridge.Adapter
 {
     public class AdapterCustom
     {
@@ -20,7 +20,8 @@ namespace XamarinBridge.Droid.Adapter
             return XCustomJSON;
         }
 
-        public static IDictionary From(NSDictionary NSDic) {
+        private static IDictionary From(NSDictionary NSDic)
+        {
             IDictionary output = new Dictionary<NSString, NSObject>();
             foreach (NSString key in NSDic.Keys)
             {

@@ -44,7 +44,7 @@ Usually the SDK tracks those events automatically, but if you write custom code 
 
 You can track **default or custom events** using the "**SendTracking**" method:
 ```
-NearPCL.SendTracking(trackingInfo, value);
+NearPCL.SendTracking(trackingInfo, <value>);
 ```
 ## Manual Configuration Refresh ##
 

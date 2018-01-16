@@ -2,7 +2,7 @@
 using NearIT;
 using XamarinBridge.PCL.Types;
 
-namespace XamarinBridge.Droid.Adapter
+namespace NearBridge.Adapter
 {
     public class AdapterCoupon
     {
@@ -14,7 +14,7 @@ namespace XamarinBridge.Droid.Adapter
             XCoupon.Description = CouponNotification.Description;
             XCoupon.Value = CouponNotification.Value;
             XCoupon.ExpiresAt = CouponNotification.ExpiresAt;
-            XCoupon.ReedemableFrom = CouponNotification.RedeemableFrom;
+            XCoupon.RedeemableFrom = CouponNotification.RedeemableFrom;
             if (CouponNotification.Icon != null)
             {
                 XCoupon.IconSet = new XCImageSet();
@@ -24,7 +24,7 @@ namespace XamarinBridge.Droid.Adapter
             XCoupon.Id = CouponNotification.ID;
             XCoupon.Serial = CouponNotification.Claims[0].SerialNumber;
             XCoupon.ClaimedAt = CouponNotification.Claims[0].ClaimedAt;
-            XCoupon.ReedemedAt = CouponNotification.Claims[0].RedeemedAt;
+            XCoupon.RedeemedAt = CouponNotification.Claims[0].RedeemedAt;
 
             return XCoupon;
         }
