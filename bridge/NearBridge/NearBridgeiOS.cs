@@ -9,6 +9,7 @@ using XamarinBridge.PCL;
 using Xamarin.Forms;
 using NearBridge.Adapter;
 using System.Collections.Generic;
+using UserNotifications;
 
 [assembly: Dependency(typeof(NearBridge.NearBridgeiOS))]
 namespace NearBridge
@@ -19,7 +20,7 @@ namespace NearBridge
 
         public static void ParseContent(NSObject Content, NITTrackingInfo TrackingInfo)
         {
-            //HandleNearContent.HandleContent(content, _contentsListener);      this is mine handlecontent --> implement in the internal class EVENTCONTENT the IContentsListener
+            //HandleNearContent.HandleContent(content, _contentsListener);      this is mine handlecontent --> implement in the internal class EVENTCONTENT : IContentsListener
 
             NITManager.DefaultManager.ParseContent(Content, TrackingInfo, _contentsListener);
         }
@@ -188,6 +189,32 @@ namespace NearBridge
             {
                 OnFailure.Invoke("Error");
             });
+        }
+
+        public static void ProcessRecipeWithUserInfo(UNNotificationResponse response, Action<NITReactionBundle, NITTrackingInfo> OnSuccess)
+        {
+            var userInfo = response.Notification.Request.Content.UserInfo;
+
+            NSString[] keys = new NSString[userInfo.Keys.Length];
+            int i;
+            for (i = 0; i < userInfo.Keys.Length; i++)
+            {
+                if (userInfo.Keys[i] is NSString)
+                    keys[i] = userInfo.Keys[i] as NSString;
+                else
+                    i = int.MaxValue;
+            }
+            if (i != int.MaxValue)
+            {
+                NSDictionary<NSString, NSObject> notif = new NSDictionary<NSString, NSObject>(keys, userInfo.Values);
+                NITManager.DefaultManager.ProcessRecipeWithUserInfo(notif, (content, trackingInfo, error) =>
+                {
+                    if (content != null && content is NITReactionBundle)
+                    {
+                        OnSuccess.Invoke(content, trackingInfo);
+                    }
+                });
+            }
         }
 
         internal class EventContent : NITContentDelegate
