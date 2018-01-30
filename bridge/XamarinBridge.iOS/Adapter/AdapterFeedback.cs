@@ -5,7 +5,7 @@ using Foundation;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NearBridge.Adapter
+namespace XamarinBridge.iOS.Adapter
 {
     public class AdapterFeedback
     {

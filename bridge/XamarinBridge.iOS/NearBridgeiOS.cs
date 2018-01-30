@@ -2,17 +2,17 @@
 using Foundation;
 using UIKit;
 using NearIT;
-using NearBridge.Parser;
+using XamarinBridge.iOS.Parser;
 using XamarinBridge.PCL.Types;
 using XamarinBridge.PCL.Manager;
 using XamarinBridge.PCL;
 using Xamarin.Forms;
-using NearBridge.Adapter;
+using XamarinBridge.iOS.Adapter;
 using System.Collections.Generic;
 using UserNotifications;
 
-[assembly: Dependency(typeof(NearBridge.NearBridgeiOS))]
-namespace NearBridge
+[assembly: Dependency(typeof(XamarinBridge.iOS.NearBridgeiOS))]
+namespace XamarinBridge.iOS
 {
     public class NearBridgeiOS : INearFunc
     {

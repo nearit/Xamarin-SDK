@@ -2,7 +2,7 @@
 using NearIT;
 using XamarinBridge.PCL.Types;
 
-namespace NearBridge.Adapter
+namespace XamarinBridge.iOS.Adapter
 {
     public class AdapterCoupon
     {

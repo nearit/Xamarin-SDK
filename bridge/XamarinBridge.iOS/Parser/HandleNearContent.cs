@@ -2,7 +2,7 @@
 using Foundation;
 using NearIT;
 
-namespace NearBridge.Parser
+namespace XamarinBridge.iOS.Parser
 {
     public class HandleNearContent
     {

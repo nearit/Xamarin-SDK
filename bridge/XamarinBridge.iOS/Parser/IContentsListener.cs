@@ -1,7 +1,7 @@
 ﻿using System;
 using NearIT;
 
-namespace NearBridge.Parser
+namespace XamarinBridge.iOS.Parser
 {
     public interface IContentsListener
     {

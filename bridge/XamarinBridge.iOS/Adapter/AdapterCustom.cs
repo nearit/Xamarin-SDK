@@ -5,7 +5,7 @@ using Foundation;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace NearBridge.Adapter
+namespace XamarinBridge.iOS.Adapter
 {
     public class AdapterCustom
     {

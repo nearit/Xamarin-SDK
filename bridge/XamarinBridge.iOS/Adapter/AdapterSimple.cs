@@ -2,7 +2,7 @@
 using XamarinBridge.PCL.Types;
 using NearIT;
 
-namespace NearBridge.Adapter
+namespace XamarinBridge.iOS.Adapter
 {
     public class AdapterSimple
     {

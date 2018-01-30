@@ -104,7 +104,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NearBridge\NearBridge.csproj">
       <Project>{CFCA42F7-17CF-4B06-A479-4DF17C4B135F}</Project>
-      <Name>NearBridge</Name>
+      <Name>XamarinBridge.iOS</Name>
     </ProjectReference>
     <ProjectReference Include="..\XamarinBridge.PCL\XamarinBridge.PCL.csproj">
       <Project>{A44F7082-2621-4EC9-94CC-CE6B22D303E8}</Project>
