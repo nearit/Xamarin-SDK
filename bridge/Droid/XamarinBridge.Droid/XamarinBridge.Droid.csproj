@@ -109,15 +109,6 @@
     <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
       <HintPath>..\..\packages\Xamarin.Android.Support.v7.MediaRouter.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
     </Reference>
-    <Reference Include="AltBeacon.Droid">
-      <HintPath>..\..\packages\Andrea.Near.8.11.0\lib\AltBeacon.Droid.dll</HintPath>
-    </Reference>
-    <Reference Include="GoogleServices">
-      <HintPath>..\..\packages\Andrea.Near.8.11.0\lib\GoogleServices.dll</HintPath>
-    </Reference>
-    <Reference Include="BindDroid">
-      <HintPath>..\..\..\..\..\Desktop\Xamarin\NearIT-Bind\Android-Bind\BindDroid\bin\Debug\BindDroid.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.Connectivity.Abstractions">
       <HintPath>..\..\packages\Xam.Plugin.Connectivity.4.0.0.171-beta\lib\MonoAndroid10\Plugin.Connectivity.Abstractions.dll</HintPath>
     </Reference>
@@ -159,6 +150,15 @@
     </Reference>
     <Reference Include="Xamarin.GooglePlayServices.Location">
       <HintPath>..\..\packages\Xamarin.GooglePlayServices.Location.60.1142.0\lib\MonoAndroid80\Xamarin.GooglePlayServices.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="AltBeacon.Droid">
+      <HintPath>AltBeacon.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleServices">
+      <HintPath>GoogleServices.dll</HintPath>
+    </Reference>
+    <Reference Include="NearIT.Android">
+      <HintPath>..\..\..\..\Xamarin-Binding\NearIT.Android\NearIT.Android\bin\Debug\NearIT.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
