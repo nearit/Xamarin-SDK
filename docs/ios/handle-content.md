@@ -1,9 +1,6 @@
 # Handle In-app Content (iOS)
 
-If you followed the instruction inside [Notification Setup](setup-notifications.md) closely, every tap on notification should be leading to a "**handleNearContent**" method.<br>
-You should implement your handleNearContent method, inside it, you would typically check the content type and handle presentation.
-
-<br>In the next chapter you will find a reference for any NearIT content.
+In the next chapter you will find a reference for any NearIT content.
 
 
 ## Recipe and content objects
