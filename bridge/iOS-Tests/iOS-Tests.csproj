@@ -86,7 +86,7 @@
     <Reference Include="Xamarin.iOS" />
     <Reference Include="MonoTouch.NUnitLite" />
     <Reference Include="NeariOSBind">
-      <HintPath>..\..\..\..\Desktop\Xamarin\NearIT-Bind\iOS-Bind\NeariOSBind\bin\Debug\NeariOSBind.dll</HintPath>
+      <HintPath>..\NearBridge\bin\Debug\NeariOSBind.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -105,10 +105,12 @@
     <ProjectReference Include="..\NearBridge\NearBridge.csproj">
       <Project>{CFCA42F7-17CF-4B06-A479-4DF17C4B135F}</Project>
       <Name>NearBridge</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\XamarinBridge.PCL\XamarinBridge.PCL.csproj">
       <Project>{A44F7082-2621-4EC9-94CC-CE6B22D303E8}</Project>
       <Name>XamarinBridge.PCL</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

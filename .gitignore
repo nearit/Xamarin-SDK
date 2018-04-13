@@ -8,6 +8,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 .vs/
+google-services.json
 
 # NuGet Packages Directory
 packages/
