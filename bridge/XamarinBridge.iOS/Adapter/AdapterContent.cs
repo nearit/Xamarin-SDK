@@ -15,14 +15,20 @@ namespace XamarinBridge.iOS.Adapter
             XContent.Content = ContentNotification.Content;
             if (ContentNotification.Image != null)
             {
-                XContent.ImageLink.FullSize = ContentNotification.Image.Url.AbsoluteString;
-                XContent.ImageLink.SmallSize = ContentNotification.Image.SmallSizeURL.AbsoluteString;
+                XContent.ImageLink = new XCImageSet
+                {
+                    FullSize = ContentNotification.Image.Url.AbsoluteString,
+                    SmallSize = ContentNotification.Image.SmallSizeURL.AbsoluteString
+                };
             }
 
             if (ContentNotification.Link != null)
             {
-                XContent.Cta.Label = ContentNotification.Link.Label;
-                XContent.Cta.Url = ContentNotification.Link.Url.AbsoluteString;
+                XContent.Cta = new XCContentLink
+                {
+                    Label = ContentNotification.Link.Label,
+                    Url = ContentNotification.Link.Url.AbsoluteString
+                };
             }
             XContent.Id = ContentNotification.ID;
 

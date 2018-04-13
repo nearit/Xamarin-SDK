@@ -68,7 +68,7 @@ if (i != int.MaxValue)
 NearBridge.NearBridgeiOS.ProcessRecipeWithUserInfo(response, (NITReactionBundle content, NITTrackingInfo trackingInfo) =>
 {
     //call the ParseContent to manage your notification
-    NITManager.DefaultManager.ParseContent(content, trackingInfo, <NITContentDelegateListener>);
+    NearBridgeiOS.ParseContent(content, trackingInfo);
 });
 
 ```

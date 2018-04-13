@@ -20,19 +20,36 @@ namespace XamarinBridge.iOS.Adapter
             return XCustomJSON;
         }
 
-        private static IDictionary From(NSDictionary NSDic)
+        private static IDictionary<string, object> From(NSDictionary NSDic)
         {
-            IDictionary output = new Dictionary<NSString, NSObject>();
+            IDictionary<string, object> output = new Dictionary<string, object>();
             foreach (NSString key in NSDic.Keys)
             {
                 NSObject value = NSDic.ObjectForKey(key);
-                if (value is NSDictionary)
-                {
-                    value = (Foundation.NSObject)From((NSDictionary)value);
-                }
-                output.Add(key, value);
+                output.Add(key.ToString(), NormalizeDicValue(value));
             }
             return output;
+        }
+
+        private static object NormalizeDicValue(NSObject value) {
+            if (value == null) {
+                return null;
+            } else if (value is NSDictionary) {
+                return From((NSDictionary)value);
+            } else if (value is NSString) {
+                return ((NSString)value).ToString();
+            } else if (value is NSNumber) {
+                return ((NSNumber)value).DoubleValue;
+            } else if (value is NSArray) {
+                List<object> list = new List<object>();
+                NSArray nativeList = (NSArray)value;
+                for (nuint i = 0; i < nativeList.Count; i++) {
+                    NSObject listObject = nativeList.GetItem<NSObject>(i);
+                    list.Add(NormalizeDicValue(listObject));
+                }
+                return list;
+            }
+            return null;
         }
     }
 }
