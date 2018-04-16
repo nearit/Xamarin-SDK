@@ -38,14 +38,6 @@ namespace NearForms.iOS
             };
             LocationManager.RequestAlwaysAuthorization();
 
-            NearBridge.NearBridgeiOS.GetCoupon((NSArray<NITCoupon> obj) => {
-                System.Diagnostics.Debug.WriteLine(obj);
-            }, (obj) => {
-                System.Diagnostics.Debug.WriteLine(obj);
-            });
-
-
-
             return base.FinishedLaunching(app, options);
         }
 

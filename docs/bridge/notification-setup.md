@@ -8,9 +8,8 @@ First of all add the permission to the native fragment you want to use and start
 
 When an user taps on a notification, call "**ParseContent**" method which will manage your in-app content and send it automatically in the common fragment.
 ```
-if (content != null && content is NITReactionBundle)
-{
-    NearBridgeiOS.ParseContent(content);
+if(content != null && content is NITReactionBundle && trackingInfo != null) {
+    NearBridgeiOS.ParseContent(content, trackingInfo);    
 }
 ```
 
