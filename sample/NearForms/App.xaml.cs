@@ -33,27 +33,21 @@ namespace NearForms
         public void GotXContentNotification(XCContentNotification notification)
         {
             System.Diagnostics.Debug.WriteLine("Content");
-
-
         }
 
         public void GotXCouponNotification(XCCouponNotification notification)
         {
-            NearPCL.GetCoupons((System.Collections.Generic.IList<XCCouponNotification> obj) => {
-                System.Diagnostics.Debug.WriteLine(obj);
-            }, (obj) => {
-                System.Diagnostics.Debug.WriteLine(obj);
-            });
+            System.Diagnostics.Debug.WriteLine("Coupon");
         }
 
         public void GotXCustomJSONNotification(XCCustomJSONNotification notification)
         {
-            System.Diagnostics.Debug.WriteLine("Custom");
+            System.Diagnostics.Debug.WriteLine("CustomJSON");
         }
 
         public void GotXSimpleNotification(XCSimpleNotification notification)
         {
-            throw new System.NotImplementedException();
+            System.Diagnostics.Debug.WriteLine("Simple notif");
         }
 
         public void GotXFeedbackNotification(XCFeedbackNotification notification)
