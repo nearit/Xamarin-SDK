@@ -38,14 +38,6 @@ namespace NearForms.iOS
             };
             LocationManager.RequestAlwaysAuthorization();
 
-            NearBridge.NearBridgeiOS.GetCoupon((NSArray<NITCoupon> obj) => {
-                System.Diagnostics.Debug.WriteLine(obj);
-            }, (obj) => {
-                System.Diagnostics.Debug.WriteLine(obj);
-            });
-
-
-
             return base.FinishedLaunching(app, options);
         }
 
@@ -70,33 +62,11 @@ namespace NearForms.iOS
             public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
             {
                 var userInfo = response.Notification.Request.Content.UserInfo;
-
-                ReceiveResponse(userInfo);
-            }
-
-            public void ReceiveResponse(NSDictionary userInfo) 
-            {
-                NSString[] keys = new NSString[userInfo.Keys.Length];
-                int i;
-                for (i = 0; i < userInfo.Keys.Length; i++)
+                NearBridge.NearBridgeiOS.ProcessRecipeWithUserInfo(response, (NITReactionBundle content, NITTrackingInfo trackingInfo) =>
                 {
-                    if (userInfo.Keys[i] is NSString)
-                        keys[i] = userInfo.Keys[i] as NSString;
-                    else
-                        i = int.MaxValue;
-                }
-                if (i != int.MaxValue)
-                {
-                    NSDictionary<NSString, NSObject> notif = new NSDictionary<NSString, NSObject>(keys, userInfo.Values);
-                    NITManager.DefaultManager.ProcessRecipeWithUserInfo(notif, (content, recipe, error) =>
-                    {
-                        if (content != null && content is NITReactionBundle)
-                        {
-                            Console.WriteLine("Near notification tap: " + content.NotificationMessage);
-                            NearBridgeiOS.ParseContent(content);
-                       }
-                    });
-                }
+                    //call the ParseContent to manage your notification
+                    NearBridge.NearBridgeiOS.ParseContent(content, trackingInfo);
+                });
             }
         }
 
@@ -110,7 +80,7 @@ namespace NearForms.iOS
             public override void EventWithContent(NITManager manager, NSObject content, NITTrackingInfo trackingInfo)
             {
                 Console.WriteLine("EventWithContent");
-                NearBridgeiOS.ParseContent(content);
+                NearBridgeiOS.ParseContent(content, trackingInfo);
             }
         }
 
