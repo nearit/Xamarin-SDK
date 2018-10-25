@@ -5,6 +5,8 @@ using System.Linq;
 using Foundation;
 using NearIT;
 using UIKit;
+using UserNotifications;
+using XamarinBridge.iOS;
 
 namespace Sample.iOS
 {
@@ -26,8 +28,10 @@ namespace Sample.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
-            NITManager.SetupWithApiKey("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5MWMxYzViYzUxODU0ZjE0OGYzYWNiNmQ4YmE4NzU0ZiIsImlhdCI6MTUwNjQxODE2MCwiZXhwIjoxNjMyNzAwNzk5LCJkYXRhIjp7ImFjY291bnQiOnsiaWQiOiIxN2YxMjJiNi1iZjUwLTQ4ZGQtOWZiYi00OTVjMjc4OTZmMzkiLCJyb2xlX2tleSI6ImFwcCJ9fX0.b6AUrbcuwiPJNpY2f7gGH3Qi6s3ZTfCMALqTPwyjJxA");
-            NITManager.SetFrameworkName("xamarin");
+            // Xamarin.Forms.DependencyService.Register<XamarinBridge.PCL.Manager.INearFunc, XamarinBridge.iOS.NearBridgeiOS>();
+            NearBridgeiOS.SetApiKey();
+            // NITManager.SetupWithApiKey("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5MWMxYzViYzUxODU0ZjE0OGYzYWNiNmQ4YmE4NzU0ZiIsImlhdCI6MTUwNjQxODE2MCwiZXhwIjoxNjMyNzAwNzk5LCJkYXRhIjp7ImFjY291bnQiOnsiaWQiOiIxN2YxMjJiNi1iZjUwLTQ4ZGQtOWZiYi00OTVjMjc4OTZmMzkiLCJyb2xlX2tleSI6ImFwcCJ9fX0.b6AUrbcuwiPJNpY2f7gGH3Qi6s3ZTfCMALqTPwyjJxA");
+            // NITManager.SetFrameworkName("xamarin");
             //NITManager.DefaultManager.TriggerInAppEventWithKey("test_trigger");
 
             //NITManager f = NITManager.DefaultManager;
@@ -38,7 +42,30 @@ namespace Sample.iOS
             //    }
             //});
 
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
+
+            });
+            UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
+
             return base.FinishedLaunching(app, options);
         }
+    }
+}
+
+// Create a delegate class
+public class UserNotificationDelegate : UNUserNotificationCenterDelegate
+{
+    public UserNotificationDelegate()
+    {
+    }
+
+    public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+    {
+        completionHandler(UNNotificationPresentationOptions.Alert);
+    }
+
+    public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+    {
+        // see code below
     }
 }

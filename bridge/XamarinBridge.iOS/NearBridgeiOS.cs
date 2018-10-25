@@ -14,8 +14,11 @@ using UserNotifications;
 [assembly: Dependency(typeof(XamarinBridge.iOS.NearBridgeiOS))]
 namespace XamarinBridge.iOS
 {
+    [Preserve]
     public class NearBridgeiOS : INearFunc
     {
+        static NearBridgeiOS() {}
+
         private static NITContentDelegate _contentsListener = new EventContent();
 
         public static void ParseContent(NSObject Content, NITTrackingInfo TrackingInfo)

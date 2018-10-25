@@ -93,7 +93,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
-    <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +151,9 @@
     <Reference Include="XamarinBridge.iOS">
       <HintPath>..\..\bridge\XamarinBridge.iOS\bin\Debug\XamarinBridge.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="XamarinBridge.PCL">
+      <HintPath>..\..\bridge\XamarinBridge.PCL\bin\Debug\XamarinBridge.PCL.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
@@ -161,6 +163,10 @@
       <Project>{004107F0-28CB-40D2-8B10-0D7AC1B405E5}</Project>
       <Name>Sample</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Info.plist" />
+    <BundleResource Include="Keys.plist" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

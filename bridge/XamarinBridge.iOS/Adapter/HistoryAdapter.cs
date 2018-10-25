@@ -16,6 +16,7 @@ namespace XamarinBridge.iOS.Adapter
             trackingInfo.extras = AdapterUtils.FromNS(
                 nativeItem.TrackingInfo.ExtrasDictionary() as NSDictionary<NSString, NSObject>
             );
+            item.trackingInfo = trackingInfo;
 
             if (nativeItem.ReactionBundle is NITSimpleNotification simple) {
                 item.reaction = AdapterSimple.GetCommonType(simple);

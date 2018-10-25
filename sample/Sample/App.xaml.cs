@@ -19,14 +19,14 @@ namespace Sample
         protected override void OnStart()
         {
             // Handle when your app starts
-            NearPCL.GetCoupons( (history) => {
-                foreach(XCCouponNotification item in history) {
+            NearPCL.GetNotificationHistory( (notifications) => {
+                foreach(XCHistoryItem item in notifications) {
                     System.Diagnostics.Debug.WriteLine(item.ToString());
                 }
             }, (error) => {
 
-            } );
-            // NearPCL.ProcessCustomTrigger("ff");
+            } ); 
+            // NearPCL.ProcessCustomTrigger("test_trigger");
 
         }
 
