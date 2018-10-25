@@ -19,14 +19,6 @@ namespace Sample
         protected override void OnStart()
         {
             // Handle when your app starts
-            NearPCL.GetNotificationHistory( (notifications) => {
-                foreach(XCHistoryItem item in notifications) {
-                    System.Diagnostics.Debug.WriteLine(item.ToString());
-                }
-            }, (error) => {
-
-            } ); 
-            // NearPCL.ProcessCustomTrigger("test_trigger");
 
         }
 
