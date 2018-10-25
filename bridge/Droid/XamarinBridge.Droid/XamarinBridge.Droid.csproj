@@ -82,9 +82,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="XamarinBridge.PCL">
-      <HintPath>..\..\packages\Xamarin.NearIT.PCL.2.5.6\lib\XamarinBridge.PCL.dll</HintPath>
-    </Reference>
     <Reference Include="NearIT.Android">
       <HintPath>..\..\..\..\Xamarin-Binding\NearIT.Android\NearIT.Android\bin\Debug\NearIT.Android.dll</HintPath>
     </Reference>
@@ -167,6 +164,8 @@
     <Compile Include="Adapter\AdapterCoupon.cs" />
     <Compile Include="Adapter\AdapterCustom.cs" />
     <Compile Include="Adapter\AdapterSimple.cs" />
+    <Compile Include="Adapter\HistoryAdapter.cs" />
+    <Compile Include="Adapter\AdapterUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -186,6 +185,12 @@
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
     <Folder Include="Adapter\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\XamarinBridge.PCL\XamarinBridge.PCL.csproj">
+      <Project>{A44F7082-2621-4EC9-94CC-CE6B22D303E8}</Project>
+      <Name>XamarinBridge.PCL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.targets" Condition="Exists('..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.targets')" />

@@ -34,24 +34,12 @@ namespace XamarinBridge.Droid.Adapter
             xfeed.NotificationMessage = native.NotificationMessage;
             xfeed.Question = native.Question;
             xfeed.TrackingInfo.RecipeId = native.TrackingInfo.RecipeId;
-            xfeed.TrackingInfo.extras = From(native.TrackingInfo.Metadata);
+            xfeed.TrackingInfo.extras = AdapterUtils.From(native.TrackingInfo.Metadata);
             xfeed.Id = native.Id;
 
             return xfeed;
         }
 
-        private static Dictionary<string, object> From(IDictionary dic)
-        {
-            Dictionary<string, object> NewDic = new Dictionary<string, object>();
 
-            IDictionaryEnumerator enumerator = dic.GetEnumerator();
-
-            while(enumerator.MoveNext()) {
-                if (enumerator.Key is string){
-					NewDic.Add((string)enumerator.Key, enumerator.Value);               
-                }
-            }
-            return NewDic;
-        }
     }
 }

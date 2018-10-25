@@ -6,6 +6,12 @@ using System.Collections.Generic;
 
 namespace XamarinBridge.PCL
 {
+    public static class Recipe
+    {
+        public static readonly string RECEIVED = "notified";
+        public static readonly string OPENED = "engaged";
+    }
+
     public class NearPCL
     {
         private static IContentManager contentManager;
@@ -35,9 +41,19 @@ namespace XamarinBridge.PCL
             DependencyService.Get<INearFunc>().GetCouponsFromPCL(OnCouponsDownloaded, OnCouponDownloadError);
         }
 
+        public static void GetNotificationHistory(Action<IList<XCHistoryItem>> OnNotificationHistory, Action<String> OnNotificationHistoryError)
+        {
+            DependencyService.Get<INearFunc>().GetNotificationHistoryFromPCL(OnNotificationHistory, OnNotificationHistoryError);
+        }
+
         public static void SetUserData(string key, string value)
         {
             DependencyService.Get<INearFunc>().SetUserData(key, value);
+        }
+
+        public static void SetUserData(string key, Dictionary<string, bool> values)
+        {
+            DependencyService.Get<INearFunc>().SetUserData(key, values);
         }
 
         public static void GetProfileId(Action<String> OnProfile, Action<String> OnError)
@@ -62,7 +78,7 @@ namespace XamarinBridge.PCL
 
         public static void ProcessCustomTrigger(string key)
         {
-            DependencyService.Get<INearFunc>().ProcessCustomTrigger(key);
+            DependencyService.Get<INearFunc>().TriggerInAppEvent(key);
         }
 
     }

@@ -54,7 +54,7 @@ namespace XamarinBridge.iOS
         {
             NITTrackingInfo track = new NITTrackingInfo();
             track.RecipeId = trackingInfo.RecipeId;
-            foreach (var item in track.extras)
+            foreach (var item in track.ExtrasDictionary())
             {
                 trackingInfo.extras.Add((NSString)item.Key, item.Value);
             }
@@ -74,12 +74,11 @@ namespace XamarinBridge.iOS
                 nativeFeedback = AdapterFeedback.GetNative(feedback);
 
                 NITFeedbackEvent nativeFeedbackEvent = new NITFeedbackEvent(nativeFeedback, feedbackEvent.rating, feedbackEvent.comment);
-                NITManager.DefaultManager.SendEventWithEvent(nativeFeedbackEvent,
-                                                             (error) =>
-                                                             {
-                                                                 if (error != null) Console.WriteLine("SendEventWithEvent error ios" + error);
-                                                                 else Console.WriteLine("SendEventWithEvent ios");
-                                                             });
+                NITManager.DefaultManager.SendEventWithEvent(nativeFeedbackEvent, (error) =>
+                {
+                    if (error != null) Console.WriteLine("SendEventWithEvent error ios" + error);
+                    else Console.WriteLine("SendEventWithEvent ios");
+                });
             }
 
         }
@@ -96,9 +95,49 @@ namespace XamarinBridge.iOS
             });
         }
 
+        public void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<string> OnCouponDownloadError)
+        {
+            GetCoupon((coupons) => {
+                IList<XCCouponNotification> list = new List<XCCouponNotification>();
+                foreach (NITCoupon coupon in coupons)
+                {
+                    list.Add(AdapterCoupon.GetCommonType(coupon));
+                }
+                OnCouponsDownloaded.Invoke(list);
+            }, (error) => {
+                OnCouponDownloadError.Invoke(error.ToString());
+            });
+        }
+
+        public static void GetNotificationHistory(Action<NSArray<NITHistoryItem>> OnSuccess, Action<NSError> OnFailure)
+        {
+            NITManager.DefaultManager.HistoryWithCompletion((NSArray<NITHistoryItem> notificationHistory, NSError error) =>
+            {
+                if (error != null) {
+                    OnFailure.Invoke(error);
+                } else {
+                    OnSuccess.Invoke(notificationHistory);
+                }
+            });
+        }
+
+        public void GetNotificationHistoryFromPCL(Action<IList<XCHistoryItem>> OnNotificationHistory, Action<string> OnNotificationHistoryError)
+        {
+            GetNotificationHistory( (notificationHistory) => {
+                IList<XCHistoryItem> list = new List<XCHistoryItem>();
+                foreach(NITHistoryItem item in notificationHistory)
+                {
+                    list.Add(HistoryAdapter.GetCommonType(item));
+                }
+                OnNotificationHistory.Invoke(list);
+            }, (error) => {
+                OnNotificationHistoryError.Invoke(error.ToString());
+            });
+        }
+
         public void SetUserData(string key, string value)
         {
-            NITManager.DefaultManager.SetUserData(key, value);
+            NITManager.DefaultManager.SetUserDataWithKey(key, value);
         }
 
         public static void GetProfileId(Action<NSString> OnSuccess, Action<NSError> OnError)
@@ -118,7 +157,7 @@ namespace XamarinBridge.iOS
 
         public void SetProfileId(string profileId)
         {
-            NITManager.DefaultManager.SetProfileId(profileId);
+            NITManager.DefaultManager.ProfileId = profileId;
         }
 
         public static void ResetProfileId(Action<NSString> OnSuccess, Action<NSError> OnError)
@@ -150,18 +189,9 @@ namespace XamarinBridge.iOS
             NITManager.DefaultManager.ProcessCustomTriggerWithKey(key);
         }
 
-        public void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<string> OnCouponDownloadError)
-        {
-            GetCoupon((coupons) => {
-                IList<XCCouponNotification> list = new List<XCCouponNotification>();
-                foreach(NITCoupon coupon in coupons) {
-                    list.Add(AdapterCoupon.GetCommonType(coupon));
-                }
-                OnCouponsDownloaded.Invoke(list);
-            },(error) => {
-                OnCouponDownloadError.Invoke(error.ToString());
-            });
-        }
+
+
+       
 
         public void GetProfileIdFromPCL(Action<string> OnProfile, Action<string> OnError)
         {
@@ -215,6 +245,30 @@ namespace XamarinBridge.iOS
                     }
                 });
             }
+        }
+
+        public void SetUserData(string key, Dictionary<string, bool> values)
+        {
+            if (values == null)
+            {
+                NITManager.DefaultManager.SetUserDataWithKey(key, null as NSDictionary<NSString, NSNumber>);
+            }
+            else
+            {
+                NSMutableDictionary<NSString, NSNumber> multi = new NSMutableDictionary<NSString, NSNumber>();
+                foreach (KeyValuePair<string, bool> entry in values)
+                {
+                    NSString nativeKey = new NSString(entry.Key);
+                    NSNumber nativeBool = new NSNumber(entry.Value);
+                    multi.Add(nativeKey, nativeBool);
+                }
+                NITManager.DefaultManager.SetUserDataWithKey(key, multi.Copy() as NSDictionary<NSString, NSNumber>);
+            }
+        }
+
+        public void TriggerInAppEvent(string key)
+        {
+            NITManager.DefaultManager.TriggerInAppEventWithKey(key);
         }
 
         internal class EventContent : NITContentDelegate
