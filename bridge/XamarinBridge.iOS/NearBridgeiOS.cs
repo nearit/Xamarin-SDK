@@ -14,7 +14,6 @@ using UserNotifications;
 [assembly: Dependency(typeof(XamarinBridge.iOS.NearBridgeiOS))]
 namespace XamarinBridge.iOS
 {
-    [Preserve]
     public class NearBridgeiOS : INearFunc
     {
         static NearBridgeiOS() {}
@@ -26,6 +25,11 @@ namespace XamarinBridge.iOS
             //HandleNearContent.HandleContent(content, _contentsListener);      this is mine handlecontent --> implement in the internal class EVENTCONTENT : IContentsListener
 
             NITManager.DefaultManager.ParseContent(Content, TrackingInfo, _contentsListener);
+        }
+
+        public static void Init(string key) {
+            NITManager.SetupWithApiKey(key);
+            NITManager.SetFrameworkName("xamarin");
         }
 
         public static void SetApiKey()

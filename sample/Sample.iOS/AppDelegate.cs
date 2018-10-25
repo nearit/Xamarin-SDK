@@ -29,8 +29,7 @@ namespace Sample.iOS
             LoadApplication(new App());
 
             // Xamarin.Forms.DependencyService.Register<XamarinBridge.PCL.Manager.INearFunc, XamarinBridge.iOS.NearBridgeiOS>();
-            NearBridgeiOS.SetApiKey();
-            // NITManager.SetupWithApiKey("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5MWMxYzViYzUxODU0ZjE0OGYzYWNiNmQ4YmE4NzU0ZiIsImlhdCI6MTUwNjQxODE2MCwiZXhwIjoxNjMyNzAwNzk5LCJkYXRhIjp7ImFjY291bnQiOnsiaWQiOiIxN2YxMjJiNi1iZjUwLTQ4ZGQtOWZiYi00OTVjMjc4OTZmMzkiLCJyb2xlX2tleSI6ImFwcCJ9fX0.b6AUrbcuwiPJNpY2f7gGH3Qi6s3ZTfCMALqTPwyjJxA");
+            NearBridgeiOS.Init("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5MWMxYzViYzUxODU0ZjE0OGYzYWNiNmQ4YmE4NzU0ZiIsImlhdCI6MTUwNjQxODE2MCwiZXhwIjoxNjMyNzAwNzk5LCJkYXRhIjp7ImFjY291bnQiOnsiaWQiOiIxN2YxMjJiNi1iZjUwLTQ4ZGQtOWZiYi00OTVjMjc4OTZmMzkiLCJyb2xlX2tleSI6ImFwcCJ9fX0.b6AUrbcuwiPJNpY2f7gGH3Qi6s3ZTfCMALqTPwyjJxA");
             // NITManager.SetFrameworkName("xamarin");
             //NITManager.DefaultManager.TriggerInAppEventWithKey("test_trigger");
 
@@ -48,6 +47,11 @@ namespace Sample.iOS
             UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return NITManager.DefaultManager.Application(app, url, options as NSDictionary<NSString, NSObject>);
         }
     }
 }
