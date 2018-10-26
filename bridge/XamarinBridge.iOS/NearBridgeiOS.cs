@@ -57,6 +57,11 @@ namespace XamarinBridge.iOS
             return "";
         }
 
+        public static void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler) 
+        {
+            NITManager.DefaultManager.Application(application, completionHandler);
+        }
+
         public void SendTrack(XCTrackingInfo trackingInfo, string value)
         {
             NITTrackingInfo track = new NITTrackingInfo();
@@ -191,14 +196,10 @@ namespace XamarinBridge.iOS
                  });
         }
 
-        public void ProcessCustomTrigger(string key)
+        public void TriggerInAppEvent(string key)
         {
-            NITManager.DefaultManager.ProcessCustomTriggerWithKey(key);
+            NITManager.DefaultManager.TriggerInAppEventWithKey(key);
         }
-
-
-
-       
 
         public void GetProfileIdFromPCL(Action<string> OnProfile, Action<string> OnError)
         {
@@ -228,30 +229,29 @@ namespace XamarinBridge.iOS
             });
         }
 
+        [Obsolete("Please use ProcessRecipeWithResponse instead.")]
         public static void ProcessRecipeWithUserInfo(UNNotificationResponse response, Action<NITReactionBundle, NITTrackingInfo> OnSuccess)
         {
-            var userInfo = response.Notification.Request.Content.UserInfo;
+            ProcessRecipeWithResponse(response, OnSuccess);
+        }
 
-            NSString[] keys = new NSString[userInfo.Keys.Length];
-            int i;
-            for (i = 0; i < userInfo.Keys.Length; i++)
+        public static void ProcessRecipeWithResponse(UNNotificationResponse response, Action<NITReactionBundle, NITTrackingInfo> OnSuccess)
+        {
+            NITManager.DefaultManager.ProcessRecipeWithResponse(response, (content, trackingInfo, error) =>
             {
-                if (userInfo.Keys[i] is NSString)
-                    keys[i] = userInfo.Keys[i] as NSString;
-                else
-                    i = int.MaxValue;
-            }
-            if (i != int.MaxValue)
-            {
-                NSDictionary<NSString, NSObject> notif = new NSDictionary<NSString, NSObject>(keys, userInfo.Values);
-                NITManager.DefaultManager.ProcessRecipeWithUserInfo(notif, (content, trackingInfo, error) =>
+                if (content != null && content is NITReactionBundle)
                 {
-                    if (content != null && content is NITReactionBundle)
-                    {
-                        OnSuccess.Invoke(content, trackingInfo);
-                    }
-                });
-            }
+                    OnSuccess.Invoke(content, trackingInfo);
+                }
+            });
+        }
+
+        public static void ParseContentFromResponse(UNNotificationResponse response)
+        {
+            ProcessRecipeWithResponse(response, (NITReactionBundle content, NITTrackingInfo trackingInfo) =>
+            {
+                NearBridgeiOS.ParseContent(content, trackingInfo);
+            });
         }
 
         public void SetUserData(string key, Dictionary<string, bool> values)
@@ -273,9 +273,16 @@ namespace XamarinBridge.iOS
             }
         }
 
-        public void TriggerInAppEvent(string key)
-        {
-            NITManager.DefaultManager.TriggerInAppEventWithKey(key);
+        public static void Start() {
+            NITManager.DefaultManager.Start();
+        }
+
+        public static void Stop() {
+            NITManager.DefaultManager.Stop();
+        }
+
+        public static void SetDeviceToken(NSData token) {
+            NITManager.DefaultManager.SetDeviceTokenWithData(token);
         }
 
         internal class EventContent : NITContentDelegate

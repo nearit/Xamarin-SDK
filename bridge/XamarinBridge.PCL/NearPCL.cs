@@ -76,7 +76,13 @@ namespace XamarinBridge.PCL
             DependencyService.Get<INearFunc>().OptOutFromPCL(OnSuccess, OnFailure);
         }
 
+        [Obsolete("Please use TriggerInAppEvent instead.")]
         public static void ProcessCustomTrigger(string key)
+        {
+            TriggerInAppEvent(key);
+        }
+
+        public static void TriggerInAppEvent(string key)
         {
             DependencyService.Get<INearFunc>().TriggerInAppEvent(key);
         }
