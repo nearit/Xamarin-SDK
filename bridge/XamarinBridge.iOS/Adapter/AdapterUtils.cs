@@ -24,17 +24,18 @@ namespace XamarinBridge.iOS.Adapter
             return NSDic;
         }
 
-        public static Dictionary<string, object> FromNS(NSDictionary<NSString, NSObject> NSDic)
+        public static Dictionary<string, object> FromNS(NSDictionary NSDic)
         {
             if (NSDic == null) {
                 return null;
             }
             Dictionary<string, object> Dic = new Dictionary<string, object>();
 
-            foreach (NSString key in NSDic.Keys)
+            foreach (var item in NSDic)
             {
-                NSObject value = NSDic.ObjectForKey(key);
+                NSObject value = item.Value;
                 object val = ToObject(value);
+                NSString key = (NSString)item.Key;
                 Dic.Add(key, val);
             }
             return Dic;
