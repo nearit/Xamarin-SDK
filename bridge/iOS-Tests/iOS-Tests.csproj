@@ -9,6 +9,7 @@
     <RootNamespace>iOSTests</RootNamespace>
     <AssemblyName>iOS-Tests</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,8 +86,8 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="MonoTouch.NUnitLite" />
-    <Reference Include="NeariOSBind">
-      <HintPath>..\NearBridge\bin\Debug\NeariOSBind.dll</HintPath>
+    <Reference Include="NearIT.iOS.2.10">
+      <HintPath>..\..\..\Xamarin-Binding\NearIT.iOS\NearIT.iOS\bin\Debug\NearIT.iOS.2.10.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -102,15 +103,13 @@
     <Compile Include="MyTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NearBridge\NearBridge.csproj">
+    <ProjectReference Include="..\XamarinBridge.iOS\XamarinBridge.iOS.csproj">
       <Project>{CFCA42F7-17CF-4B06-A479-4DF17C4B135F}</Project>
-      <Name>NearBridge</Name>
-      <Private>False</Private>
+      <Name>XamarinBridge.iOS</Name>
     </ProjectReference>
     <ProjectReference Include="..\XamarinBridge.PCL\XamarinBridge.PCL.csproj">
       <Project>{A44F7082-2621-4EC9-94CC-CE6B22D303E8}</Project>
       <Name>XamarinBridge.PCL</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

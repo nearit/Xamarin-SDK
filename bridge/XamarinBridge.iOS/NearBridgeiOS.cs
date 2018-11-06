@@ -16,6 +16,8 @@ namespace XamarinBridge.iOS
 {
     public class NearBridgeiOS : INearFunc
     {
+        static NearBridgeiOS() {}
+
         private static NITContentDelegate _contentsListener = new EventContent();
 
         public static void ParseContent(NSObject Content, NITTrackingInfo TrackingInfo)
@@ -23,6 +25,11 @@ namespace XamarinBridge.iOS
             //HandleNearContent.HandleContent(content, _contentsListener);      this is mine handlecontent --> implement in the internal class EVENTCONTENT : IContentsListener
 
             NITManager.DefaultManager.ParseContent(Content, TrackingInfo, _contentsListener);
+        }
+
+        public static void Init(string key) {
+            NITManager.SetupWithApiKey(key);
+            NITManager.SetFrameworkName("xamarin");
         }
 
         public static void SetApiKey()
@@ -50,11 +57,16 @@ namespace XamarinBridge.iOS
             return "";
         }
 
+        public static void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler) 
+        {
+            NITManager.DefaultManager.Application(application, completionHandler);
+        }
+
         public void SendTrack(XCTrackingInfo trackingInfo, string value)
         {
             NITTrackingInfo track = new NITTrackingInfo();
             track.RecipeId = trackingInfo.RecipeId;
-            foreach (var item in track.extras)
+            foreach (var item in track.ExtrasDictionary())
             {
                 trackingInfo.extras.Add((NSString)item.Key, item.Value);
             }
@@ -74,12 +86,11 @@ namespace XamarinBridge.iOS
                 nativeFeedback = AdapterFeedback.GetNative(feedback);
 
                 NITFeedbackEvent nativeFeedbackEvent = new NITFeedbackEvent(nativeFeedback, feedbackEvent.rating, feedbackEvent.comment);
-                NITManager.DefaultManager.SendEventWithEvent(nativeFeedbackEvent,
-                                                             (error) =>
-                                                             {
-                                                                 if (error != null) Console.WriteLine("SendEventWithEvent error ios" + error);
-                                                                 else Console.WriteLine("SendEventWithEvent ios");
-                                                             });
+                NITManager.DefaultManager.SendEventWithEvent(nativeFeedbackEvent, (error) =>
+                {
+                    if (error != null) Console.WriteLine("SendEventWithEvent error ios" + error);
+                    else Console.WriteLine("SendEventWithEvent ios");
+                });
             }
 
         }
@@ -96,9 +107,49 @@ namespace XamarinBridge.iOS
             });
         }
 
+        public void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<string> OnCouponDownloadError)
+        {
+            GetCoupon((coupons) => {
+                IList<XCCouponNotification> list = new List<XCCouponNotification>();
+                foreach (NITCoupon coupon in coupons)
+                {
+                    list.Add(AdapterCoupon.GetCommonType(coupon));
+                }
+                OnCouponsDownloaded.Invoke(list);
+            }, (error) => {
+                OnCouponDownloadError.Invoke(error.ToString());
+            });
+        }
+
+        public static void GetNotificationHistory(Action<NSArray<NITHistoryItem>> OnSuccess, Action<NSError> OnFailure)
+        {
+            NITManager.DefaultManager.HistoryWithCompletion((NSArray<NITHistoryItem> notificationHistory, NSError error) =>
+            {
+                if (error != null) {
+                    OnFailure.Invoke(error);
+                } else {
+                    OnSuccess.Invoke(notificationHistory);
+                }
+            });
+        }
+
+        public void GetNotificationHistoryFromPCL(Action<IList<XCHistoryItem>> OnNotificationHistory, Action<string> OnNotificationHistoryError)
+        {
+            GetNotificationHistory( (notificationHistory) => {
+                IList<XCHistoryItem> list = new List<XCHistoryItem>();
+                foreach(NITHistoryItem item in notificationHistory)
+                {
+                    list.Add(HistoryAdapter.GetCommonType(item));
+                }
+                OnNotificationHistory.Invoke(list);
+            }, (error) => {
+                OnNotificationHistoryError.Invoke(error.ToString());
+            });
+        }
+
         public void SetUserData(string key, string value)
         {
-            NITManager.DefaultManager.SetUserData(key, value);
+            NITManager.DefaultManager.SetUserDataWithKey(key, value);
         }
 
         public static void GetProfileId(Action<NSString> OnSuccess, Action<NSError> OnError)
@@ -118,7 +169,7 @@ namespace XamarinBridge.iOS
 
         public void SetProfileId(string profileId)
         {
-            NITManager.DefaultManager.SetProfileId(profileId);
+            NITManager.DefaultManager.ProfileId = profileId;
         }
 
         public static void ResetProfileId(Action<NSString> OnSuccess, Action<NSError> OnError)
@@ -145,22 +196,9 @@ namespace XamarinBridge.iOS
                  });
         }
 
-        public void ProcessCustomTrigger(string key)
+        public void TriggerInAppEvent(string key)
         {
-            NITManager.DefaultManager.ProcessCustomTriggerWithKey(key);
-        }
-
-        public void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<string> OnCouponDownloadError)
-        {
-            GetCoupon((coupons) => {
-                IList<XCCouponNotification> list = new List<XCCouponNotification>();
-                foreach(NITCoupon coupon in coupons) {
-                    list.Add(AdapterCoupon.GetCommonType(coupon));
-                }
-                OnCouponsDownloaded.Invoke(list);
-            },(error) => {
-                OnCouponDownloadError.Invoke(error.ToString());
-            });
+            NITManager.DefaultManager.TriggerInAppEventWithKey(key);
         }
 
         public void GetProfileIdFromPCL(Action<string> OnProfile, Action<string> OnError)
@@ -191,30 +229,60 @@ namespace XamarinBridge.iOS
             });
         }
 
+        [Obsolete("Please use ProcessRecipeWithResponse instead.")]
         public static void ProcessRecipeWithUserInfo(UNNotificationResponse response, Action<NITReactionBundle, NITTrackingInfo> OnSuccess)
         {
-            var userInfo = response.Notification.Request.Content.UserInfo;
+            ProcessRecipeWithResponse(response, OnSuccess);
+        }
 
-            NSString[] keys = new NSString[userInfo.Keys.Length];
-            int i;
-            for (i = 0; i < userInfo.Keys.Length; i++)
+        public static void ProcessRecipeWithResponse(UNNotificationResponse response, Action<NITReactionBundle, NITTrackingInfo> OnSuccess)
+        {
+            NITManager.DefaultManager.ProcessRecipeWithResponse(response, (content, trackingInfo, error) =>
             {
-                if (userInfo.Keys[i] is NSString)
-                    keys[i] = userInfo.Keys[i] as NSString;
-                else
-                    i = int.MaxValue;
-            }
-            if (i != int.MaxValue)
-            {
-                NSDictionary<NSString, NSObject> notif = new NSDictionary<NSString, NSObject>(keys, userInfo.Values);
-                NITManager.DefaultManager.ProcessRecipeWithUserInfo(notif, (content, trackingInfo, error) =>
+                if (content != null && content is NITReactionBundle)
                 {
-                    if (content != null && content is NITReactionBundle)
-                    {
-                        OnSuccess.Invoke(content, trackingInfo);
-                    }
-                });
+                    OnSuccess.Invoke(content, trackingInfo);
+                }
+            });
+        }
+
+        public static void ParseContentFromResponse(UNNotificationResponse response)
+        {
+            ProcessRecipeWithResponse(response, (NITReactionBundle content, NITTrackingInfo trackingInfo) =>
+            {
+                NearBridgeiOS.ParseContent(content, trackingInfo);
+            });
+        }
+
+        public void SetUserData(string key, Dictionary<string, bool> values)
+        {
+            if (values == null)
+            {
+                NITManager.DefaultManager.SetUserDataWithKey(key, null as NSDictionary<NSString, NSNumber>);
             }
+            else
+            {
+                NSMutableDictionary<NSString, NSNumber> multi = new NSMutableDictionary<NSString, NSNumber>();
+                foreach (KeyValuePair<string, bool> entry in values)
+                {
+                    NSString nativeKey = new NSString(entry.Key);
+                    NSNumber nativeBool = new NSNumber(entry.Value);
+                    multi.Add(nativeKey, nativeBool);
+                }
+                NITManager.DefaultManager.SetUserDataWithKey(key, multi.Copy() as NSDictionary<NSString, NSNumber>);
+            }
+        }
+
+        public static void Start() {
+            NITManager.DefaultManager.Start();
+        }
+
+        public static void Stop() {
+            NITManager.DefaultManager.Stop();
+        }
+
+        public static void SetDeviceToken(NSData token) {
+            NITManager.DefaultManager.SetDeviceTokenWithData(token);
         }
 
         internal class EventContent : NITContentDelegate
