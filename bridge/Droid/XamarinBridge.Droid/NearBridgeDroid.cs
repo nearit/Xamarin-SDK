@@ -24,6 +24,9 @@ using XamarinBridge.PCL.Manager;
 using XamarinBridge.PCL;
 using XamarinBridge.Droid.Adapter;
 using System.Collections.Generic;
+using IT.Near.Sdk.Operation.Values;
+using IT.Near.Sdk.Recipes.Inbox.Model;
+using IT.Near.Sdk.Recipes.Inbox;
 
 [assembly: Dependency(typeof(XamarinBridge.Droid.NearBridgeDroid))]
 namespace XamarinBridge.Droid
@@ -89,11 +92,43 @@ namespace XamarinBridge.Droid
             NearItManager.Instance.GetCoupons(new CouponDelegate(OnCouponsDownloaded, OnCouponDownloadError));
         }
 
+        public void GetNotificationHistoryFromPCL(Action<IList<XCHistoryItem>> OnNotificationHistory, Action<string> OnNotificationHistoryError)
+        {
+            NearItManager.Instance.GetHistory(new HistoryDelegate( (notificationHistory) => {
+                IList<XCHistoryItem> XCHistoryItems = new List<XCHistoryItem>();
+                foreach(HistoryItem item in notificationHistory)
+                {
+                    XCHistoryItems.Add(HistoryAdapter.GetCommonType(item));
+                }
+                OnNotificationHistory.Invoke(XCHistoryItems);
+            }, OnNotificationHistoryError));
+        }
+
+        public static void GetNotificationHistory(Action<IList<HistoryItem>> OnNotificationHistory, Action<string> OnError) {
+            NearItManager.Instance.GetHistory(new HistoryDelegate(OnNotificationHistory, OnError));
+        }
+
         public void SetUserData(string key, string value)
         {
             NearItManager.Instance.SetUserData(key, value);
         }
 
+        public void SetUserData(string key, Dictionary<string, bool> value)
+        {
+            if (value == null)
+            {
+                NearItManager.Instance.SetUserData(key, null as NearMultipleChoiceDataPoint);
+            }
+            else
+            {
+                NearMultipleChoiceDataPoint multi = new NearMultipleChoiceDataPoint();
+                foreach (KeyValuePair<string, bool> entry in value)
+                {
+                    multi.Put(entry.Key, entry.Value);
+                }
+                NearItManager.Instance.SetUserData(key, multi);
+            }
+        }
 
         public void GetProfileIdFromPCL(Action<String> OnProfile, Action<String> OnError)
         {
@@ -122,7 +157,6 @@ namespace XamarinBridge.Droid
         }
 
 
-
         public void OptOutFromPCL(Action<int> OnSuccess, Action<String> OnFailure)
         {
             NearBridgeDroid.OptOut(OnSuccess, OnFailure);
@@ -134,9 +168,9 @@ namespace XamarinBridge.Droid
         }
 
 
-        public void ProcessCustomTrigger(string key)
+        public void TriggerInAppEvent(string key)
         {
-            NearItManager.Instance.ProcessCustomTrigger(key);
+            NearItManager.Instance.TriggerInAppEvent(key);
         }
 
         internal class OptOutDelegate : Java.Lang.Object, IOptOutNotifier
@@ -199,6 +233,28 @@ namespace XamarinBridge.Droid
             }
 
             public void OnCouponsDownloaded(IList<Coupon> p0)
+            {
+                success.Invoke(p0);
+            }
+        }
+
+        internal class HistoryDelegate : Java.Lang.Object, NotificationHistoryManager.IOnNotificationHistoryListener
+        {
+            Action<IList<HistoryItem>> success;
+            Action<String> failure;
+
+            public HistoryDelegate(Action<IList<HistoryItem>> OnNotificationHistory, Action<String> OnError)
+            {
+                success = OnNotificationHistory;
+                failure = OnError;
+            }
+
+            public void OnError(string p0)
+            {
+                failure.Invoke(p0);
+            }
+
+            public void OnNotifications(IList<HistoryItem> p0)
             {
                 success.Invoke(p0);
             }
