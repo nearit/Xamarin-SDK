@@ -23,6 +23,24 @@ namespace Sample.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            NearBridgeiOS.Init("YOUR_API_KEY");
+
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
+
+            });
+            // set a notification delegate
+            UNUserNotificationCenter.Current.Delegate = new UserNotificationDelegate();
+
+            CLLocationManager LocationManager = new CLLocationManager();
+
+            LocationManager.AuthorizationChanged += (s, e) =>
+            {
+                if (e.Status == CLAuthorizationStatus.AuthorizedAlways)
+                    NearBridgeiOS.Start();
+            };
+
+            LocationManager.RequestAlwaysAuthorization();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
