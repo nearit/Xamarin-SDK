@@ -3,12 +3,10 @@ Xamarin plugin for NearIT SDK.
 
 NearIT allows to engage app users by sending **context-aware targeted content**.
 
-[![Visual Studio](https://img.shields.io/badge/Visual%20Studio-7.2-orange.svg)](https://www.visualstudio.com/)
 [![Android](https://img.shields.io/badge/Android-15%2B-blue.svg?style=flat)](https://developer.android.com/about/dashboards/index.html#Platform)
 [![iOS](https://img.shields.io/badge/iOS-9-blue.svg)](https://developer.apple.com/ios/)
 
-[![Documentation Status](https://readthedocs.org/projects/nearit-ios/badge/?version=latest)](http://nearit-xamarin-sdk.readthedocs.io/en/latest/?badge=latest)
-[![Gitter](https://img.shields.io/gitter/room/nearit/Lobby.svg)](https://gitter.im/nearit/Lobby)
+[![Documentation Status](https://img.shields.io/badge/docs-visit-brightgreen.svg)](https://docs.nearit.com/xamarin/installation/)
 
 ## Recipes
 
@@ -27,4 +25,4 @@ Once the settings are configured, **everyone** - even people without technical s
 
 ## Integration guide
 
-For information on how to integrate all NearIT features in your app, follow the [integration guide](http://nearit-xamarin-sdk.readthedocs.io/en/latest/)
+For information on how to integrate all NearIT features in your app, follow the [integration guide](https://docs.nearit.com/xamarin/installation/)
