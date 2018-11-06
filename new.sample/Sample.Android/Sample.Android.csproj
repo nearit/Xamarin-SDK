@@ -18,21 +18,18 @@
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-<AndroidSupportedAbis>armeabi-v7a;armeabi;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+<AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,35 +46,13 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-    <Reference Include="XamarinBridge.Droid">
-      <HintPath>..\..\bridge\Droid\XamarinBridge.Droid\bin\Debug\XamarinBridge.Droid.dll</HintPath>
-    </Reference>
-    <Reference Include="NearIT.Android">
-      <HintPath>..\..\..\Xamarin-Binding\NearIT.Android\NearIT.Android\bin\Debug\NearIT.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="AltBeaconBinding">
-      <HintPath>..\..\..\AltBeaconBinding\AltBeaconBinding\bin\Debug\AltBeaconBinding.dll</HintPath>
-    </Reference>
-    <Reference Include="GoogleServicesBinding">
-      <HintPath>..\..\..\GoogleServicesBinding\GoogleServicesBinding\bin\Debug\GoogleServicesBinding.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.Compat">
-      <Version>27.0.2.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.GooglePlayServices.Location">
-      <Version>60.1142.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Firebase.Messaging">
-      <Version>60.1142.1</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

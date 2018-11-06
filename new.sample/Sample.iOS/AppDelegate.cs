@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using NearIT;
+using ObjCRuntime;
 using UIKit;
 using UserNotifications;
 using XamarinBridge.iOS;
@@ -53,6 +54,16 @@ namespace Sample.iOS
         {
             return NITManager.DefaultManager.Application(app, url, options as NSDictionary<NSString, NSObject>);
         }
+
+        public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+        {
+            NearBridgeiOS.SetDeviceToken(deviceToken);
+        }
+
+        public override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            NearBridgeiOS.PerformFetch(application, completionHandler);
+        }
     }
 }
 
@@ -70,6 +81,6 @@ public class UserNotificationDelegate : UNUserNotificationCenterDelegate
 
     public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
     {
-        // see code below
+        NearBridgeiOS.ParseContentFromResponse(response);
     }
 }

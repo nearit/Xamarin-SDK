@@ -10,6 +10,8 @@ using IT.Near.Sdk;
 using IT.Near.Sdk.Recipes.Inbox.Model;
 using System.Collections.Generic;
 using Android.Util;
+using Android.Content;
+using XamarinBridge.Droid;
 
 namespace Sample.Droid
 {
@@ -26,6 +28,18 @@ namespace Sample.Droid
             foreach(HistoryItem item in items) {
                 Log.Error("item", item.ToString());
             }
+        }
+
+        protected override void OnPostCreate(Bundle savedInstanceState)
+        {
+            base.OnPostCreate(savedInstanceState);
+            OnNewIntent(Intent);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            NearBridgeDroid.ParseIntent(intent);
         }
 
         protected override void OnCreate(Bundle savedInstanceState)

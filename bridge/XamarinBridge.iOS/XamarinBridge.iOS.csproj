@@ -57,8 +57,8 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.3.3.0.912540\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
-    <Reference Include="NearIT.iOS.2.10">
-      <HintPath>..\..\..\Xamarin-Binding\NearIT.iOS\NearIT.iOS\bin\Debug\NearIT.iOS.2.10.dll</HintPath>
+    <Reference Include="NearIT.iOS">
+      <HintPath>..\..\..\Xamarin-Binding\NearIT.iOS\NearIT.iOS\bin\Debug\NearIT.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
