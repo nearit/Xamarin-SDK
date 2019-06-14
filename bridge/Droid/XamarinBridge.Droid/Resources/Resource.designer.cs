@@ -3850,6 +3850,24 @@ namespace XamarinBridge.Droid
 			// aapt resource value: 0x7f080003
 			public const int mr_controller_volume_group_list_fade_out_duration_ms = 2131230723;
 			
+			// aapt resource value: 0x7f08000e
+			public const int nearit_altbeacon_background_between_scan_periods = 2131230734;
+			
+			// aapt resource value: 0x7f08000f
+			public const int nearit_altbeacon_background_scan_period = 2131230735;
+			
+			// aapt resource value: 0x7f080010
+			public const int nearit_altbeacon_foreground_between_scan_periods = 2131230736;
+			
+			// aapt resource value: 0x7f080011
+			public const int nearit_altbeacon_foreground_scan_period = 2131230737;
+			
+			// aapt resource value: 0x7f080012
+			public const int nearit_altbeacon_ranging_sample_expiration = 2131230738;
+			
+			// aapt resource value: 0x7f080013
+			public const int nearit_altbeacon_region_exit_period = 2131230739;
+			
 			// aapt resource value: 0x7f08000c
 			public const int show_password_duration = 2131230732;
 			
