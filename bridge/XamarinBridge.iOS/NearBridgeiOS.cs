@@ -133,6 +133,8 @@ namespace XamarinBridge.iOS
             });
         }
 
+        
+
         public void GetNotificationHistoryFromPCL(Action<IList<XCHistoryItem>> OnNotificationHistory, Action<string> OnNotificationHistoryError)
         {
             GetNotificationHistory( (notificationHistory) => {
@@ -150,6 +152,36 @@ namespace XamarinBridge.iOS
         public void SetUserData(string key, string value)
         {
             NITManager.DefaultManager.SetUserDataWithKey(key, value);
+        }
+
+        public void GetUserData(Action<IDictionary<string, object>> OnUserData, Action<string> OnUserDataError)
+        {
+            GetUserDataNative((nativeMap) => {
+                IDictionary<string, object> userDataMap = new Dictionary<string, object>();
+                foreach (NSString key in nativeMap.Keys)
+                {
+                    userDataMap.Add(key, nativeMap.ObjectForKey(key));
+                }
+                OnUserData.Invoke(userDataMap);
+            }, (error) => {
+                OnUserDataError.Invoke(error.ToString());
+            });
+
+        }
+
+        public static void GetUserDataNative(Action<NSDictionary<NSString, NSObject>> OnSuccess, Action<NSError> OnFailure)
+        {
+            NITManager.DefaultManager.GetUserDataWithCompletionHandler((NSDictionary<NSString, NSObject> userData, NSError error) =>
+            {
+                if (error != null)
+                {
+                    OnFailure.Invoke(error);
+                }
+                else
+                {
+                    OnSuccess.Invoke(userData);
+                }
+            });
         }
 
         public static void GetProfileId(Action<NSString> OnSuccess, Action<NSError> OnError)
