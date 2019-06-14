@@ -2307,6 +2307,24 @@ namespace AndroidTests
 			// aapt resource value: 0x7f0c0003
 			public const int config_tooltipAnimTime = 2131492867;
 			
+			// aapt resource value: 0x7f0c0005
+			public const int nearit_altbeacon_background_between_scan_periods = 2131492869;
+			
+			// aapt resource value: 0x7f0c0006
+			public const int nearit_altbeacon_background_scan_period = 2131492870;
+			
+			// aapt resource value: 0x7f0c0007
+			public const int nearit_altbeacon_foreground_between_scan_periods = 2131492871;
+			
+			// aapt resource value: 0x7f0c0008
+			public const int nearit_altbeacon_foreground_scan_period = 2131492872;
+			
+			// aapt resource value: 0x7f0c0009
+			public const int nearit_altbeacon_ranging_sample_expiration = 2131492873;
+			
+			// aapt resource value: 0x7f0c000a
+			public const int nearit_altbeacon_region_exit_period = 2131492874;
+			
 			// aapt resource value: 0x7f0c0004
 			public const int status_bar_notification_info_maxnum = 2131492868;
 			
