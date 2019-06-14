@@ -42,6 +42,7 @@
     <Compile Include="Types\XCCustomJSONNotification.cs" />
     <Compile Include="Types\XCFeedbackEvent.cs" />
     <Compile Include="Types\XCHistoryItem.cs" />
+    <Compile Include="Manager\INotificationHistoryUpdateListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Types\" />

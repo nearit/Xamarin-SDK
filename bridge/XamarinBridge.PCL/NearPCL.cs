@@ -46,6 +46,16 @@ namespace XamarinBridge.PCL
             DependencyService.Get<INearFunc>().GetNotificationHistoryFromPCL(OnNotificationHistory, OnNotificationHistoryError);
         }
 
+        public static void SetNotificationHistoryUpdateListener(INotificationHistoryUpdateListener listener)
+        {
+            DependencyService.Get<INearFunc>().SetNotificationUpdateListener(listener);
+        }
+
+        public static void RemoveNotificationUpdateListener(INotificationHistoryUpdateListener listener)
+        {
+            DependencyService.Get<INearFunc>().RemoveNotificationUpdateListener(listener);
+        }
+
         public static void SetUserData(string key, string value)
         {
             DependencyService.Get<INearFunc>().SetUserData(key, value);
@@ -54,6 +64,11 @@ namespace XamarinBridge.PCL
         public static void SetUserData(string key, Dictionary<string, bool> values)
         {
             DependencyService.Get<INearFunc>().SetUserData(key, values);
+        }
+
+        public static void GetUserData(Action<IDictionary<string, object>> OnUserData, Action<string> OnUserDataError)
+        {
+            DependencyService.Get<INearFunc>().GetUserData(OnUserData, OnUserDataError);
         }
 
         public static void GetProfileId(Action<String> OnProfile, Action<String> OnError)

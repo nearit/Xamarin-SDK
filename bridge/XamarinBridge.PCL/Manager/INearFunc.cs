@@ -10,6 +10,8 @@ namespace XamarinBridge.PCL.Manager
         void SendEvent(XCEvent ev);
         void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<string> OnCouponDownloadError);
         void GetNotificationHistoryFromPCL(Action<IList<XCHistoryItem>> OnNotificationHistory, Action<string> OnNotificationHistoryError);
+        void SetNotificationUpdateListener(INotificationHistoryUpdateListener listener);
+        void RemoveNotificationUpdateListener(INotificationHistoryUpdateListener listener);
         void SetUserData(string key, string value);
         void SetUserData(string key, Dictionary<string, bool> values);
         void GetUserData(Action<IDictionary<string, object>> OnUserData, Action<string> OnUserDataError);
