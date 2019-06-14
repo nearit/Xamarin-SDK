@@ -138,21 +138,6 @@
     <Reference Include="Xamarin.GooglePlayServices.Location">
       <HintPath>..\..\bridge\packages\Xamarin.GooglePlayServices.Location.60.1142.1\lib\MonoAndroid80\Xamarin.GooglePlayServices.Location.dll</HintPath>
     </Reference>
-    <Reference Include="AltBeaconBinding">
-      <HintPath>..\..\bridge\packages\Xamarin.NearIT.Android.2.10.0-rc\lib\MonoAndroid\AltBeaconBinding.dll</HintPath>
-    </Reference>
-    <Reference Include="GoogleServices">
-      <HintPath>..\..\bridge\packages\Xamarin.NearIT.Android.2.10.0-rc\lib\MonoAndroid\GoogleServices.dll</HintPath>
-    </Reference>
-    <Reference Include="NearIT.Android">
-      <HintPath>..\..\bridge\packages\Xamarin.NearIT.Android.2.10.0-rc\lib\MonoAndroid\NearIT.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="XamarinBridge.Droid">
-      <HintPath>..\..\bridge\packages\Xamarin.NearIT.Android.2.10.0-rc\lib\MonoAndroid\XamarinBridge.Droid.dll</HintPath>
-    </Reference>
-    <Reference Include="XamarinBridge.PCL">
-      <HintPath>..\..\bridge\packages\Xamarin.NearIT.Android.2.10.0-rc\lib\MonoAndroid\XamarinBridge.PCL.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -184,6 +169,12 @@
     <ProjectReference Include="..\Sample\Sample.csproj">
       <Project>{7B644EB2-08EB-4597-B2C4-14E2769E2495}</Project>
       <Name>Sample</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\bridge\Droid\XamarinBridge.Droid\XamarinBridge.Droid.csproj">
+      <IsAppExtension>true</IsAppExtension>
+      <Project>{0ACDC283-40EA-4769-821E-759594347EC5}</Project>
+      <Name>XamarinBridge.Droid</Name>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
