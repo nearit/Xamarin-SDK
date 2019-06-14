@@ -4139,8 +4139,8 @@ namespace XamarinBridge.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f09004e
-			public const int API_BASE_URL = 2131296334;
+			// aapt resource value: 0x7f09004f
+			public const int API_BASE_URL = 2131296335;
 			
 			// aapt resource value: 0x7f090027
 			public const int abc_action_bar_home_description = 2131296295;
@@ -4229,8 +4229,8 @@ namespace XamarinBridge.Droid
 			// aapt resource value: 0x7f090037
 			public const int abc_toolbar_collapse_description = 2131296311;
 			
-			// aapt resource value: 0x7f09005c
-			public const int app_name = 2131296348;
+			// aapt resource value: 0x7f09004e
+			public const int app_name = 2131296334;
 			
 			// aapt resource value: 0x7f090045
 			public const int appbar_scrolling_view_behavior = 2131296325;
@@ -4292,29 +4292,29 @@ namespace XamarinBridge.Droid
 			// aapt resource value: 0x7f090010
 			public const int common_signin_button_text_long = 2131296272;
 			
-			// aapt resource value: 0x7f09004f
-			public const int device_name_hint = 2131296335;
-			
 			// aapt resource value: 0x7f090050
-			public const int enroll_cancel_enroll_cta = 2131296336;
+			public const int device_name_hint = 2131296336;
 			
 			// aapt resource value: 0x7f090051
-			public const int enroll_question = 2131296337;
+			public const int enroll_cancel_enroll_cta = 2131296337;
+			
+			// aapt resource value: 0x7f090052
+			public const int enroll_question = 2131296338;
 			
 			// aapt resource value: 0x7f090011
 			public const int fcm_fallback_notification_channel_label = 2131296273;
 			
-			// aapt resource value: 0x7f090052
-			public const int geofence_transition_dwell = 2131296338;
-			
 			// aapt resource value: 0x7f090053
-			public const int geofence_transition_entered = 2131296339;
+			public const int geofence_transition_dwell = 2131296339;
 			
 			// aapt resource value: 0x7f090054
-			public const int geofence_transition_exited = 2131296340;
+			public const int geofence_transition_entered = 2131296340;
 			
 			// aapt resource value: 0x7f090055
-			public const int geofence_transition_invalid_type = 2131296341;
+			public const int geofence_transition_exited = 2131296341;
+			
+			// aapt resource value: 0x7f090056
+			public const int geofence_transition_invalid_type = 2131296342;
 			
 			// aapt resource value: 0x7f090012
 			public const int mr_button_content_description = 2131296274;
@@ -4379,20 +4379,20 @@ namespace XamarinBridge.Droid
 			// aapt resource value: 0x7f090026
 			public const int mr_user_route_category_name = 2131296294;
 			
-			// aapt resource value: 0x7f090056
-			public const int near_enroll_cta = 2131296342;
-			
 			// aapt resource value: 0x7f090057
-			public const int near_framework_type = 2131296343;
+			public const int near_enroll_cta = 2131296343;
 			
 			// aapt resource value: 0x7f090058
-			public const int near_send_report = 2131296344;
+			public const int near_framework_type = 2131296344;
 			
 			// aapt resource value: 0x7f090059
-			public const int near_support_mail_pattern = 2131296345;
+			public const int near_send_report = 2131296345;
 			
 			// aapt resource value: 0x7f09005a
-			public const int near_support_mail_subject = 2131296346;
+			public const int near_support_mail_pattern = 2131296346;
+			
+			// aapt resource value: 0x7f09005b
+			public const int near_support_mail_subject = 2131296347;
 			
 			// aapt resource value: 0x7f09005d
 			public const int nearit_api_key = 2131296349;
@@ -4418,8 +4418,8 @@ namespace XamarinBridge.Droid
 			// aapt resource value: 0x7f09004d
 			public const int status_bar_notification_info_overflow = 2131296333;
 			
-			// aapt resource value: 0x7f09005b
-			public const int unknown_geofence_transition = 2131296347;
+			// aapt resource value: 0x7f09005c
+			public const int unknown_geofence_transition = 2131296348;
 			
 			static String()
 			{

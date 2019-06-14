@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using IT.Near.Sdk.Operation.Values;
 using IT.Near.Sdk.Recipes.Inbox.Model;
 using IT.Near.Sdk.Recipes.Inbox;
+using Java.Lang;
 
 [assembly: Dependency(typeof(XamarinBridge.Droid.NearBridgeDroid))]
 namespace XamarinBridge.Droid
@@ -73,7 +74,7 @@ namespace XamarinBridge.Droid
             }
         }
 
-        public void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<String> OnCouponDownloadError)
+        public void GetCouponsFromPCL(Action<IList<XCCouponNotification>> OnCouponsDownloaded, Action<string> OnCouponDownloadError)
         {
             NearItManager.Instance.GetCoupons(new CouponDelegate((couponList) => {
                 IList<XCCouponNotification> XCcouponList = new List<XCCouponNotification>();
@@ -87,7 +88,7 @@ namespace XamarinBridge.Droid
             }, OnCouponDownloadError));
         }
 
-        public static void GetCoupons(Action<IList<Coupon>> OnCouponsDownloaded, Action<String> OnCouponDownloadError)
+        public static void GetCoupons(Action<IList<Coupon>> OnCouponsDownloaded, Action<string> OnCouponDownloadError)
         {
             NearItManager.Instance.GetCoupons(new CouponDelegate(OnCouponsDownloaded, OnCouponDownloadError));
         }
@@ -130,12 +131,17 @@ namespace XamarinBridge.Droid
             }
         }
 
-        public void GetProfileIdFromPCL(Action<String> OnProfile, Action<String> OnError)
+        public void GetUserData(Action<IDictionary<string, object>> OnUserData, Action<string> OnUserDataError)
+        {
+            NearItManager.Instance.GetUserData(new ProfileUserDataDelegate(OnUserData, OnUserDataError));
+        }
+
+        public void GetProfileIdFromPCL(Action<string> OnProfile, Action<string> OnError)
         {
             NearBridgeDroid.GetProfileId(OnProfile, OnError);
         }
 
-        public static void GetProfileId(Action<String> OnProfile, Action<String> OnError)
+        public static void GetProfileId(Action<string> OnProfile, Action<string> OnError)
         {
             NearItManager.Instance.GetProfileId(new ProfileDelegate(OnProfile, OnError));
         }
@@ -145,24 +151,22 @@ namespace XamarinBridge.Droid
             NearItManager.Instance.ProfileId = profile;
         }
 
-
-
-        public void ResetProfileIdFromPCL(Action<String> OnProfile, Action<String> OnError) {
+        public void ResetProfileIdFromPCL(Action<string> OnProfile, Action<string> OnError) {
             NearBridgeDroid.ResetProfileId(OnProfile, OnError);
         }
 
-        public static void ResetProfileId(Action<String> OnProfile, Action<String> OnError)
+        public static void ResetProfileId(Action<string> OnProfile, Action<string> OnError)
         {
             NearItManager.Instance.ResetProfileId(new ProfileDelegate(OnProfile, OnError));
         }
 
 
-        public void OptOutFromPCL(Action<int> OnSuccess, Action<String> OnFailure)
+        public void OptOutFromPCL(Action<int> OnSuccess, Action<string> OnFailure)
         {
             NearBridgeDroid.OptOut(OnSuccess, OnFailure);
         }
 
-        public static void OptOut(Action<int> OnSuccess, Action<String> OnFailure)
+        public static void OptOut(Action<int> OnSuccess, Action<string> OnFailure)
         {
             NearItManager.Instance.InvokeOptOut(new OptOutDelegate(OnSuccess, OnFailure));
         }
@@ -176,9 +180,9 @@ namespace XamarinBridge.Droid
         internal class OptOutDelegate : Java.Lang.Object, IOptOutNotifier
         {
             Action<int> success;
-            Action<String> failure;
+            Action<string> failure;
 
-            public OptOutDelegate(Action<int> OnSuccess, Action<String> OnFailure)
+            public OptOutDelegate(Action<int> OnSuccess, Action<string> OnFailure)
             {
                 this.success = OnSuccess;
                 this.failure = OnFailure;
@@ -195,17 +199,43 @@ namespace XamarinBridge.Droid
             }
         }
 
-        internal class ProfileDelegate : Java.Lang.Object, NearItUserProfile.IProfileFetchListener
+        internal class ProfileUserDataDelegate : Java.Lang.Object, IProfileUserDataListener
         {
-            Action<String> success;
-            Action<String> failure;
+            Action<IDictionary<string, object>> success;
+            Action<string> failure;
 
-            public ProfileDelegate(Action<String> OnProfile, Action<String> OnError)
+            public ProfileUserDataDelegate(Action<IDictionary<string, object>> success, Action<string> failure)
+            {
+                this.success = success;
+                this.failure = failure;
+            }
+
+            public void OnUserData(IDictionary<string, Java.Lang.Object> nativeUserData)
+            {
+                IDictionary<string, object> userData = new Dictionary<string, object>();
+                foreach (var entry in nativeUserData) {
+                    userData.Add(entry.Key, entry.Value);
+                }
+                success.Invoke(userData);
+            }
+
+            public void OnUserDataError(string error)
+            {
+                failure.Invoke(error);
+            }
+        }
+
+        internal class ProfileDelegate : Java.Lang.Object, IProfileFetchListener
+        {
+            Action<string> success;
+            Action<string> failure;
+
+            public ProfileDelegate(Action<string> OnProfile, Action<string> OnError)
             {
                 this.success = OnProfile;
                 this.failure = OnError;
             }
-            public void OnError(string p0)
+            public void OnProfileError(string p0)
             {
                 failure.Invoke(p0);
             }
@@ -219,9 +249,9 @@ namespace XamarinBridge.Droid
         internal class CouponDelegate : Java.Lang.Object, ICouponListener
         {
             Action<IList<Coupon>> success;
-            Action<String> failure;
+            Action<string> failure;
 
-            public CouponDelegate(Action<IList<Coupon>> OnCouponsDownloaded,Action<String> OnCouponDownloadError)
+            public CouponDelegate(Action<IList<Coupon>> OnCouponsDownloaded,Action<string> OnCouponDownloadError)
             {
                 success = OnCouponsDownloaded;
                 failure = OnCouponDownloadError;
@@ -241,9 +271,9 @@ namespace XamarinBridge.Droid
         internal class HistoryDelegate : Java.Lang.Object, NotificationHistoryManager.IOnNotificationHistoryListener
         {
             Action<IList<HistoryItem>> success;
-            Action<String> failure;
+            Action<string> failure;
 
-            public HistoryDelegate(Action<IList<HistoryItem>> OnNotificationHistory, Action<String> OnError)
+            public HistoryDelegate(Action<IList<HistoryItem>> OnNotificationHistory, Action<string> OnError)
             {
                 success = OnNotificationHistory;
                 failure = OnError;
